@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    Main
+    Search
   </v-container>
 </template>
 

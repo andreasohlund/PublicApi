@@ -1,0 +1,1 @@
+./azcopy.exe sync "C:\Users\andre\Documents\GitHub\PublicApi\site\dist\" "https://publicapi.blob.core.windows.net/$web?st=2019-05-20T19%3A34%3A57Z&se=2021-05-21T19%3A34%3A00Z&sp=racwdl&sv=2018-03-28&sr=c&sig=%2Bw9po2ydJzlnIwMvSk9isdBkWOifpYTzjj7oWTrEjhs%3D" --follow-symlinks --recursive --from-to=LocalBlob --blob-type=BlockBlob --put-md5;

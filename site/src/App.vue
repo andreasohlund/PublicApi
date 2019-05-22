@@ -8,18 +8,19 @@
     </v-toolbar>
 
     <v-content>
-      <HelloWorld/>
+      <PackageSearch/>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import PackageSearch from './components/PackageSearch'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    PackageSearch
   },
   data () {
     return {
