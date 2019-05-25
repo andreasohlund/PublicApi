@@ -1,16 +1,9 @@
 <template>
-  <v-container>
-    Search
-  </v-container>
+  <v-text-field light solo prepend-icon="search" placeholder="Package name"></v-text-field>
 </template>
 
 <script>
-  export default {
-    data: () => ({
-    })
-  }
+export default {
+  data: () => ({})
+};
 </script>
-
-<style>
-
-</style>
