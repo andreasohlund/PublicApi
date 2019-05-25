@@ -22,10 +22,11 @@
       <v-toolbar-title>Public API</v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height>
-        <v-layout justify-center align-center>
-          <v-flex shrink>
-
+      <v-container fluid>
+        <v-layout align-center justify-center row fill-height>
+          <v-flex>
+            <h2>Explore the public api of your package dependencies</h2>
+            <PackageSearch/>
           </v-flex>
         </v-layout>
       </v-container>
