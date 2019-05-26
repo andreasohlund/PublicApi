@@ -26,7 +26,7 @@
         <v-layout align-center justify-center row fill-height>
           <v-flex>
             <h2>Explore the public api of your package dependencies</h2>
-            <PackageSearch/>
+            <PackageSelect/>
           </v-flex>
         </v-layout>
       </v-container>
@@ -38,12 +38,12 @@
 </template>
 
 <script>
-import PackageSearch from "./components/PackageSearch";
+import PackageSelect from "./components/PackageSelect";
 
 export default {
   name: "App",
   components: {
-    PackageSearch
+    PackageSelect
   },
   data() {
     return {
