@@ -1,33 +1,59 @@
 <template>
-  <v-autocomplete 
-  v-model="model" 
-  :items="packages" 
-  label="Select NuGet package"
-  :search-input.sync="search"
+  <v-autocomplete
+    v-model="package"
+    :items="items"
+    :loading="loading"
+    no-filter
+    clearable
+    return-object
+    label="Select NuGet package"
+    :search-input.sync="search"
   ></v-autocomplete>
 </template>
 
 <script>
+import _ from "lodash";
+import axios from "axios";
+
 export default {
   data: () => {
     return {
-      model: null,
+      package: null,
       search: null,
-      isLoading: false,
-      packages: []
+      loading: false,
+      apiSource: null,
+      items: []
     };
   },
-   watch: {
-    search (val) {
-          console.log(val);
-      
-      // Items have already been loaded
-      //if (this.items.length > 0) return
-
-      // Items have already been requested
-      if (this.isLoading) return
-
-      this.isLoading = true
+  watch: {
+    search(query) {
+      if (query && (!this.select || this.select.text !== query)) {
+        this.querySearch(query);
+      }
+    },
+    package(id) {
+       console.log(id)
+    }
+  },
+  methods: {
+    querySearch: _.debounce(function(query) {
+      this.loading = true;
+      this.apiQuery(query)
+        .then(response => {
+          this.items = response.data.data;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    }, 270),
+    apiQuery(query) {
+      // if (this.apiSource) {
+      //   this.apiSource.cancel();
+      // }
+      // this.apiSource = Axios.CancelToken.source();
+      return axios.get(
+        `https://api-v2v3search-0.nuget.org/autocomplete?q=${query}&prerelease=true`
+      );
     }
   }
 };
