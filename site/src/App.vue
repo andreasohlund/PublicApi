@@ -25,7 +25,6 @@
       <v-container fluid>
         <v-layout align-center justify-center row fill-height>
           <v-flex>
-            <h2>Explore the public api of your package dependencies</h2>
             <PackageSelect/>
           </v-flex>
         </v-layout>

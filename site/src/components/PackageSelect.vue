@@ -1,14 +1,30 @@
 <template>
-  <v-autocomplete
-    v-model="package"
-    :items="items"
-    :loading="loading"
-    no-filter
-    clearable
-    return-object
-    label="Select NuGet package"
-    :search-input.sync="search"
-  ></v-autocomplete>
+  <v-card>
+    <v-card-title class="headline lighten-3">Explore the public API of your NuGet dependency</v-card-title>
+    <v-card-text>
+      <v-autocomplete
+        v-model="model"
+        :items="items"
+        :loading="loading"
+        no-filter
+        clearable
+        return-object
+        hide-no-data
+        label="Select NuGet package"
+        :search-input.sync="search"
+      ></v-autocomplete>
+    </v-card-text>
+    <v-divider></v-divider>
+    <v-expand-transition>
+      <v-card-text v-if="model" class="lighten-3">{{model}}</v-card-text>
+    </v-expand-transition>
+    <v-card-actions v-if="model">
+      <v-spacer></v-spacer>
+      <v-btn color="green darken-3" @click="">
+        Show
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
@@ -18,7 +34,7 @@ import axios from "axios";
 export default {
   data: () => {
     return {
-      package: null,
+      model: null,
       search: null,
       loading: false,
       apiSource: null,
@@ -32,7 +48,7 @@ export default {
       }
     },
     package(id) {
-       console.log(id)
+      console.log(id);
     }
   },
   methods: {
