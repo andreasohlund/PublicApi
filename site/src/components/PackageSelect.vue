@@ -20,9 +20,7 @@
     </v-expand-transition>
     <v-card-actions v-if="model">
       <v-spacer></v-spacer>
-      <v-btn color="green darken-3" @click="">
-        Show
-      </v-btn>
+      <v-btn color="green darken-3" @click>Show</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -63,12 +61,13 @@ export default {
         });
     }, 270),
     apiQuery(query) {
-      // if (this.apiSource) {
-      //   this.apiSource.cancel();
-      // }
-      // this.apiSource = Axios.CancelToken.source();
+      if (this.apiSource) {
+        this.apiSource.cancel();
+      }
+      this.apiSource = axios.CancelToken.source();
       return axios.get(
-        `https://api-v2v3search-0.nuget.org/autocomplete?q=${query}&prerelease=true`
+        `https://api-v2v3search-0.nuget.org/autocomplete?q=${query}&prerelease=true`,
+        { cancelToken: this.apiSource.token }
       );
     }
   }
