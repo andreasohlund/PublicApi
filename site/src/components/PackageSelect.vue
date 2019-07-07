@@ -16,7 +16,7 @@
     </v-card-text>
     <v-divider></v-divider>
     <v-expand-transition>
-      <v-btn v-if="model" color="green darken-3" @click>Show</v-btn>
+      <v-btn v-if="model" color="green darken-3" v-on:click=showPackage>Show</v-btn>
     </v-expand-transition>
   </v-card>
 </template>
@@ -62,6 +62,10 @@ export default {
         `https://api-v2v3search-0.nuget.org/autocomplete?q=${query}&prerelease=true`,
         { cancelToken: this.apiSource.token }
       );
+    },
+    showPackage(){
+      let id = this.model;
+      this.$router.push({ name: 'package', params: { id } })
     }
   }
 };
