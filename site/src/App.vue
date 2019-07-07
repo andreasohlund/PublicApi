@@ -25,7 +25,7 @@
       <v-container fluid>
         <v-layout align-center justify-center row fill-height>
           <v-flex>
-            <PackageSelect/>
+             <router-view></router-view>
           </v-flex>
         </v-layout>
       </v-container>
@@ -37,12 +37,10 @@
 </template>
 
 <script>
-import PackageSelect from "./components/PackageSelect";
-
 export default {
   name: "App",
   components: {
-    PackageSelect
+//    PackageSelect
   },
   data() {
     return {
