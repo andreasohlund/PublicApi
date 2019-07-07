@@ -16,12 +16,8 @@
     </v-card-text>
     <v-divider></v-divider>
     <v-expand-transition>
-      <v-card-text v-if="model" class="lighten-3">{{model}}</v-card-text>
+      <v-btn v-if="model" color="green darken-3" @click>Show</v-btn>
     </v-expand-transition>
-    <v-card-actions v-if="model">
-      <v-spacer></v-spacer>
-      <v-btn color="green darken-3" @click>Show</v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
@@ -44,9 +40,6 @@ export default {
       if (query && (!this.select || this.select.text !== query)) {
         this.querySearch(query);
       }
-    },
-    package(id) {
-      console.log(id);
     }
   },
   methods: {
