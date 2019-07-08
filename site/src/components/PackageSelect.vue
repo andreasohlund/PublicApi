@@ -65,7 +65,7 @@ export default {
     },
     showPackage(){
       let id = this.model;
-      this.$router.push({ name: 'package', params: { id } })
+      this.$router.push({ name: 'selectversion', params: { id } })
     }
   }
 };
