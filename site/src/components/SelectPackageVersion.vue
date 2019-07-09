@@ -33,6 +33,13 @@ export default {
       .then(response => {
         this.versions = response.data.versions.filter(v => !v.includes("-")).reverse();
         });
+  },
+  methods:{
+    showPackage(){
+      let id = this.id;
+      let version = this.model;
+      this.$router.push({ name: 'viewpackage', params: { id, version } })
+    }
   }
 };
 </script>

@@ -33,7 +33,7 @@ Vue.use({
 const routes = [
   { path: '/', component: PackageSelect },
   { path: '/package/:id', component: SelectPackageVersion, name: 'selectversion', props: true },
-  { path: '/package/:id/:version', component: ViewPackage, name: 'package', props: true },
+  { path: '/package/:id/:version', component: ViewPackage, name: 'viewpackage', props: true },
   
   //need to be last
   { path: '*', component: PageNotFound }
