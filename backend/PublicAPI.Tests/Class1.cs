@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PublicAPI.Tests
@@ -54,11 +55,18 @@ namespace PublicAPI.Tests
                             await asmStream.CopyToAsync(memStream);
 
                             memStream.Position = 0;
-                            var assembly = AssemblyDefinition.ReadAssembly(memStream);
 
-                            var publicTypes = assembly.Modules.SelectMany(m => m.GetTypes())
-                                .Where(t => !t.IsNested && ShouldIncludeType(t))
-                                .OrderBy(t => t.FullName, StringComparer.Ordinal);
+                            var lc = new MetadataLoadContext(new FakeResolver(), "mscorlib");
+
+                            var assembly = lc.LoadFromStream(memStream);
+                            //var assembly = AssemblyDefinition.ReadAssembly(memStream);
+
+                            //var publicTypes = assembly.Modules.SelectMany(m => m.GetTypes())
+                            //    .Where(t => !t.IsNested && ShouldIncludeType(t))
+                            //    .OrderBy(t => t.FullName, StringComparer.Ordinal);
+                            var count = assembly.GetTypes()
+                                  .Where(t => !t.IsNested && ShouldIncludeType(t))
+                                    .OrderBy(t => t.FullName, StringComparer.Ordinal);
 
                             packageDetails.TargetFrameworks.Add(new TargetFramework
                             {
@@ -72,9 +80,22 @@ namespace PublicAPI.Tests
             return packageDetails;
         }
 
+        class FakeResolver : System.Reflection.MetadataAssemblyResolver
+        {
+            public override Assembly Resolve(MetadataLoadContext context, AssemblyName assemblyName)
+            {
+                return null;
+            }
+        }
+
         static bool ShouldIncludeType(TypeDefinition t)
         {
             return (t.IsPublic || t.IsNestedPublic || t.IsNestedFamily) && !IsCompilerGenerated(t);
+        }
+
+        static bool ShouldIncludeType(Type t)
+        {
+            return (t.IsPublic || t.IsNestedPublic || t.IsNestedFamily);// && !IsCompilerGenerated(t);
         }
 
         static bool IsCompilerGenerated(IMemberDefinition m)
