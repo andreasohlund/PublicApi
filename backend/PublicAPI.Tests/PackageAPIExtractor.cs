@@ -1,33 +1,23 @@
-﻿using Mono.Cecil;
-using System;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-namespace PublicAPI.Tests
+﻿namespace PublicAPI.Tests
 {
+    using Mono.Cecil;
+    using System;
+    using System.IO;
+    using System.IO.Compression;
+    using System.Linq;
+    using System.Net;
+    using System.Threading.Tasks;
+
     class PackageAPIExtractor
     {
-        public async Task<PackageDetails> GetFromNugetFeed(string packageId, string version)
+        public async Task<PackageDetails> ExtractFromStream(Stream stream)
         {
-            var client = new HttpClient();
-            var url = $"https://api.nuget.org/v3-flatcontainer/{packageId}/{version}/{packageId}.{version}.nupkg";
-
-            var response = await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-
             var packageDetails = new PackageDetails
             {
-                PackageId = packageId,
-                Version = version,
                 ApiExtractorVersion = "1.0.0"
             };
 
-            using var responseStream = await response.Content.ReadAsStreamAsync();
-            using var archive = new ZipArchive(responseStream);
+            using var archive = new ZipArchive(stream);
 
             foreach (var entry in archive.Entries)
             {
@@ -51,7 +41,7 @@ namespace PublicAPI.Tests
 
                     packageDetails.TargetFrameworks.Add(new TargetFramework
                     {
-                        Name = path.Split("/").First(),
+                        Name = path.Split("/")[1],
                         PublicTypes = publicTypes
                     });
                 }
