@@ -1,7 +1,6 @@
 ﻿using Mono.Cecil;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -37,7 +36,8 @@ namespace PublicAPI.Tests
             var packageDetails = new PackageDetails
             {
                 PackageId = packageId,
-                Version = version
+                Version = version,
+                ApiExtractorVersion = "1.0.0"
             };
             using (var responseStream = await response.Content.ReadAsStreamAsync())
             using (var archive = new ZipArchive(responseStream))
@@ -54,22 +54,34 @@ namespace PublicAPI.Tests
                             await asmStream.CopyToAsync(memStream);
 
                             memStream.Position = 0;
-                            var assembly = AssemblyDefinition.ReadAssembly(memStream);
-
-                            var publicTypes = assembly.Modules.SelectMany(m => m.GetTypes())
-                                .Where(t => !t.IsNested && ShouldIncludeType(t))
-                                .OrderBy(t => t.FullName, StringComparer.Ordinal);
-
-                            packageDetails.TargetFrameworks.Add(new TargetFramework
+                            using (var assembly = AssemblyDefinition.ReadAssembly(memStream))
                             {
-                                Name = path
-                            });
+                                var publicTypes = assembly.Modules.SelectMany(m => m.GetTypes())
+                                    .Where(t => !t.IsNested && ShouldIncludeType(t))
+                                    .OrderBy(t => t.FullName, StringComparer.Ordinal)
+                                    .Select(ti => ConvertTypeInfoToPublicTypeDTO(ti))
+                                    .ToList();
+
+                                packageDetails.TargetFrameworks.Add(new TargetFramework
+                                {
+                                    Name = path.Split("/").First(),
+                                    PublicTypes = publicTypes
+                                });
+                            }
                         }
                     }
                 }
             }
 
             return packageDetails;
+        }
+
+        PublicType ConvertTypeInfoToPublicTypeDTO(TypeDefinition typeDefinition)
+        {
+            return new PublicType
+            {
+                Name = typeDefinition.Name
+            };
         }
 
         static bool ShouldIncludeType(TypeDefinition t)
@@ -81,35 +93,5 @@ namespace PublicAPI.Tests
         {
             return m.CustomAttributes.Any(a => a.AttributeType.FullName == "System.Runtime.CompilerServices.CompilerGeneratedAttribute");
         }
-    }
-
-    class PackageDetails
-    {
-        public PackageDetails()
-        {
-            TargetFrameworks = new List<TargetFramework>();
-        }
-
-        public List<TargetFramework> TargetFrameworks { get; set; }
-        public string PackageId { get; internal set; }
-        public string Version { get; internal set; }
-
-        public override string ToString()
-        {
-            var fxs = string.Join(";", TargetFrameworks);
-
-            return $"{PackageId}-{Version}: ({fxs})";
-        }
-    }
-
-    class TargetFramework
-    {
-        public string Name { get; set; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-
     }
 }
