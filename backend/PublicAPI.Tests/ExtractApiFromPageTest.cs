@@ -14,7 +14,7 @@
             var page = await reader.ReadPageFromNuget(pageNumber);
 
             var apiExtractor = new PackageAPIExtractorTests();
-            foreach (var item in page.Items.Where(i => i.Type == "nuget:PackageDetails"))
+            foreach (var item in page.Items.Where(i => i.Type == "nuget:PackageDetails").Take(10))
             {
                 await apiExtractor.ExtractFromNuGetFeed(item.PackageId,item.Version);
             }
