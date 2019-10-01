@@ -7,7 +7,7 @@
     public class IntegrationTests
     {
         [TestCase("5000")]
-        public async Task ReadPageFromNuget(string pageNumber)
+        public async Task ExtractApiFromAllPackagesInCatalogPage(string pageNumber)
         {
             var reader = new FeedCatalogReader();
 
