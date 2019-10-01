@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class ExtractApiFromPageTest
+    public class IntegrationTests
     {
         [TestCase("5000")]
         public async Task ReadPageFromNuget(string pageNumber)

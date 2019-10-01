@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class FeedCatalogReaderTests
+    public class CatalogOperationTests
     {
         [TestCase("5000")]
         public async Task ReadPageFromNuget(string cursorPosition)
