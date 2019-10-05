@@ -3,6 +3,7 @@
     using NUnit.Framework;
     using System;
     using System.Linq;
+    using System.Net.Http;
     using System.Threading.Tasks;
 
     public class CatalogOperationTests
@@ -24,9 +25,9 @@
         public async Task ParseNuGetCatalogIndex()
         {
             var cursor = DateTime.UtcNow - TimeSpan.FromDays(1);
-            var reader = new CatalogIndexReader("https://api.nuget.org/v3/catalog0/index.json");
+            var reader = new CatalogIndexReader(new HttpClient());
 
-            var catalogIndex = await reader.Read();
+            var catalogIndex = await reader.ReadUrl("https://api.nuget.org/v3/catalog0/index.json");
 
             Console.Out.WriteLine($"All pages since: {cursor}");
 

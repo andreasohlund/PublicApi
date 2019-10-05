@@ -5,13 +5,12 @@
 
     public class CatalogIndexReader
     {
-        public CatalogIndexReader(string catalogIndexUrl)
+        public CatalogIndexReader(HttpClient httpClient)
         {
-            this.catalogIndexUrl = catalogIndexUrl;
-            httpClient = new HttpClient();
+            this.httpClient = httpClient;
         }
 
-        public async Task<CatalogIndex> Read()
+        public async Task<CatalogIndex> ReadUrl(string catalogIndexUrl)
         {
             var response = await httpClient.GetAsync(catalogIndexUrl);
             response.EnsureSuccessStatusCode();
@@ -21,7 +20,6 @@
             return await System.Text.Json.JsonSerializer.DeserializeAsync<CatalogIndex>(responseStream);
         }
 
-        readonly string catalogIndexUrl;
         readonly HttpClient httpClient;
     }
 }
