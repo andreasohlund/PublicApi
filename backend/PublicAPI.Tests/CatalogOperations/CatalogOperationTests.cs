@@ -4,12 +4,13 @@
     using System;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading;
     using System.Threading.Tasks;
 
     public class CatalogOperationTests
     {
-        [TestCase("5000")]
-        public async Task ReadAllPackageMetadataFromNugetPage(string pageNumber)
+        [TestCase(5000, 100)]
+        public async Task ReadAllPackageMetadataFromNugetPage(int pageNumber, int cancelAfter = int.MaxValue)
         {
             var url = $"https://api.nuget.org/v3/catalog0/page{pageNumber}.json";
 
@@ -17,34 +18,26 @@
 
             var page = await reader.ReadUrl(url);
 
-            Console.Out.WriteLine($"Reading metadata for {url} ({page.Items.Count})");
+            Console.Out.WriteLine($"Reading metadata for {url}");
 
-            var packageMetadata = await reader.ReadPackageMetadata(page);
-
-            foreach (var item in packageMetadata)
+            using var tokenSource = new CancellationTokenSource();
+            var count = 0;
+            foreach (var item in await reader.ReadPackageMetadata(page, tokenSource.Token))
             {
-                Console.Out.WriteLine(item.PackageId + " " + item.Version);
+                count++;
+                if (count > cancelAfter)
+                {
+                    tokenSource.Cancel();
+                }
+
+                //Console.Out.WriteLine(item.PackageId + " " + item.Version);
             }
+
+            Console.Out.WriteLine($"Read {count} out of {page.Items.Count}");
         }
 
         [Test]
         public async Task ParseNuGetCatalogIndex()
-        {
-            var cursor = DateTime.UtcNow - TimeSpan.FromDays(1);
-            var reader = new CatalogIndexReader(new HttpClient());
-
-            var catalogIndex = await reader.ReadUrl("https://api.nuget.org/v3/catalog0/index.json");
-
-            Console.Out.WriteLine($"All pages since: {cursor}");
-
-            foreach (var page in catalogIndex.Items.Where(i => i.CommitTimeStamp > cursor).OrderByDescending(i => i.CommitTimeStamp))
-            {
-                Console.Out.WriteLine($"{page.CommitTimeStamp} - {page.Id} ({page.Count})");
-            }
-        }
-
-        [Test]
-        public async Task GetAllPage()
         {
             var cursor = DateTime.UtcNow - TimeSpan.FromDays(1);
             var reader = new CatalogIndexReader(new HttpClient());

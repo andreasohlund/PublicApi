@@ -4,7 +4,6 @@
     using System.Linq;
     using System.Net.Http;
     using System.Text.Json;
-    using System.Text.Json.Serialization;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -27,7 +26,7 @@
             return await JsonSerializer.DeserializeAsync<CatalogPage>(responseStream);
         }
 
-        public async Task<IEnumerable<PackageMetadata>> ReadPackageMetadata(CatalogPage catalogPage)
+        public async Task<IEnumerable<PackageMetadata>> ReadPackageMetadata(CatalogPage catalogPage, CancellationToken cancellationToken = default)
         {
             var tasks = new List<Task<PackageMetadata>>();
 
@@ -35,25 +34,25 @@
 
             foreach (var item in catalogPage.Items.Where(p => p.Type == "nuget:PackageDetails"))
             {
-                tasks.Add(GetMetadataForPackage(item.Url, throttler));
+                tasks.Add(GetMetadataForPackage(item.Url, throttler, cancellationToken));
             }
 
             return await Task.WhenAll(tasks);
         }
 
-        async Task<PackageMetadata> GetMetadataForPackage(string packageMetadataUrl, SemaphoreSlim throttler)
+        async Task<PackageMetadata> GetMetadataForPackage(string packageMetadataUrl, SemaphoreSlim throttler, CancellationToken cancellationToken)
         {
             try
             {
-                await throttler.WaitAsync();
+                await throttler.WaitAsync(cancellationToken);
 
-                var response = await httpClient.GetAsync(packageMetadataUrl);
+                var response = await httpClient.GetAsync(packageMetadataUrl, cancellationToken);
 
                 response.EnsureSuccessStatusCode();
 
                 using var responseStream = await response.Content.ReadAsStreamAsync();
 
-                return await JsonSerializer.DeserializeAsync<PackageMetadata>(responseStream);
+                return await JsonSerializer.DeserializeAsync<PackageMetadata>(responseStream, cancellationToken: cancellationToken);
             }
             finally
             {
@@ -63,14 +62,5 @@
 
         readonly HttpClient httpClient;
         readonly int maxConcurrentHttpCalls;
-    }
-
-    public class PackageMetadata
-    {
-        [JsonPropertyName("id")]
-        public string PackageId { get; set; }
-
-        [JsonPropertyName("version")]
-        public string Version { get; set; }
     }
 }
