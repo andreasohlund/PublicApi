@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public partial class CatalogOperationTests
+    public class CatalogOperationTests
     {
         [TestCase("5000")]
         public async Task ReadPageFromNuget(string cursorPosition)
@@ -24,9 +24,11 @@
         public async Task ParseNuGetCatalogIndex()
         {
             var cursor = DateTime.UtcNow - TimeSpan.FromDays(1);
-            var reader = new CatalogIndexReader();
+            var reader = new CatalogIndexReader("https://api.nuget.org/v3/catalog0/index.json");
 
             var catalogIndex = await reader.Read();
+
+            Console.Out.WriteLine($"All pages since: {cursor}");
 
             foreach (var page in catalogIndex.Items.Where(i => i.CommitTimeStamp > cursor).OrderByDescending(i => i.CommitTimeStamp))
             {
