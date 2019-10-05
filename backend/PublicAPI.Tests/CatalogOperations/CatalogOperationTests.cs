@@ -9,11 +9,13 @@
     public class CatalogOperationTests
     {
         [TestCase("5000")]
-        public async Task ReadPageFromNuget(string cursorPosition)
+        public async Task ReadPageFromNuget(string pageNumber)
         {
-            var reader = new FeedCatalogReader();
+            var url = $"https://api.nuget.org/v3/catalog0/page{pageNumber}.json";
 
-            var page = await reader.ReadPageFromNuget(cursorPosition);
+            var reader = new CatalogPageReader(new HttpClient());
+
+            var page = await reader.ReadUrl(url);
 
             foreach (var item in page.Items.Where(i => i.Type == "nuget:PackageDetails"))
             {
