@@ -10,7 +10,7 @@
     public class CatalogOperationTests
     {
         [TestCase(5000, 100)]
-        public async Task ReadAllPackageMetadataFromNugetPage(int pageNumber, int cancelAfter = int.MaxValue)
+        public async Task ReadAllPackageMetadataFromCatalogPage(int pageNumber, int cancelAfter = int.MaxValue)
         {
             var url = $"https://api.nuget.org/v3/catalog0/page{pageNumber}.json";
 
@@ -37,7 +37,7 @@
         }
 
         [Test]
-        public async Task ParseNuGetCatalogIndex()
+        public async Task ParseCatalogIndex()
         {
             var cursor = DateTime.UtcNow - TimeSpan.FromDays(1);
             var reader = new CatalogIndexReader(new HttpClient());
@@ -50,6 +50,20 @@
             {
                 Console.Out.WriteLine($"{page.CommitTimeStamp} - {page.Id} ({page.Count})");
             }
+        }
+
+        [Test]
+        public async Task ParsePackageMetadata()
+        {
+            var url = "https://api.nuget.org/v3/catalog0/data/2018.11.24.05.52.45/transmitsms.2.0.11.json";
+
+            var reader = new PackageMetadataReader(new HttpClient());
+
+            var packageMetadata = await reader.ReadUrl(url);
+
+            Assert.AreEqual("TransmitSms", packageMetadata.Id);
+            Assert.AreEqual("2.0.11", packageMetadata.Version);
+            Assert.AreEqual(29774, packageMetadata.Size);
         }
     }
 }

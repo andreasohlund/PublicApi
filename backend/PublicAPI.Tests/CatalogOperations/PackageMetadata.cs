@@ -5,9 +5,12 @@
     public class PackageMetadata
     {
         [JsonPropertyName("id")]
-        public string PackageId { get; set; }
+        public string Id { get; set; }
 
         [JsonPropertyName("version")]
         public string Version { get; set; }
+
+        [JsonPropertyName("packageSize")]
+        public double Size { get; set; }
     }
 }
