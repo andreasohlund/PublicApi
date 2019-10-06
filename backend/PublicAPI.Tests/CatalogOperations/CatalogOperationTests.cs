@@ -22,18 +22,23 @@
 
             using var tokenSource = new CancellationTokenSource();
             var count = 0;
+
+            long totalSize = 0;
+
             foreach (var item in await reader.ReadPackageMetadata(page, tokenSource.Token))
             {
                 count++;
+                totalSize += item.Size;
                 if (count > cancelAfter)
                 {
                     tokenSource.Cancel();
                 }
 
-                //Console.Out.WriteLine(item.PackageId + " " + item.Version);
+                Console.Out.WriteLine(item.Size);
             }
 
             Console.Out.WriteLine($"Read {count} out of {page.Items.Count}");
+            Console.Out.WriteLine($"Total package size {totalSize}");
         }
 
         [Test]

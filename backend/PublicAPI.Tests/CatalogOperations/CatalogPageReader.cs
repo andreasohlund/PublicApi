@@ -46,13 +46,9 @@
             {
                 await throttler.WaitAsync(cancellationToken);
 
-                var response = await httpClient.GetAsync(packageMetadataUrl, cancellationToken);
+                var packageMetadataReader = new PackageMetadataReader(httpClient);
 
-                response.EnsureSuccessStatusCode();
-
-                using var responseStream = await response.Content.ReadAsStreamAsync();
-
-                return await JsonSerializer.DeserializeAsync<PackageMetadata>(responseStream, cancellationToken: cancellationToken);
+                return await packageMetadataReader.ReadUrl(packageMetadataUrl, cancellationToken);
             }
             finally
             {

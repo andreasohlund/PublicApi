@@ -11,6 +11,6 @@
         public string Version { get; set; }
 
         [JsonPropertyName("packageSize")]
-        public double Size { get; set; }
+        public int Size { get; set; }
     }
 }
