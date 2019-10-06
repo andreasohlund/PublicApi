@@ -26,20 +26,13 @@
 
             long totalSize = 0;
 
-            foreach (var item in await reader.ReadPackageMetadata(page, tokenSource.Token))
-            {
-                count++;
-                totalSize += item.Size;
-                if (count > cancelAfter)
-                {
-                    tokenSource.Cancel();
-                }
+            var packages = await reader.ReadPackageMetadata(page, tokenSource.Token);
 
-                Console.Out.WriteLine(item.Size);
-            }
+            var packagesWithNetFxAsms = packages.Where(p => p.HasNetAssemblies).ToList();
 
-            Console.Out.WriteLine($"Read {count} out of {page.Items.Count}");
-            Console.Out.WriteLine($"Total package size {totalSize}");
+            Console.Out.WriteLine($"Packages with dotnet assemblies: {packagesWithNetFxAsms.Count} ({packages.Count()})");
+
+            Console.Out.WriteLine($"Total download size(MB): {packagesWithNetFxAsms.Sum(p => p.Size) / 1000000.0}");
         }
 
         [Test]
@@ -70,6 +63,12 @@
             Assert.AreEqual("TransmitSms", packageMetadata.Id);
             Assert.AreEqual("2.0.11", packageMetadata.Version);
             Assert.AreEqual(29774, packageMetadata.Size);
+
+            Assert.AreEqual(3, packageMetadata.PackageEntries.Count);
+
+            Assert.NotNull(packageMetadata.PackageEntries.Single(pe => pe.FullName == "lib/net35/TransmitSms.dll"));
+
+            Assert.True(packageMetadata.HasNetAssemblies);
         }
     }
 }
