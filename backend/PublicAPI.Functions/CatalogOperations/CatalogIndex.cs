@@ -1,4 +1,4 @@
-﻿namespace PublicAPI.Tests
+﻿namespace PublicAPI.CatalogOperations
 {
     using System;
     using System.Collections.Generic;

@@ -1,6 +1,7 @@
 ﻿namespace PublicAPI.Tests
 {
     using NUnit.Framework;
+    using PublicAPI.CatalogOperations;
     using System;
     using System.Linq;
     using System.Net.Http;
