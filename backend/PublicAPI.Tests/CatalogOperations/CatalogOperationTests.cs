@@ -21,12 +21,7 @@
 
             Console.Out.WriteLine($"Reading metadata for {url}");
 
-            using var tokenSource = new CancellationTokenSource();
-            var count = 0;
-
-            long totalSize = 0;
-
-            var packages = await reader.ReadPackageMetadata(page, tokenSource.Token);
+            var packages = await reader.ReadPackageMetadata(page);
 
             var packagesWithNetFxAsms = packages.Where(p => p.HasNetAssemblies).ToList();
 
@@ -63,11 +58,8 @@
             Assert.AreEqual("TransmitSms", packageMetadata.Id);
             Assert.AreEqual("2.0.11", packageMetadata.Version);
             Assert.AreEqual(29774, packageMetadata.Size);
-
             Assert.AreEqual(3, packageMetadata.PackageEntries.Count);
-
             Assert.NotNull(packageMetadata.PackageEntries.Single(pe => pe.FullName == "lib/net35/TransmitSms.dll"));
-
             Assert.True(packageMetadata.HasNetAssemblies);
         }
     }
