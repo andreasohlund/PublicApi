@@ -11,7 +11,7 @@
     {
 
         [Test]
-        public async Task SaveJsonBlob()
+        public async Task SaveAndReadJsonBlob()
         {
             var container = cloudBlobClient.GetContainerReference("unit-tests");
 
@@ -19,14 +19,27 @@
 
             var blobName = Guid.NewGuid().ToString();
 
-            var blobRef = container.GetBlockBlobReference(blobName);
+            var blobWriteReference = container.GetBlockBlobReference(blobName);
 
-            blobRef.Metadata.Add("somemetadata", "some-value");
-            blobRef.Properties.ContentType = "text/json";
+            blobWriteReference.Metadata.Add("somemetadata", "some-value");
+            blobWriteReference.Properties.ContentType = "text/json";
 
             var content = JsonSerializer.Serialize(new SomeEntity { MyProperty = "test" });
 
-            await blobRef.UploadTextAsync(content);
+            await blobWriteReference.UploadTextAsync(content);
+
+            var blobReadReference = container.GetBlockBlobReference(blobName);
+
+            await blobReadReference.FetchAttributesAsync();
+
+            Assert.AreEqual("text/json", blobReadReference.Properties.ContentType);
+            Assert.AreEqual("some-value", blobReadReference.Metadata["somemetadata"]);
+
+            using var readStream = await blobReadReference.OpenReadAsync();
+
+            var entityFromStorage = await JsonSerializer.DeserializeAsync<SomeEntity>(readStream);
+
+            Assert.AreEqual("test", entityFromStorage.MyProperty);
         }
 
         class SomeEntity
