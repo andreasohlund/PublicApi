@@ -1,22 +1,44 @@
 ﻿namespace PublicAPI.Tests
 {
+    using Microsoft.Azure.Storage;
+    using Microsoft.Azure.Storage.Blob;
+    using Microsoft.Azure.WebJobs.Extensions.Timers;
+    using Microsoft.Extensions.Logging.Abstractions;
     using NUnit.Framework;
+    using PublicAPI.Functions;
+    using System;
+    using System.Net.Http;
     using System.Threading.Tasks;
 
     public class IntegrationTests
     {
-        [TestCase("5000")]
-        public async Task ExtractApiFromAllPackagesInCatalogPage(string pageNumber)
+        [Test]
+        public async Task IndexNuGetPackages()
         {
-            //var reader = new CatalogPageReader();
+            var function = new IndexNuGetPackages(httpClient, cloudBlobClient);
 
-            //var page = await reader.ReadPageFromNuget(pageNumber);
-
-            //var apiExtractor = new PackageAPIExtractorTests();
-            //foreach (var item in page.Items.Where(i => i.Type == "nuget:PackageDetails").Take(10))
-            //{
-            //    await apiExtractor.ExtractFromNuGetFeed(item.PackageId,item.Version);
-            //}
+            await function.Run(new Microsoft.Azure.WebJobs.TimerInfo(new FakeTimerSchedule(), new ScheduleStatus()),NullLogger.Instance);
         }
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            httpClient = new HttpClient();
+            storageAccount = CloudStorageAccount.Parse(Environment.GetEnvironmentVariable("PublicAPI_UnitTestStorage", EnvironmentVariableTarget.User));
+
+            cloudBlobClient = storageAccount.CreateCloudBlobClient();
+        }
+
+        class FakeTimerSchedule : TimerSchedule
+        {
+            public override DateTime GetNextOccurrence(DateTime now)
+            {
+                return now + TimeSpan.FromSeconds(60);
+            }
+        }
+
+        CloudStorageAccount storageAccount;
+        CloudBlobClient cloudBlobClient;
+        HttpClient httpClient;
     }
 }
