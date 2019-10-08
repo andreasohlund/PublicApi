@@ -1,4 +1,6 @@
-﻿namespace PublicAPI.Tests
+﻿using System.Runtime.CompilerServices;
+
+namespace PublicAPI.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -26,7 +28,7 @@
             return await JsonSerializer.DeserializeAsync<CatalogPage>(responseStream);
         }
 
-        public async Task<IEnumerable<PackageMetadata>> ReadPackageMetadata(CatalogPage catalogPage, CancellationToken cancellationToken = default)
+        public async IAsyncEnumerable<PackageMetadata> ReadPackageMetadata(CatalogPage catalogPage, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var tasks = new List<Task<PackageMetadata>>();
 
@@ -37,7 +39,14 @@
                 tasks.Add(GetMetadataForPackage(item.Url, throttler, cancellationToken));
             }
 
-            return await Task.WhenAll(tasks);
+            while (tasks.Count > 0)
+            {
+                var done = await Task.WhenAny(tasks);
+                tasks.Remove(done);
+
+                yield return await done;
+            }
+
         }
 
         async Task<PackageMetadata> GetMetadataForPackage(string packageMetadataUrl, SemaphoreSlim throttler, CancellationToken cancellationToken)

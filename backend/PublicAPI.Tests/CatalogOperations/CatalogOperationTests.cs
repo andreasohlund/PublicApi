@@ -3,6 +3,7 @@
     using NUnit.Framework;
     using PublicAPI.CatalogOperations;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
     using System.Threading;
@@ -21,12 +22,33 @@
 
             Console.Out.WriteLine($"Reading metadata for {url}");
 
-            var packages = await reader.ReadPackageMetadata(page);
+            using var tokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(1));
+            var packagesWithNetFxAsms = new List<PackageMetadata>();
+            var totalCount = 0;
+            try
+            {
+                await foreach (var package in reader.ReadPackageMetadata(page, tokenSource.Token)
+                    .ConfigureAwait(false))
+                {
+                    totalCount++;
+                    if (package.HasNetAssemblies)
+                    {
+                        packagesWithNetFxAsms.Add(package);
+                        Console.Out.Write("!");
+                    }
+                    else
+                    {
+                        Console.Out.Write("~");
+                    }
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                // ignore
+            }
 
-            var packagesWithNetFxAsms = packages.Where(p => p.HasNetAssemblies).ToList();
-
-            Console.Out.WriteLine($"Packages with dotnet assemblies: {packagesWithNetFxAsms.Count} ({packages.Count()})");
-
+            Console.Out.WriteLine();
+            Console.Out.WriteLine($"Packages with dotnet assemblies: {packagesWithNetFxAsms.Count} ({totalCount})");
             Console.Out.WriteLine($"Total download size(MB): {packagesWithNetFxAsms.Sum(p => p.Size) / 1000000.0}");
         }
 

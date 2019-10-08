@@ -15,7 +15,7 @@
             var response = await httpClient.GetAsync(catalogIndexUrl);
             response.EnsureSuccessStatusCode();
 
-            using var responseStream = await response.Content.ReadAsStreamAsync();
+            await using var responseStream = await response.Content.ReadAsStreamAsync();
 
             return await System.Text.Json.JsonSerializer.DeserializeAsync<CatalogIndex>(responseStream);
         }
