@@ -11,7 +11,7 @@
 
     public class CatalogOperationTests
     {
-        [TestCase(5000, 100)]
+        [TestCase(5000, 20)]
         public async Task ReadAllPackageMetadataFromCatalogPage(int pageNumber, int cancelAfter = int.MaxValue)
         {
             var url = $"https://api.nuget.org/v3/catalog0/page{pageNumber}.json";
@@ -22,7 +22,7 @@
 
             Console.Out.WriteLine($"Reading metadata for {url}");
 
-            using var tokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(1));
+            using var tokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(cancelAfter));
             var packagesWithNetFxAsms = new List<PackageMetadata>();
             var totalCount = 0;
             try
