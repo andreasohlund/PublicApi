@@ -12,7 +12,7 @@ namespace PublicAPI.Functions
         static HttpClient httpClient = new HttpClient();
 
         [FunctionName("IndexNuGetPackages")]
-        public async static Task Run([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer, ILogger log)
+        public static async Task Run([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"IndexNuGetPackages started, next run: {myTimer.ScheduleStatus.Next}");
 
