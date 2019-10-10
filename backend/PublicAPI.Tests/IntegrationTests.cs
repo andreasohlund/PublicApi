@@ -17,7 +17,7 @@
         {
             var function = new IndexNuGetPackages(httpClient, cloudBlobClient);
 
-            await function.Run(new Microsoft.Azure.WebJobs.TimerInfo(new FakeTimerSchedule(), new ScheduleStatus()),NullLogger.Instance);
+            await function.Run(new Microsoft.Azure.WebJobs.TimerInfo(new FakeTimerSchedule(), new ScheduleStatus()),new TestLogger());
         }
 
         [OneTimeSetUp]

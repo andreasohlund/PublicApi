@@ -7,6 +7,8 @@ namespace PublicAPI.Functions
     using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
+    using System;
+    using System.Text.Json;
 
     public class IndexNuGetPackages
     {
@@ -17,17 +19,33 @@ namespace PublicAPI.Functions
         }
 
         [FunctionName("IndexNuGetPackages")]
-        public async Task Run([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer, ILogger log)
+        public async Task Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"IndexNuGetPackages started, next run: {myTimer.ScheduleStatus.Next}");
+
+            var catalogCursor = await GetCatalogCursor();
 
             var reader = new CatalogIndexReader(httpClient);
 
             var catalogIndex = await reader.ReadUrl("https://api.nuget.org/v3/catalog0/index.json");
 
-            var lastPage = catalogIndex.Items.OrderBy(i => i.CommitTimeStamp).Last();
+            var pages = catalogIndex.Items.Where(p => p.CommitTimeStamp > catalogCursor.CommitTimeStamp)
+                .ToList();
 
-            log.LogInformation($"IndexNuGetPackages complete, last page {lastPage.Id}, commited at: {lastPage.CommitTimeStamp}");
+            var nextPageToProcess = pages.OrderBy(p => p.CommitTimeStamp).First();
+
+            log.LogInformation($"Index parsed, {pages.Count} found, processing page {nextPageToProcess.Id} ({nextPageToProcess.CommitTimeStamp})");
+        }
+
+        async Task<CatalogCursor> GetCatalogCursor()
+        {
+            var container = blobClient.GetContainerReference("catalogcursors");
+
+            var nugetCursorBlob = container.GetBlockBlobReference("nuget");
+
+            using var readStream = await nugetCursorBlob.OpenReadAsync();
+
+            return await JsonSerializer.DeserializeAsync<CatalogCursor>(readStream);
         }
 
         HttpClient httpClient;
