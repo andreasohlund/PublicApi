@@ -19,5 +19,13 @@
 
         [JsonPropertyName("@type")]
         public string Type { get; set; }
+
+        public bool IsNewPackage
+        {
+            get
+            {
+                return Type == "nuget:PackageDetails";
+            }
+        }
     }
 }

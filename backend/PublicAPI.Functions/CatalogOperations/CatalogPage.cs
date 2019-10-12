@@ -11,6 +11,5 @@
 
         [JsonPropertyName("items")]
         public List<CatalogPageItem> Items { get; set; }
-
     }
 }

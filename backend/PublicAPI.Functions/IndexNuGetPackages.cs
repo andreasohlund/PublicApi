@@ -9,6 +9,8 @@ namespace PublicAPI.Functions
     using System.Threading.Tasks;
     using System;
     using System.Text.Json;
+    using System.Collections.Generic;
+    using System.Threading;
 
     public class IndexNuGetPackages
     {
@@ -40,7 +42,7 @@ namespace PublicAPI.Functions
 
             var catalogPage = await catalogPageReader.ReadUrl(nextPageToProcess.Id);
 
-            var packageMetadata = await catalogPageReader.ReadPackageMetadata(catalogPage, catalogCursor.CommitTimeStamp);
+            var packageMetadata = await ReadPackageMetadata(catalogPage, catalogCursor.CommitTimeStamp);
 
             var packagesWithNetFxAsms = packageMetadata.Where(p => p.HasNetAssemblies).ToList();
 
@@ -59,6 +61,48 @@ namespace PublicAPI.Functions
             using var readStream = await nugetCursorBlob.OpenReadAsync();
 
             return await JsonSerializer.DeserializeAsync<CatalogCursor>(readStream);
+        }
+
+        public async Task<IEnumerable<PackageMetadata>> ReadPackageMetadata(CatalogPage catalogPage,
+            //, [EnumeratorCancellation] CancellationToken cancellationToken = default
+            DateTime previousCommitTimeStamp)
+        {
+            var tasks = new List<Task<PackageMetadata>>();
+
+            using var throttler = new SemaphoreSlim(20);
+
+            foreach (var item in catalogPage.Items.Where(p => p.IsNewPackage && p.CommitTimeStamp > previousCommitTimeStamp))
+            {
+                tasks.Add(GetMetadataForPackage(item.Url, throttler
+                    //, cancellationToken
+                    ));
+            }
+
+            //while (tasks.Count > 0)
+            //{
+            //    var done = await Task.WhenAny(tasks);
+            //    tasks.Remove(done);
+
+            //    yield return await done;
+            //}
+
+            return await Task.WhenAll(tasks);
+        }
+
+        async Task<PackageMetadata> GetMetadataForPackage(string packageMetadataUrl, SemaphoreSlim throttler, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                await throttler.WaitAsync(cancellationToken);
+
+                var packageMetadataReader = new PackageMetadataReader(httpClient);
+
+                return await packageMetadataReader.ReadUrl(packageMetadataUrl, cancellationToken);
+            }
+            finally
+            {
+                throttler.Release();
+            }
         }
 
         HttpClient httpClient;

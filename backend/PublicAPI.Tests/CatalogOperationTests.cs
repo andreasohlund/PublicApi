@@ -11,48 +11,6 @@
 
     public class CatalogOperationTests
     {
-        [TestCase(5000, 20)]
-        public async Task ReadAllPackageMetadataFromCatalogPage(int pageNumber, int cancelAfter = int.MaxValue)
-        {
-            var url = $"https://api.nuget.org/v3/catalog0/page{pageNumber}.json";
-
-            var reader = new CatalogPageReader(new HttpClient());
-
-            var page = await reader.ReadUrl(url);
-
-            Console.Out.WriteLine($"Reading metadata for {url}");
-
-            using var tokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(cancelAfter));
-            var packagesWithNetFxAsms = new List<PackageMetadata>();
-            var totalCount = 0;
-            try
-            {
-                var packages = await reader.ReadPackageMetadata(page, DateTime.MinValue);
-
-                foreach (var package in packages)
-                {
-                    totalCount++;
-                    if (package.HasNetAssemblies)
-                    {
-                        packagesWithNetFxAsms.Add(package);
-                        Console.Out.Write("!");
-                    }
-                    else
-                    {
-                        Console.Out.Write("~");
-                    }
-                }
-            }
-            catch (OperationCanceledException)
-            {
-                // ignore
-            }
-
-            Console.Out.WriteLine();
-            Console.Out.WriteLine($"Packages with dotnet assemblies: {packagesWithNetFxAsms.Count} ({totalCount})");
-            Console.Out.WriteLine($"Total download size(MB): {packagesWithNetFxAsms.Sum(p => p.Size) / 1000000.0}");
-        }
-
         [Test]
         public async Task ParseCatalogIndex()
         {
