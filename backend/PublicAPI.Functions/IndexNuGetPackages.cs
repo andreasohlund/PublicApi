@@ -50,6 +50,26 @@ namespace PublicAPI.Functions
             log.LogInformation($"Metadata read for page {nextPageToProcess.Id}: ");
             log.LogInformation($"Packages with dotnet assemblies: {packagesWithNetFxAsms.Count} ({packageMetadata.Count()})");
             log.LogInformation($"Total download size(MB): {packagesWithNetFxAsms.Sum(p => p.Size) / 1000000.0}");
+
+            var newCursor = new CatalogCursor
+            {
+                CommitTimeStamp = catalogPage.CommitTimeStamp
+            };
+
+            await StoreCatalogCursor(newCursor);
+        }
+
+        Task StoreCatalogCursor(CatalogCursor newCursor)
+        {
+            var container = blobClient.GetContainerReference("catalogcursors");
+
+            var nugetCursorBlob = container.GetBlockBlobReference("nuget");
+
+            nugetCursorBlob.Properties.ContentType = "text/json";
+
+            var content = JsonSerializer.Serialize(newCursor);
+
+            return nugetCursorBlob.UploadTextAsync(content);
         }
 
         async Task<CatalogCursor> GetCatalogCursor()
