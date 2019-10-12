@@ -27,8 +27,9 @@
             var totalCount = 0;
             try
             {
-                await foreach (var package in reader.ReadPackageMetadata(page, tokenSource.Token)
-                    .ConfigureAwait(false))
+                var packages = await reader.ReadPackageMetadata(page);
+
+                foreach (var package in packages)
                 {
                     totalCount++;
                     if (package.HasNetAssemblies)

@@ -1,8 +1,8 @@
-﻿namespace PublicAPI.Tests
+﻿namespace PublicAPI.CatalogOperations
 {
     using System.Text.Json.Serialization;
 
-    public class CatalogItem
+    public class CatalogPageItem
     {
         [JsonPropertyName("@id")]
         public string Url { get; set; }

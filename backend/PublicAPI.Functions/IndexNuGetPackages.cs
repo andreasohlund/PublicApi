@@ -25,16 +25,29 @@ namespace PublicAPI.Functions
 
             var catalogCursor = await GetCatalogCursor();
 
-            var reader = new CatalogIndexReader(httpClient);
+            var catalogIndexReader = new CatalogIndexReader(httpClient);
 
-            var catalogIndex = await reader.ReadUrl("https://api.nuget.org/v3/catalog0/index.json");
+            var catalogIndex = await catalogIndexReader.ReadUrl("https://api.nuget.org/v3/catalog0/index.json");
 
-            var pages = catalogIndex.Items.Where(p => p.CommitTimeStamp > catalogCursor.CommitTimeStamp)
+            var catalogIndexPages = catalogIndex.Items.Where(p => p.CommitTimeStamp > catalogCursor.CommitTimeStamp)
                 .ToList();
 
-            var nextPageToProcess = pages.OrderBy(p => p.CommitTimeStamp).First();
+            var nextPageToProcess = catalogIndexPages.OrderBy(p => p.CommitTimeStamp).First();
 
-            log.LogInformation($"Index parsed, {pages.Count} found, processing page {nextPageToProcess.Id} ({nextPageToProcess.CommitTimeStamp})");
+            log.LogInformation($"Index parsed, {catalogIndexPages.Count} found, processing page {nextPageToProcess.Id} ({nextPageToProcess.CommitTimeStamp})");
+
+            var catalogPageReader = new CatalogPageReader(httpClient);
+
+            var catalogPage = await catalogPageReader.ReadUrl(nextPageToProcess.Id);
+
+            var packageMetadata = await catalogPageReader.ReadPackageMetadata(catalogPage);
+
+            var packagesWithNetFxAsms = packageMetadata.Where(p => p.HasNetAssemblies).ToList();
+
+
+            log.LogInformation($"Metadata read for page {nextPageToProcess.Id}: ");
+            log.LogInformation($"Packages with dotnet assemblies: {packagesWithNetFxAsms.Count} ({packageMetadata.Count()})");
+            log.LogInformation($"Total download size(MB): {packagesWithNetFxAsms.Sum(p => p.Size) / 1000000.0}");
         }
 
         async Task<CatalogCursor> GetCatalogCursor()

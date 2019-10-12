@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace PublicAPI.Tests
+﻿namespace PublicAPI.CatalogOperations
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -28,7 +26,10 @@ namespace PublicAPI.Tests
             return await JsonSerializer.DeserializeAsync<CatalogPage>(responseStream);
         }
 
-        public async IAsyncEnumerable<PackageMetadata> ReadPackageMetadata(CatalogPage catalogPage, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        //TODO: Convert back to async stream once functions support netcore3.0
+        public async Task<IEnumerable<PackageMetadata>> ReadPackageMetadata(CatalogPage catalogPage
+            //, [EnumeratorCancellation] CancellationToken cancellationToken = default
+            )
         {
             var tasks = new List<Task<PackageMetadata>>();
 
@@ -36,20 +37,23 @@ namespace PublicAPI.Tests
 
             foreach (var item in catalogPage.Items.Where(p => p.Type == "nuget:PackageDetails"))
             {
-                tasks.Add(GetMetadataForPackage(item.Url, throttler, cancellationToken));
+                tasks.Add(GetMetadataForPackage(item.Url, throttler
+                    //, cancellationToken
+                    ));
             }
 
-            while (tasks.Count > 0)
-            {
-                var done = await Task.WhenAny(tasks);
-                tasks.Remove(done);
+            //while (tasks.Count > 0)
+            //{
+            //    var done = await Task.WhenAny(tasks);
+            //    tasks.Remove(done);
 
-                yield return await done;
-            }
+            //    yield return await done;
+            //}
 
+            return await Task.WhenAll(tasks);
         }
 
-        async Task<PackageMetadata> GetMetadataForPackage(string packageMetadataUrl, SemaphoreSlim throttler, CancellationToken cancellationToken)
+        async Task<PackageMetadata> GetMetadataForPackage(string packageMetadataUrl, SemaphoreSlim throttler, CancellationToken cancellationToken = default)
         {
             try
             {

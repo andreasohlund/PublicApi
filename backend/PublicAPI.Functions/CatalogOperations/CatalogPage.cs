@@ -1,4 +1,4 @@
-﻿namespace PublicAPI.Tests
+﻿namespace PublicAPI.CatalogOperations
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,7 @@
         public DateTime CommitTimeStamp { get; set; }
 
         [JsonPropertyName("items")]
-        public List<CatalogItem> Items { get; set; }
+        public List<CatalogPageItem> Items { get; set; }
 
     }
 }
