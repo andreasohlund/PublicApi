@@ -13,9 +13,9 @@ namespace PublicAPI.Functions
     using System.Threading;
     using PublicAPI.Messages;
 
-    public class IndexNuGetPackages
+    public class IndexNuGetPackagesJob
     {
-        public IndexNuGetPackages(HttpClient httpClient, CloudBlobClient blobClient)
+        public IndexNuGetPackagesJob(HttpClient httpClient, CloudBlobClient blobClient)
         {
             this.httpClient = httpClient;
             this.blobClient = blobClient;
