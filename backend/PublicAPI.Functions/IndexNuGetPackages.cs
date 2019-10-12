@@ -11,6 +11,7 @@ namespace PublicAPI.Functions
     using System.Text.Json;
     using System.Collections.Generic;
     using System.Threading;
+    using PublicAPI.Messages;
 
     public class IndexNuGetPackages
     {
@@ -21,7 +22,7 @@ namespace PublicAPI.Functions
         }
 
         [FunctionName("IndexNuGetPackages")]
-        public async Task Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, ILogger log)
+        public async Task Run([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer, ILogger log, [Queue("extract-package-api", Connection = "AzureWebJobsStorage")]IAsyncCollector<ExtractPackageAPI> collector)
         {
             log.LogInformation($"IndexNuGetPackages started, next run: {myTimer.ScheduleStatus.Next}");
 
@@ -50,6 +51,14 @@ namespace PublicAPI.Functions
             log.LogInformation($"Metadata read for page {nextPageToProcess.Id}: ");
             log.LogInformation($"Packages with dotnet assemblies: {packagesWithNetFxAsms.Count} ({packageMetadata.Count()})");
             log.LogInformation($"Total download size(MB): {packagesWithNetFxAsms.Sum(p => p.Size) / 1000000.0}");
+
+            foreach (var package in packageMetadata)
+            {
+                await collector.AddAsync(new ExtractPackageAPI {
+                    PackageId = package.Id,
+                    PackageVersion = package.Version
+                });
+            }
 
             var newCursor = new CatalogCursor
             {
