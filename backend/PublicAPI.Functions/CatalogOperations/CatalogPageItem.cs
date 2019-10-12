@@ -1,9 +1,13 @@
 ﻿namespace PublicAPI.CatalogOperations
 {
+    using System;
     using System.Text.Json.Serialization;
 
     public class CatalogPageItem
     {
+        [JsonPropertyName("commitTimeStamp")]
+        public DateTime CommitTimeStamp { get; set; }
+
         [JsonPropertyName("@id")]
         public string Url { get; set; }
 

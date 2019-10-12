@@ -1,5 +1,6 @@
 ﻿namespace PublicAPI.CatalogOperations
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
@@ -27,15 +28,15 @@
         }
 
         //TODO: Convert back to async stream once functions support netcore3.0
-        public async Task<IEnumerable<PackageMetadata>> ReadPackageMetadata(CatalogPage catalogPage
+        public async Task<IEnumerable<PackageMetadata>> ReadPackageMetadata(CatalogPage catalogPage,
             //, [EnumeratorCancellation] CancellationToken cancellationToken = default
-            )
+            DateTime previousCommitTimeStamp)
         {
             var tasks = new List<Task<PackageMetadata>>();
 
             using var throttler = new SemaphoreSlim(maxConcurrentHttpCalls);
 
-            foreach (var item in catalogPage.Items.Where(p => p.Type == "nuget:PackageDetails"))
+            foreach (var item in catalogPage.Items.Where(p => p.Type == "nuget:PackageDetails" && p.CommitTimeStamp > previousCommitTimeStamp))
             {
                 tasks.Add(GetMetadataForPackage(item.Url, throttler
                     //, cancellationToken

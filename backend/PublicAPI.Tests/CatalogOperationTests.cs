@@ -27,7 +27,7 @@
             var totalCount = 0;
             try
             {
-                var packages = await reader.ReadPackageMetadata(page);
+                var packages = await reader.ReadPackageMetadata(page, DateTime.MinValue);
 
                 foreach (var package in packages)
                 {

@@ -40,7 +40,7 @@ namespace PublicAPI.Functions
 
             var catalogPage = await catalogPageReader.ReadUrl(nextPageToProcess.Id);
 
-            var packageMetadata = await catalogPageReader.ReadPackageMetadata(catalogPage);
+            var packageMetadata = await catalogPageReader.ReadPackageMetadata(catalogPage, catalogCursor.CommitTimeStamp);
 
             var packagesWithNetFxAsms = packageMetadata.Where(p => p.HasNetAssemblies).ToList();
 
