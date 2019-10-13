@@ -1,14 +1,12 @@
-﻿namespace PublicAPI.Tests
-{
-    using NUnit.Framework;
-    using PublicAPI.CatalogOperations;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using NUnit.Framework;
+using PublicAPI.CatalogOperations;
+using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
+namespace PublicAPI.Tests
+{
     public class CatalogOperationTests
     {
         [Test]

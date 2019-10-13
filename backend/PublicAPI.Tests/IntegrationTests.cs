@@ -11,7 +11,7 @@
     using System.Net.Http;
     using System.Threading.Tasks;
 
-    public partial class IntegrationTests
+    public class IntegrationTests
     {
         [Test]
         public async Task IndexNuGetPackages()

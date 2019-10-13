@@ -3,14 +3,11 @@
     using Microsoft.Azure.WebJobs.Extensions.Timers;
     using System;
 
-    public partial class IntegrationTests
+    class FakeTimerSchedule : TimerSchedule
     {
-        class FakeTimerSchedule : TimerSchedule
+        public override DateTime GetNextOccurrence(DateTime now)
         {
-            public override DateTime GetNextOccurrence(DateTime now)
-            {
-                return now + TimeSpan.FromSeconds(60);
-            }
+            return now + TimeSpan.FromSeconds(60);
         }
     }
 }

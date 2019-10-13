@@ -10,7 +10,5 @@
         }
 
         public List<TargetFramework> TargetFrameworks { get; set; }
-
-        public string ApiExtractorVersion { get; set; }
     }
 }

@@ -12,10 +12,7 @@
     {
         public async Task<PackageDetails> ExtractFromStream(Stream stream)
         {
-            var packageDetails = new PackageDetails
-            {
-                ApiExtractorVersion = "1.0.0"
-            };
+            var packageDetails = new PackageDetails();
 
             using var archive = new ZipArchive(stream);
 
