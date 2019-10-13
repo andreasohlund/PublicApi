@@ -1,5 +1,20 @@
 ﻿[
     {
-        "Name": "SomePublicClass"
+        "Name": "SomePublicClass",
+        "Namespace": "ExampleAssembly",
+        "Methods": [
+            {
+                "Name": ".ctor",
+                "ReturnType": "System.Void"
+            },
+            {
+                "Name": "A_ShouldSortPublicMethodsByName",
+                "ReturnType": "System.Void"
+            },
+            {
+                "Name": "PublicMethod",
+                "ReturnType": "System.Void"
+            }
+        ]
     }
 ]

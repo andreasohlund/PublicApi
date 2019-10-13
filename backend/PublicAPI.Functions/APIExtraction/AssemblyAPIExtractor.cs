@@ -17,17 +17,35 @@
             var publicTypes = assembly.Modules.SelectMany(m => m.GetTypes())
                 .Where(t => !t.IsNested && ShouldIncludeType(t))
                 .OrderBy(t => t.FullName, StringComparer.Ordinal)
-                .Select(ti => ConvertTypeInfoToPublicTypeDTO(ti))
+                .Select(ti => ConvertTypeInfoToPublicType(ti))
                 .ToList();
 
             return Task.FromResult(publicTypes);
         }
 
-        PublicType ConvertTypeInfoToPublicTypeDTO(TypeDefinition typeDefinition)
+        PublicType ConvertTypeInfoToPublicType(TypeDefinition typeDefinition)
         {
-            return new PublicType
+            var type = new PublicType
             {
-                Name = typeDefinition.Name
+                Name = typeDefinition.Name,
+                Namespace = typeDefinition.Namespace
+            };
+
+            type.Methods = typeDefinition.Methods
+                .Where(m => m.IsPublic)
+                .OrderBy(m => m.Name, StringComparer.Ordinal)
+                .Select(m => ConvertMethodDefinitionToMethod(m))
+                .ToList();
+
+            return type;
+        }
+
+        Method ConvertMethodDefinitionToMethod(MethodDefinition methodDefinition)
+        {
+            return new Method
+            {
+                Name = methodDefinition.Name,
+                ReturnType = methodDefinition.ReturnType.FullName
             };
         }
 
