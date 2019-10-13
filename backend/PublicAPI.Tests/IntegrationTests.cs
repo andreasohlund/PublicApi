@@ -19,20 +19,20 @@
             var collector = new TestCollector<ExtractPackageAPI>();
             var function = new IndexNuGetPackagesJob(httpClient, cloudBlobClient);
 
-            await function.Run(new Microsoft.Azure.WebJobs.TimerInfo(new FakeTimerSchedule(), new ScheduleStatus()),new TestLogger(), collector);
+            await function.Run(new Microsoft.Azure.WebJobs.TimerInfo(new FakeTimerSchedule(), new ScheduleStatus()), new TestLogger(), collector);
 
             Assert.True(collector.Items.Any());
         }
 
 
-        [Test]
-        public async Task ExtractPackageAPI()
+        [TestCase("NServiceBus", "7.1.0")]
+        public async Task ExtractPackageAPI(string package, string version)
         {
             var function = new ExtractPackageAPIHandler(httpClient, cloudBlobClient);
             var message = new ExtractPackageAPI
             {
-                PackageId = "NServiceBus",
-                PackageVersion = "7.1.0"
+                PackageId = package,
+                PackageVersion = version
             };
 
             await function.Run(message, new TestLogger());

@@ -3,7 +3,9 @@ namespace PublicAPI.Functions
     using Microsoft.Azure.Storage.Blob;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Extensions.Logging;
+    using PublicAPI.APIExtraction;
     using PublicAPI.Messages;
+    using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
 
@@ -18,7 +20,23 @@ namespace PublicAPI.Functions
         [FunctionName("ExtractPackageAPI")]
         public async Task Run([QueueTrigger("extract-package-api", Connection = "AzureWebJobsStorage")]ExtractPackageAPI message, ILogger log)
         {
-            log.LogInformation($"Extracting api from {message.PackageId}({message.PackageVersion})");
+            var packageId = message.PackageId;
+            var version = message.PackageVersion;
+
+            log.LogInformation($"Extracting api from {packageId}({version})");
+
+            var url = $"https://api.nuget.org/v3-flatcontainer/{packageId}/{version}/{packageId}.{version}.nupkg";
+
+            var response = await httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            var extractor = new PackageAPIExtractor();
+
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+
+            var packageDetails = await extractor.ExtractFromStream(responseStream);
+
+            log.LogInformation(string.Join(";", packageDetails.TargetFrameworks.Select(fx => fx.Name)));
         }
 
         HttpClient httpClient;

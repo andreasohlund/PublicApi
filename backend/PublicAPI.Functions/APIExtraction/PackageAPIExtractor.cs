@@ -1,4 +1,4 @@
-﻿namespace PublicAPI.Tests
+﻿namespace PublicAPI.APIExtraction
 {
     using Mono.Cecil;
     using System;
@@ -8,7 +8,7 @@
     using System.Net;
     using System.Threading.Tasks;
 
-    class PackageAPIExtractor
+    public class PackageAPIExtractor
     {
         public async Task<PackageDetails> ExtractFromStream(Stream stream)
         {
@@ -31,6 +31,7 @@
                     await asmStream.CopyToAsync(memStream);
 
                     memStream.Position = 0;
+
                     using var assembly = AssemblyDefinition.ReadAssembly(memStream);
 
                     var publicTypes = assembly.Modules.SelectMany(m => m.GetTypes())

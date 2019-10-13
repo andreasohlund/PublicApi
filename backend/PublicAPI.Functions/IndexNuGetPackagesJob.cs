@@ -24,8 +24,6 @@ namespace PublicAPI.Functions
         [FunctionName("IndexNuGetPackages")]
         public async Task Run([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer, ILogger log, [Queue("extract-package-api", Connection = "AzureWebJobsStorage")]IAsyncCollector<ExtractPackageAPI> collector)
         {
-            log.LogInformation($"IndexNuGetPackages started, next run: {myTimer.ScheduleStatus.Next}");
-
             var catalogCursor = await GetCatalogCursor();
 
             var catalogIndexReader = new CatalogIndexReader(httpClient);

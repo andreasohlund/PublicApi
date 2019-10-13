@@ -1,4 +1,4 @@
-﻿namespace PublicAPI.Tests
+﻿namespace PublicAPI.APIExtraction
 {
     public class PublicType
     {

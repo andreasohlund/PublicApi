@@ -1,7 +1,7 @@
-﻿namespace PublicAPI.Tests
+﻿namespace PublicAPI.APIExtraction
 {
     using System.Collections.Generic;
-    
+
     public class PackageDetails
     {
         public PackageDetails()
@@ -10,7 +10,7 @@
         }
 
         public List<TargetFramework> TargetFrameworks { get; set; }
-        
+
         public string ApiExtractorVersion { get; set; }
     }
 }
