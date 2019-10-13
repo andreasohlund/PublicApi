@@ -1,0 +1,2222 @@
+﻿{
+    "TargetFrameworks": [
+        {
+            "Name": "net452",
+            "PublicTypes": [
+                {
+                    "Name": "AddressMode"
+                },
+                {
+                    "Name": "AssemblyScannerConfiguration"
+                },
+                {
+                    "Name": "AssemblyScannerConfigurationExtensions"
+                },
+                {
+                    "Name": "AuditConfigReader"
+                },
+                {
+                    "Name": "AutoSubscribeSettingsExtensions"
+                },
+                {
+                    "Name": "AutoSubscribeSettings"
+                },
+                {
+                    "Name": "BestPracticesOptionExtensions"
+                },
+                {
+                    "Name": "AuditConfig"
+                },
+                {
+                    "Name": "IConfigurationSource"
+                },
+                {
+                    "Name": "IProvideConfiguration\u00601"
+                },
+                {
+                    "Name": "KeyFormat"
+                },
+                {
+                    "Name": "Logging"
+                },
+                {
+                    "Name": "MessageEndpointMapping"
+                },
+                {
+                    "Name": "MessageEndpointMappingCollection"
+                },
+                {
+                    "Name": "MessageForwardingInCaseOfFaultConfig"
+                },
+                {
+                    "Name": "MsmqSubscriptionStorageConfig"
+                },
+                {
+                    "Name": "RijndaelEncryptionServiceConfig"
+                },
+                {
+                    "Name": "RijndaelExpiredKey"
+                },
+                {
+                    "Name": "RijndaelExpiredKeyCollection"
+                },
+                {
+                    "Name": "UnicastBusConfig"
+                },
+                {
+                    "Name": "AdvancedExtensibilityExtensions"
+                },
+                {
+                    "Name": "ExposeSettings"
+                },
+                {
+                    "Name": "ConfigurationTimeoutExtensions"
+                },
+                {
+                    "Name": "ConfigureAudit"
+                },
+                {
+                    "Name": "ConfigureCriticalErrorAction"
+                },
+                {
+                    "Name": "ConfigureError"
+                },
+                {
+                    "Name": "ConfigureFileShareDataBus"
+                },
+                {
+                    "Name": "ConfigureForwarding"
+                },
+                {
+                    "Name": "ConfigureLicenseExtensions"
+                },
+                {
+                    "Name": "ConfigurePurging"
+                },
+                {
+                    "Name": "ConfigureQueueCreation"
+                },
+                {
+                    "Name": "ConfigureRijndaelEncryptionService"
+                },
+                {
+                    "Name": "ConnectorContextExtensions"
+                },
+                {
+                    "Name": "TransactionModeSettingsExtensions"
+                },
+                {
+                    "Name": "ContainSagaData"
+                },
+                {
+                    "Name": "ContainerCustomizations"
+                },
+                {
+                    "Name": "ContainerDefinition"
+                },
+                {
+                    "Name": "ContentTypes"
+                },
+                {
+                    "Name": "Conventions"
+                },
+                {
+                    "Name": "ConventionsBuilder"
+                },
+                {
+                    "Name": "ConversationId"
+                },
+                {
+                    "Name": "ConversationIdStrategyContext"
+                },
+                {
+                    "Name": "CorrelationContextExtensions"
+                },
+                {
+                    "Name": "CriticalError"
+                },
+                {
+                    "Name": "CriticalErrorContext"
+                },
+                {
+                    "Name": "CriticalTimeMonitoringConfig"
+                },
+                {
+                    "Name": "DataBusDefinition"
+                },
+                {
+                    "Name": "DataBusExtensions"
+                },
+                {
+                    "Name": "DataBusExtensions\u00601"
+                },
+                {
+                    "Name": "IDataBus"
+                },
+                {
+                    "Name": "IDataBusSerializer"
+                },
+                {
+                    "Name": "DataBusProperty\u00601"
+                },
+                {
+                    "Name": "DateTimeExtensions"
+                },
+                {
+                    "Name": "DefaultRecoverabilityPolicy"
+                },
+                {
+                    "Name": "DelayedConfig"
+                },
+                {
+                    "Name": "DelayDeliveryWith"
+                },
+                {
+                    "Name": "DelayedDeliveryConstraint"
+                },
+                {
+                    "Name": "DoNotDeliverBefore"
+                },
+                {
+                    "Name": "ExternalTimeoutManagerConfigurationExtensions"
+                },
+                {
+                    "Name": "DelayedDeliveryOptionExtensions"
+                },
+                {
+                    "Name": "DelayedRetriesSettings"
+                },
+                {
+                    "Name": "DelayedRetry"
+                },
+                {
+                    "Name": "DeliveryConstraint"
+                },
+                {
+                    "Name": "DeliveryConstraintContextExtensions"
+                },
+                {
+                    "Name": "DependencyLifecycle"
+                },
+                {
+                    "Name": "DiagnosticSettingsExtensions"
+                },
+                {
+                    "Name": "DistributionPolicy"
+                },
+                {
+                    "Name": "DistributionStrategyScope"
+                },
+                {
+                    "Name": "DurableMessagesConfig"
+                },
+                {
+                    "Name": "DurableMessagesConventionExtensions"
+                },
+                {
+                    "Name": "EncryptedValue"
+                },
+                {
+                    "Name": "Endpoint"
+                },
+                {
+                    "Name": "EndpointConfiguration"
+                },
+                {
+                    "Name": "EndpointConfigurationExtensions"
+                },
+                {
+                    "Name": "ErrorQueueSettings"
+                },
+                {
+                    "Name": "ExpressAttribute"
+                },
+                {
+                    "Name": "ContextBag"
+                },
+                {
+                    "Name": "ExtendableOptions"
+                },
+                {
+                    "Name": "ExtendableOptionsExtensions"
+                },
+                {
+                    "Name": "IExtendable"
+                },
+                {
+                    "Name": "ReadOnlyContextBag"
+                },
+                {
+                    "Name": "FailedConfig"
+                },
+                {
+                    "Name": "DelayedRetryMessage"
+                },
+                {
+                    "Name": "ErrorsNotifications"
+                },
+                {
+                    "Name": "FailedMessage"
+                },
+                {
+                    "Name": "FaultsHeaderKeys"
+                },
+                {
+                    "Name": "ImmediateRetryMessage"
+                },
+                {
+                    "Name": "Audit"
+                },
+                {
+                    "Name": "AutoSubscribe"
+                },
+                {
+                    "Name": "CriticalTimeMonitoring"
+                },
+                {
+                    "Name": "DataBus"
+                },
+                {
+                    "Name": "Feature"
+                },
+                {
+                    "Name": "FeatureConfigurationContext"
+                },
+                {
+                    "Name": "FeatureStartupTask"
+                },
+                {
+                    "Name": "FeatureState"
+                },
+                {
+                    "Name": "ForwardReceivedMessages"
+                },
+                {
+                    "Name": "InMemoryGatewayPersistence"
+                },
+                {
+                    "Name": "InMemoryOutboxPersistence"
+                },
+                {
+                    "Name": "InMemorySagaPersistence"
+                },
+                {
+                    "Name": "InMemorySubscriptionPersistence"
+                },
+                {
+                    "Name": "InMemoryTimeoutPersistence"
+                },
+                {
+                    "Name": "MessageDrivenSubscriptions"
+                },
+                {
+                    "Name": "Outbox"
+                },
+                {
+                    "Name": "ReceiveStatisticsPerformanceCounters"
+                },
+                {
+                    "Name": "SLAMonitoring"
+                },
+                {
+                    "Name": "Sagas"
+                },
+                {
+                    "Name": "Scheduler"
+                },
+                {
+                    "Name": "SettingsExtensions"
+                },
+                {
+                    "Name": "TimeoutManager"
+                },
+                {
+                    "Name": "FileShareDataBus"
+                },
+                {
+                    "Name": "IDeduplicateMessages"
+                },
+                {
+                    "Name": "HeaderOptionExtensions"
+                },
+                {
+                    "Name": "Headers"
+                },
+                {
+                    "Name": "HostInfoConfigurationExtensions"
+                },
+                {
+                    "Name": "HostInfoSettings"
+                },
+                {
+                    "Name": "AssemblyScanner"
+                },
+                {
+                    "Name": "AssemblyScannerResults"
+                },
+                {
+                    "Name": "SkippedFile"
+                },
+                {
+                    "Name": "HostInformation"
+                },
+                {
+                    "Name": "IAmStartedByMessages\u00601"
+                },
+                {
+                    "Name": "ICommand"
+                },
+                {
+                    "Name": "IConfigureHowToFindSagaWithMessage"
+                },
+                {
+                    "Name": "IContainSagaData"
+                },
+                {
+                    "Name": "ICriticalErrorContext"
+                },
+                {
+                    "Name": "IDataBusProperty"
+                },
+                {
+                    "Name": "IDistributionPolicy"
+                },
+                {
+                    "Name": "IEncryptionService"
+                },
+                {
+                    "Name": "IEndpointInstance"
+                },
+                {
+                    "Name": "IEvent"
+                },
+                {
+                    "Name": "IHandleMessages\u00601"
+                },
+                {
+                    "Name": "IHandleTimeouts\u00601"
+                },
+                {
+                    "Name": "IMessage"
+                },
+                {
+                    "Name": "IMessageCreator"
+                },
+                {
+                    "Name": "IMessageHandlerContext"
+                },
+                {
+                    "Name": "IMessageProcessingContext"
+                },
+                {
+                    "Name": "IMessageProcessingContextExtensions"
+                },
+                {
+                    "Name": "IMessageSession"
+                },
+                {
+                    "Name": "IMessageSessionExtensions"
+                },
+                {
+                    "Name": "INeedInitialization"
+                },
+                {
+                    "Name": "IPipelineContext"
+                },
+                {
+                    "Name": "IPipelineContextExtensions"
+                },
+                {
+                    "Name": "IStartableEndpoint"
+                },
+                {
+                    "Name": "IWantToRunBeforeConfigurationIsFinalized"
+                },
+                {
+                    "Name": "ImmediateConfig"
+                },
+                {
+                    "Name": "ImmediateDispatchOptionExtensions"
+                },
+                {
+                    "Name": "ImmediateRetriesSettings"
+                },
+                {
+                    "Name": "ImmediateRetry"
+                },
+                {
+                    "Name": "InMemoryOutboxSettingsExtensions"
+                },
+                {
+                    "Name": "InMemoryPersistence"
+                },
+                {
+                    "Name": "InstallConfigExtensions"
+                },
+                {
+                    "Name": "INeedToInstallSomething"
+                },
+                {
+                    "Name": "JsonSerializer"
+                },
+                {
+                    "Name": "JsonSerializerConfigurationExtensions"
+                },
+                {
+                    "Name": "LearningPersistence"
+                },
+                {
+                    "Name": "LearningSagaPersisterConfigurationExtensions"
+                },
+                {
+                    "Name": "LearningTransport"
+                },
+                {
+                    "Name": "LearningTransportConfigurationExtensions"
+                },
+                {
+                    "Name": "LoadMessageHandlersExtensions"
+                },
+                {
+                    "Name": "DefaultFactory"
+                },
+                {
+                    "Name": "ILog"
+                },
+                {
+                    "Name": "ILoggerFactory"
+                },
+                {
+                    "Name": "LogLevel"
+                },
+                {
+                    "Name": "LogManager"
+                },
+                {
+                    "Name": "LoggingFactoryDefinition"
+                },
+                {
+                    "Name": "LogicalAddress"
+                },
+                {
+                    "Name": "MessageCausationConfigurationExtensions"
+                },
+                {
+                    "Name": "MessageDeserializationException"
+                },
+                {
+                    "Name": "MessageDrivenSubscriptionsConfigExtensions"
+                },
+                {
+                    "Name": "MessageIdExtensions"
+                },
+                {
+                    "Name": "MessageIntentEnum"
+                },
+                {
+                    "Name": "IMessageMapper"
+                },
+                {
+                    "Name": "MessageMapper"
+                },
+                {
+                    "Name": "IMutateIncomingMessages"
+                },
+                {
+                    "Name": "IMutateIncomingTransportMessages"
+                },
+                {
+                    "Name": "IMutateOutgoingMessages"
+                },
+                {
+                    "Name": "IMutateOutgoingTransportMessages"
+                },
+                {
+                    "Name": "MutateIncomingMessageContext"
+                },
+                {
+                    "Name": "MutateIncomingTransportMessageContext"
+                },
+                {
+                    "Name": "MutateOutgoingMessageContext"
+                },
+                {
+                    "Name": "MutateOutgoingTransportMessageContext"
+                },
+                {
+                    "Name": "MutatorRegistrationExtensions"
+                },
+                {
+                    "Name": "MessageProcessingOptimizationExtensions"
+                },
+                {
+                    "Name": "MoveToError"
+                },
+                {
+                    "Name": "NonDurableDelivery"
+                },
+                {
+                    "Name": "Notifications"
+                },
+                {
+                    "Name": "IContainer"
+                },
+                {
+                    "Name": "IBuilder"
+                },
+                {
+                    "Name": "IConfigureComponents"
+                },
+                {
+                    "Name": "IOutboxStorage"
+                },
+                {
+                    "Name": "OutboxMessage"
+                },
+                {
+                    "Name": "OutboxSettings"
+                },
+                {
+                    "Name": "OutboxTransaction"
+                },
+                {
+                    "Name": "TransportOperation"
+                },
+                {
+                    "Name": "OutboxConfigExtensions"
+                },
+                {
+                    "Name": "PendingTransportOperations"
+                },
+                {
+                    "Name": "DiscardIfNotReceivedBefore"
+                },
+                {
+                    "Name": "CompletableSynchronizedStorageSession"
+                },
+                {
+                    "Name": "ISynchronizedStorage"
+                },
+                {
+                    "Name": "ISynchronizedStorageAdapter"
+                },
+                {
+                    "Name": "PersistenceDefinition"
+                },
+                {
+                    "Name": "SynchronizedStorageSession"
+                },
+                {
+                    "Name": "PersistenceConfig"
+                },
+                {
+                    "Name": "PersistenceExtensions"
+                },
+                {
+                    "Name": "PersistenceExtensions\u00601"
+                },
+                {
+                    "Name": "PersistenceExtensions\u00602"
+                },
+                {
+                    "Name": "Behavior\u00601"
+                },
+                {
+                    "Name": "ForkConnector\u00602"
+                },
+                {
+                    "Name": "IAuditContext"
+                },
+                {
+                    "Name": "IBatchDispatchContext"
+                },
+                {
+                    "Name": "IBehavior"
+                },
+                {
+                    "Name": "IBehaviorContext"
+                },
+                {
+                    "Name": "IBehavior\u00602"
+                },
+                {
+                    "Name": "IDispatchContext"
+                },
+                {
+                    "Name": "IForwardingContext"
+                },
+                {
+                    "Name": "IIncomingContext"
+                },
+                {
+                    "Name": "IIncomingLogicalMessageContext"
+                },
+                {
+                    "Name": "IIncomingPhysicalMessageContext"
+                },
+                {
+                    "Name": "IInvokeHandlerContext"
+                },
+                {
+                    "Name": "IOutgoingContext"
+                },
+                {
+                    "Name": "IOutgoingLogicalMessageContext"
+                },
+                {
+                    "Name": "IOutgoingPhysicalMessageContext"
+                },
+                {
+                    "Name": "IOutgoingPublishContext"
+                },
+                {
+                    "Name": "IOutgoingReplyContext"
+                },
+                {
+                    "Name": "IOutgoingSendContext"
+                },
+                {
+                    "Name": "IRoutingContext"
+                },
+                {
+                    "Name": "ISubscribeContext"
+                },
+                {
+                    "Name": "ITransportReceiveContext"
+                },
+                {
+                    "Name": "IUnsubscribeContext"
+                },
+                {
+                    "Name": "LogicalMessage"
+                },
+                {
+                    "Name": "LogicalMessageFactory"
+                },
+                {
+                    "Name": "MessageHandler"
+                },
+                {
+                    "Name": "OutgoingLogicalMessage"
+                },
+                {
+                    "Name": "PipelineSettings"
+                },
+                {
+                    "Name": "PipelineTerminator\u00601"
+                },
+                {
+                    "Name": "RegisterStep"
+                },
+                {
+                    "Name": "StageConnector\u00602"
+                },
+                {
+                    "Name": "StageForkConnector\u00603"
+                },
+                {
+                    "Name": "TransportMessageContextExtensions"
+                },
+                {
+                    "Name": "PublishOptions"
+                },
+                {
+                    "Name": "ReceivePipelineCompleted"
+                },
+                {
+                    "Name": "ReceivePipelineConfigExtensions"
+                },
+                {
+                    "Name": "ReceiveSettingsExtensions"
+                },
+                {
+                    "Name": "RecoverabilityAction"
+                },
+                {
+                    "Name": "RecoverabilityConfig"
+                },
+                {
+                    "Name": "RecoverabilityEndpointConfigurationExtensions"
+                },
+                {
+                    "Name": "RecoverabilitySettings"
+                },
+                {
+                    "Name": "RecoverabilitySettingsExtensions"
+                },
+                {
+                    "Name": "ReplyOptions"
+                },
+                {
+                    "Name": "RetryFailedSettings"
+                },
+                {
+                    "Name": "AddressTag"
+                },
+                {
+                    "Name": "DistributionContext"
+                },
+                {
+                    "Name": "DistributionStrategy"
+                },
+                {
+                    "Name": "EndpointInstance"
+                },
+                {
+                    "Name": "EndpointInstances"
+                },
+                {
+                    "Name": "IMessageDrivenSubscriptionTransport"
+                },
+                {
+                    "Name": "ConfigureMSMQDistributor"
+                },
+                {
+                    "Name": "PublisherAddress"
+                },
+                {
+                    "Name": "PublisherTableEntry"
+                },
+                {
+                    "Name": "Publishers"
+                },
+                {
+                    "Name": "MulticastAddressTag"
+                },
+                {
+                    "Name": "MulticastRoutingStrategy"
+                },
+                {
+                    "Name": "RouteTableEntry"
+                },
+                {
+                    "Name": "RoutingStrategy"
+                },
+                {
+                    "Name": "SingleInstanceRoundRobinDistributionStrategy"
+                },
+                {
+                    "Name": "UnicastAddressTag"
+                },
+                {
+                    "Name": "UnicastRoute"
+                },
+                {
+                    "Name": "UnicastRoutingStrategy"
+                },
+                {
+                    "Name": "UnicastRoutingTable"
+                },
+                {
+                    "Name": "RoutingFeatureSettingsExtensions"
+                },
+                {
+                    "Name": "RoutingOptionExtensions"
+                },
+                {
+                    "Name": "RoutingSettings"
+                },
+                {
+                    "Name": "RoutingSettingsExtensions"
+                },
+                {
+                    "Name": "RoutingSettings\u00601"
+                },
+                {
+                    "Name": "SLAMonitoringConfig"
+                },
+                {
+                    "Name": "Saga"
+                },
+                {
+                    "Name": "SagaPropertyMapper\u00601"
+                },
+                {
+                    "Name": "Saga\u00601"
+                },
+                {
+                    "Name": "ActiveSagaInstance"
+                },
+                {
+                    "Name": "IFindSagas\u00601"
+                },
+                {
+                    "Name": "IFinder"
+                },
+                {
+                    "Name": "IHandleSagaNotFound"
+                },
+                {
+                    "Name": "ISagaIdGenerator"
+                },
+                {
+                    "Name": "ISagaPersister"
+                },
+                {
+                    "Name": "SagaCorrelationProperty"
+                },
+                {
+                    "Name": "SagaFinderDefinition"
+                },
+                {
+                    "Name": "SagaIdGeneratorContext"
+                },
+                {
+                    "Name": "SagaMessage"
+                },
+                {
+                    "Name": "SagaMetadata"
+                },
+                {
+                    "Name": "SagaMetadataCollection"
+                },
+                {
+                    "Name": "ScheduleExtensions"
+                },
+                {
+                    "Name": "ScheduledTask"
+                },
+                {
+                    "Name": "SendOptions"
+                },
+                {
+                    "Name": "IMessageSerializer"
+                },
+                {
+                    "Name": "SerializationDefinition"
+                },
+                {
+                    "Name": "SerializationExtensions\u00601"
+                },
+                {
+                    "Name": "SerializationConfigExtensions"
+                },
+                {
+                    "Name": "SerializationContextExtensions"
+                },
+                {
+                    "Name": "ReadOnlySettings"
+                },
+                {
+                    "Name": "SettingsHolder"
+                },
+                {
+                    "Name": "SettingsExtensions"
+                },
+                {
+                    "Name": "StartupDiagnosticEntries"
+                },
+                {
+                    "Name": "StaticHeadersConfigExtensions"
+                },
+                {
+                    "Name": "StorageType"
+                },
+                {
+                    "Name": "SubscribeOptions"
+                },
+                {
+                    "Name": "RuntimeEnvironment"
+                },
+                {
+                    "Name": "TimeToBeReceivedAttribute"
+                },
+                {
+                    "Name": "TimeToBeReceivedConventionExtensions"
+                },
+                {
+                    "Name": "IPersistTimeouts"
+                },
+                {
+                    "Name": "IQueryTimeouts"
+                },
+                {
+                    "Name": "TimeoutData"
+                },
+                {
+                    "Name": "TimeoutsChunk"
+                },
+                {
+                    "Name": "TimeoutManagerConfiguration"
+                },
+                {
+                    "Name": "TimeoutManagerConfigurationExtensions"
+                },
+                {
+                    "Name": "ToSagaExpression\u00602"
+                },
+                {
+                    "Name": "DispatchConsistency"
+                },
+                {
+                    "Name": "ErrorContext"
+                },
+                {
+                    "Name": "ErrorHandleResult"
+                },
+                {
+                    "Name": "ICancelDeferredMessages"
+                },
+                {
+                    "Name": "ICreateQueues"
+                },
+                {
+                    "Name": "IDispatchMessages"
+                },
+                {
+                    "Name": "IManageSubscriptions"
+                },
+                {
+                    "Name": "IOutgoingTransportOperation"
+                },
+                {
+                    "Name": "IPushMessages"
+                },
+                {
+                    "Name": "IncomingMessage"
+                },
+                {
+                    "Name": "IncomingMessageExtensions"
+                },
+                {
+                    "Name": "LogicalAddressExtensions"
+                },
+                {
+                    "Name": "MessageContext"
+                },
+                {
+                    "Name": "MulticastTransportOperation"
+                },
+                {
+                    "Name": "OutboundRoutingPolicy"
+                },
+                {
+                    "Name": "OutboundRoutingType"
+                },
+                {
+                    "Name": "OutgoingMessage"
+                },
+                {
+                    "Name": "PushRuntimeSettings"
+                },
+                {
+                    "Name": "PushSettings"
+                },
+                {
+                    "Name": "QueueBindings"
+                },
+                {
+                    "Name": "StartupCheckResult"
+                },
+                {
+                    "Name": "TransportDefinition"
+                },
+                {
+                    "Name": "TransportInfrastructure"
+                },
+                {
+                    "Name": "TransportOperation"
+                },
+                {
+                    "Name": "TransportOperations"
+                },
+                {
+                    "Name": "TransportReceiveInfrastructure"
+                },
+                {
+                    "Name": "TransportSendInfrastructure"
+                },
+                {
+                    "Name": "TransportSubscriptionInfrastructure"
+                },
+                {
+                    "Name": "TransportTransaction"
+                },
+                {
+                    "Name": "UnicastTransportOperation"
+                },
+                {
+                    "Name": "TransportExtensions"
+                },
+                {
+                    "Name": "TransportExtensions\u00601"
+                },
+                {
+                    "Name": "TransportTransactionMode"
+                },
+                {
+                    "Name": "BuilderExtensions"
+                },
+                {
+                    "Name": "MessageEventArgs"
+                },
+                {
+                    "Name": "MessageHandlerRegistry"
+                },
+                {
+                    "Name": "MessageMetadata"
+                },
+                {
+                    "Name": "MessageMetadataRegistry"
+                },
+                {
+                    "Name": "MessagesEventArgs"
+                },
+                {
+                    "Name": "QueueNotFoundException"
+                },
+                {
+                    "Name": "IInitializableSubscriptionStorage"
+                },
+                {
+                    "Name": "ISubscriptionStorage"
+                },
+                {
+                    "Name": "Subscriber"
+                },
+                {
+                    "Name": "MessageType"
+                },
+                {
+                    "Name": "ControlMessageFactory"
+                },
+                {
+                    "Name": "IManageUnitsOfWork"
+                },
+                {
+                    "Name": "UnitOfWorkSettings"
+                },
+                {
+                    "Name": "UnitOfWorkSettingsExtensions"
+                },
+                {
+                    "Name": "UnsubscribeOptions"
+                },
+                {
+                    "Name": "UseDataBusExtensions"
+                },
+                {
+                    "Name": "UseTransportExtensions"
+                },
+                {
+                    "Name": "WireEncryptedString"
+                },
+                {
+                    "Name": "XmlSerializationExtensions"
+                },
+                {
+                    "Name": "XmlSerializer"
+                }
+            ]
+        },
+        {
+            "Name": "netstandard2.0",
+            "PublicTypes": [
+                {
+                    "Name": "AddressMode"
+                },
+                {
+                    "Name": "AssemblyScannerConfiguration"
+                },
+                {
+                    "Name": "AssemblyScannerConfigurationExtensions"
+                },
+                {
+                    "Name": "AuditConfigReader"
+                },
+                {
+                    "Name": "AutoSubscribeSettingsExtensions"
+                },
+                {
+                    "Name": "AutoSubscribeSettings"
+                },
+                {
+                    "Name": "BestPracticesOptionExtensions"
+                },
+                {
+                    "Name": "AuditConfig"
+                },
+                {
+                    "Name": "IConfigurationSource"
+                },
+                {
+                    "Name": "IProvideConfiguration\u00601"
+                },
+                {
+                    "Name": "KeyFormat"
+                },
+                {
+                    "Name": "Logging"
+                },
+                {
+                    "Name": "MessageEndpointMapping"
+                },
+                {
+                    "Name": "MessageEndpointMappingCollection"
+                },
+                {
+                    "Name": "MessageForwardingInCaseOfFaultConfig"
+                },
+                {
+                    "Name": "MsmqSubscriptionStorageConfig"
+                },
+                {
+                    "Name": "RijndaelEncryptionServiceConfig"
+                },
+                {
+                    "Name": "RijndaelExpiredKey"
+                },
+                {
+                    "Name": "RijndaelExpiredKeyCollection"
+                },
+                {
+                    "Name": "UnicastBusConfig"
+                },
+                {
+                    "Name": "AdvancedExtensibilityExtensions"
+                },
+                {
+                    "Name": "ExposeSettings"
+                },
+                {
+                    "Name": "ConfigurationTimeoutExtensions"
+                },
+                {
+                    "Name": "ConfigureAudit"
+                },
+                {
+                    "Name": "ConfigureCriticalErrorAction"
+                },
+                {
+                    "Name": "ConfigureError"
+                },
+                {
+                    "Name": "ConfigureFileShareDataBus"
+                },
+                {
+                    "Name": "ConfigureForwarding"
+                },
+                {
+                    "Name": "ConfigureLicenseExtensions"
+                },
+                {
+                    "Name": "ConfigurePurging"
+                },
+                {
+                    "Name": "ConfigureQueueCreation"
+                },
+                {
+                    "Name": "ConfigureRijndaelEncryptionService"
+                },
+                {
+                    "Name": "ConnectorContextExtensions"
+                },
+                {
+                    "Name": "TransactionModeSettingsExtensions"
+                },
+                {
+                    "Name": "ContainSagaData"
+                },
+                {
+                    "Name": "ContainerCustomizations"
+                },
+                {
+                    "Name": "ContainerDefinition"
+                },
+                {
+                    "Name": "ContentTypes"
+                },
+                {
+                    "Name": "Conventions"
+                },
+                {
+                    "Name": "ConventionsBuilder"
+                },
+                {
+                    "Name": "ConversationId"
+                },
+                {
+                    "Name": "ConversationIdStrategyContext"
+                },
+                {
+                    "Name": "CorrelationContextExtensions"
+                },
+                {
+                    "Name": "CriticalError"
+                },
+                {
+                    "Name": "CriticalErrorContext"
+                },
+                {
+                    "Name": "CriticalTimeMonitoringConfig"
+                },
+                {
+                    "Name": "DataBusDefinition"
+                },
+                {
+                    "Name": "DataBusExtensions"
+                },
+                {
+                    "Name": "DataBusExtensions\u00601"
+                },
+                {
+                    "Name": "IDataBus"
+                },
+                {
+                    "Name": "IDataBusSerializer"
+                },
+                {
+                    "Name": "DataBusProperty\u00601"
+                },
+                {
+                    "Name": "DateTimeExtensions"
+                },
+                {
+                    "Name": "DefaultRecoverabilityPolicy"
+                },
+                {
+                    "Name": "DelayedConfig"
+                },
+                {
+                    "Name": "DelayDeliveryWith"
+                },
+                {
+                    "Name": "DelayedDeliveryConstraint"
+                },
+                {
+                    "Name": "DoNotDeliverBefore"
+                },
+                {
+                    "Name": "ExternalTimeoutManagerConfigurationExtensions"
+                },
+                {
+                    "Name": "DelayedDeliveryOptionExtensions"
+                },
+                {
+                    "Name": "DelayedRetriesSettings"
+                },
+                {
+                    "Name": "DelayedRetry"
+                },
+                {
+                    "Name": "DeliveryConstraint"
+                },
+                {
+                    "Name": "DeliveryConstraintContextExtensions"
+                },
+                {
+                    "Name": "DependencyLifecycle"
+                },
+                {
+                    "Name": "DiagnosticSettingsExtensions"
+                },
+                {
+                    "Name": "DistributionPolicy"
+                },
+                {
+                    "Name": "DistributionStrategyScope"
+                },
+                {
+                    "Name": "DurableMessagesConfig"
+                },
+                {
+                    "Name": "DurableMessagesConventionExtensions"
+                },
+                {
+                    "Name": "EncryptedValue"
+                },
+                {
+                    "Name": "Endpoint"
+                },
+                {
+                    "Name": "EndpointConfiguration"
+                },
+                {
+                    "Name": "EndpointConfigurationExtensions"
+                },
+                {
+                    "Name": "ErrorQueueSettings"
+                },
+                {
+                    "Name": "ExpressAttribute"
+                },
+                {
+                    "Name": "ContextBag"
+                },
+                {
+                    "Name": "ExtendableOptions"
+                },
+                {
+                    "Name": "ExtendableOptionsExtensions"
+                },
+                {
+                    "Name": "IExtendable"
+                },
+                {
+                    "Name": "ReadOnlyContextBag"
+                },
+                {
+                    "Name": "FailedConfig"
+                },
+                {
+                    "Name": "DelayedRetryMessage"
+                },
+                {
+                    "Name": "ErrorsNotifications"
+                },
+                {
+                    "Name": "FailedMessage"
+                },
+                {
+                    "Name": "FaultsHeaderKeys"
+                },
+                {
+                    "Name": "ImmediateRetryMessage"
+                },
+                {
+                    "Name": "Audit"
+                },
+                {
+                    "Name": "AutoSubscribe"
+                },
+                {
+                    "Name": "CriticalTimeMonitoring"
+                },
+                {
+                    "Name": "DataBus"
+                },
+                {
+                    "Name": "Feature"
+                },
+                {
+                    "Name": "FeatureConfigurationContext"
+                },
+                {
+                    "Name": "FeatureStartupTask"
+                },
+                {
+                    "Name": "FeatureState"
+                },
+                {
+                    "Name": "ForwardReceivedMessages"
+                },
+                {
+                    "Name": "InMemoryGatewayPersistence"
+                },
+                {
+                    "Name": "InMemoryOutboxPersistence"
+                },
+                {
+                    "Name": "InMemorySagaPersistence"
+                },
+                {
+                    "Name": "InMemorySubscriptionPersistence"
+                },
+                {
+                    "Name": "InMemoryTimeoutPersistence"
+                },
+                {
+                    "Name": "MessageDrivenSubscriptions"
+                },
+                {
+                    "Name": "Outbox"
+                },
+                {
+                    "Name": "ReceiveStatisticsPerformanceCounters"
+                },
+                {
+                    "Name": "SLAMonitoring"
+                },
+                {
+                    "Name": "Sagas"
+                },
+                {
+                    "Name": "Scheduler"
+                },
+                {
+                    "Name": "SettingsExtensions"
+                },
+                {
+                    "Name": "TimeoutManager"
+                },
+                {
+                    "Name": "FileShareDataBus"
+                },
+                {
+                    "Name": "IDeduplicateMessages"
+                },
+                {
+                    "Name": "HeaderOptionExtensions"
+                },
+                {
+                    "Name": "Headers"
+                },
+                {
+                    "Name": "HostInfoConfigurationExtensions"
+                },
+                {
+                    "Name": "HostInfoSettings"
+                },
+                {
+                    "Name": "AssemblyScanner"
+                },
+                {
+                    "Name": "AssemblyScannerResults"
+                },
+                {
+                    "Name": "SkippedFile"
+                },
+                {
+                    "Name": "HostInformation"
+                },
+                {
+                    "Name": "IAmStartedByMessages\u00601"
+                },
+                {
+                    "Name": "ICommand"
+                },
+                {
+                    "Name": "IConfigureHowToFindSagaWithMessage"
+                },
+                {
+                    "Name": "IContainSagaData"
+                },
+                {
+                    "Name": "ICriticalErrorContext"
+                },
+                {
+                    "Name": "IDataBusProperty"
+                },
+                {
+                    "Name": "IDistributionPolicy"
+                },
+                {
+                    "Name": "IEncryptionService"
+                },
+                {
+                    "Name": "IEndpointInstance"
+                },
+                {
+                    "Name": "IEvent"
+                },
+                {
+                    "Name": "IHandleMessages\u00601"
+                },
+                {
+                    "Name": "IHandleTimeouts\u00601"
+                },
+                {
+                    "Name": "IMessage"
+                },
+                {
+                    "Name": "IMessageCreator"
+                },
+                {
+                    "Name": "IMessageHandlerContext"
+                },
+                {
+                    "Name": "IMessageProcessingContext"
+                },
+                {
+                    "Name": "IMessageProcessingContextExtensions"
+                },
+                {
+                    "Name": "IMessageSession"
+                },
+                {
+                    "Name": "IMessageSessionExtensions"
+                },
+                {
+                    "Name": "INeedInitialization"
+                },
+                {
+                    "Name": "IPipelineContext"
+                },
+                {
+                    "Name": "IPipelineContextExtensions"
+                },
+                {
+                    "Name": "IStartableEndpoint"
+                },
+                {
+                    "Name": "IWantToRunBeforeConfigurationIsFinalized"
+                },
+                {
+                    "Name": "ImmediateConfig"
+                },
+                {
+                    "Name": "ImmediateDispatchOptionExtensions"
+                },
+                {
+                    "Name": "ImmediateRetriesSettings"
+                },
+                {
+                    "Name": "ImmediateRetry"
+                },
+                {
+                    "Name": "InMemoryOutboxSettingsExtensions"
+                },
+                {
+                    "Name": "InMemoryPersistence"
+                },
+                {
+                    "Name": "InstallConfigExtensions"
+                },
+                {
+                    "Name": "INeedToInstallSomething"
+                },
+                {
+                    "Name": "JsonSerializer"
+                },
+                {
+                    "Name": "JsonSerializerConfigurationExtensions"
+                },
+                {
+                    "Name": "LearningPersistence"
+                },
+                {
+                    "Name": "LearningSagaPersisterConfigurationExtensions"
+                },
+                {
+                    "Name": "LearningTransport"
+                },
+                {
+                    "Name": "LearningTransportConfigurationExtensions"
+                },
+                {
+                    "Name": "LoadMessageHandlersExtensions"
+                },
+                {
+                    "Name": "DefaultFactory"
+                },
+                {
+                    "Name": "ILog"
+                },
+                {
+                    "Name": "ILoggerFactory"
+                },
+                {
+                    "Name": "LogLevel"
+                },
+                {
+                    "Name": "LogManager"
+                },
+                {
+                    "Name": "LoggingFactoryDefinition"
+                },
+                {
+                    "Name": "LogicalAddress"
+                },
+                {
+                    "Name": "MessageCausationConfigurationExtensions"
+                },
+                {
+                    "Name": "MessageDeserializationException"
+                },
+                {
+                    "Name": "MessageDrivenSubscriptionsConfigExtensions"
+                },
+                {
+                    "Name": "MessageIdExtensions"
+                },
+                {
+                    "Name": "MessageIntentEnum"
+                },
+                {
+                    "Name": "IMessageMapper"
+                },
+                {
+                    "Name": "MessageMapper"
+                },
+                {
+                    "Name": "IMutateIncomingMessages"
+                },
+                {
+                    "Name": "IMutateIncomingTransportMessages"
+                },
+                {
+                    "Name": "IMutateOutgoingMessages"
+                },
+                {
+                    "Name": "IMutateOutgoingTransportMessages"
+                },
+                {
+                    "Name": "MutateIncomingMessageContext"
+                },
+                {
+                    "Name": "MutateIncomingTransportMessageContext"
+                },
+                {
+                    "Name": "MutateOutgoingMessageContext"
+                },
+                {
+                    "Name": "MutateOutgoingTransportMessageContext"
+                },
+                {
+                    "Name": "MutatorRegistrationExtensions"
+                },
+                {
+                    "Name": "MessageProcessingOptimizationExtensions"
+                },
+                {
+                    "Name": "MoveToError"
+                },
+                {
+                    "Name": "NonDurableDelivery"
+                },
+                {
+                    "Name": "Notifications"
+                },
+                {
+                    "Name": "IContainer"
+                },
+                {
+                    "Name": "IBuilder"
+                },
+                {
+                    "Name": "IConfigureComponents"
+                },
+                {
+                    "Name": "IOutboxStorage"
+                },
+                {
+                    "Name": "OutboxMessage"
+                },
+                {
+                    "Name": "OutboxSettings"
+                },
+                {
+                    "Name": "OutboxTransaction"
+                },
+                {
+                    "Name": "TransportOperation"
+                },
+                {
+                    "Name": "OutboxConfigExtensions"
+                },
+                {
+                    "Name": "PendingTransportOperations"
+                },
+                {
+                    "Name": "DiscardIfNotReceivedBefore"
+                },
+                {
+                    "Name": "CompletableSynchronizedStorageSession"
+                },
+                {
+                    "Name": "ISynchronizedStorage"
+                },
+                {
+                    "Name": "ISynchronizedStorageAdapter"
+                },
+                {
+                    "Name": "PersistenceDefinition"
+                },
+                {
+                    "Name": "SynchronizedStorageSession"
+                },
+                {
+                    "Name": "PersistenceConfig"
+                },
+                {
+                    "Name": "PersistenceExtensions"
+                },
+                {
+                    "Name": "PersistenceExtensions\u00601"
+                },
+                {
+                    "Name": "PersistenceExtensions\u00602"
+                },
+                {
+                    "Name": "Behavior\u00601"
+                },
+                {
+                    "Name": "ForkConnector\u00602"
+                },
+                {
+                    "Name": "IAuditContext"
+                },
+                {
+                    "Name": "IBatchDispatchContext"
+                },
+                {
+                    "Name": "IBehavior"
+                },
+                {
+                    "Name": "IBehaviorContext"
+                },
+                {
+                    "Name": "IBehavior\u00602"
+                },
+                {
+                    "Name": "IDispatchContext"
+                },
+                {
+                    "Name": "IForwardingContext"
+                },
+                {
+                    "Name": "IIncomingContext"
+                },
+                {
+                    "Name": "IIncomingLogicalMessageContext"
+                },
+                {
+                    "Name": "IIncomingPhysicalMessageContext"
+                },
+                {
+                    "Name": "IInvokeHandlerContext"
+                },
+                {
+                    "Name": "IOutgoingContext"
+                },
+                {
+                    "Name": "IOutgoingLogicalMessageContext"
+                },
+                {
+                    "Name": "IOutgoingPhysicalMessageContext"
+                },
+                {
+                    "Name": "IOutgoingPublishContext"
+                },
+                {
+                    "Name": "IOutgoingReplyContext"
+                },
+                {
+                    "Name": "IOutgoingSendContext"
+                },
+                {
+                    "Name": "IRoutingContext"
+                },
+                {
+                    "Name": "ISubscribeContext"
+                },
+                {
+                    "Name": "ITransportReceiveContext"
+                },
+                {
+                    "Name": "IUnsubscribeContext"
+                },
+                {
+                    "Name": "LogicalMessage"
+                },
+                {
+                    "Name": "LogicalMessageFactory"
+                },
+                {
+                    "Name": "MessageHandler"
+                },
+                {
+                    "Name": "OutgoingLogicalMessage"
+                },
+                {
+                    "Name": "PipelineSettings"
+                },
+                {
+                    "Name": "PipelineTerminator\u00601"
+                },
+                {
+                    "Name": "RegisterStep"
+                },
+                {
+                    "Name": "StageConnector\u00602"
+                },
+                {
+                    "Name": "StageForkConnector\u00603"
+                },
+                {
+                    "Name": "TransportMessageContextExtensions"
+                },
+                {
+                    "Name": "PublishOptions"
+                },
+                {
+                    "Name": "ReceivePipelineCompleted"
+                },
+                {
+                    "Name": "ReceivePipelineConfigExtensions"
+                },
+                {
+                    "Name": "ReceiveSettingsExtensions"
+                },
+                {
+                    "Name": "RecoverabilityAction"
+                },
+                {
+                    "Name": "RecoverabilityConfig"
+                },
+                {
+                    "Name": "RecoverabilityEndpointConfigurationExtensions"
+                },
+                {
+                    "Name": "RecoverabilitySettings"
+                },
+                {
+                    "Name": "RecoverabilitySettingsExtensions"
+                },
+                {
+                    "Name": "ReplyOptions"
+                },
+                {
+                    "Name": "RetryFailedSettings"
+                },
+                {
+                    "Name": "AddressTag"
+                },
+                {
+                    "Name": "DistributionContext"
+                },
+                {
+                    "Name": "DistributionStrategy"
+                },
+                {
+                    "Name": "EndpointInstance"
+                },
+                {
+                    "Name": "EndpointInstances"
+                },
+                {
+                    "Name": "IMessageDrivenSubscriptionTransport"
+                },
+                {
+                    "Name": "ConfigureMSMQDistributor"
+                },
+                {
+                    "Name": "PublisherAddress"
+                },
+                {
+                    "Name": "PublisherTableEntry"
+                },
+                {
+                    "Name": "Publishers"
+                },
+                {
+                    "Name": "MulticastAddressTag"
+                },
+                {
+                    "Name": "MulticastRoutingStrategy"
+                },
+                {
+                    "Name": "RouteTableEntry"
+                },
+                {
+                    "Name": "RoutingStrategy"
+                },
+                {
+                    "Name": "SingleInstanceRoundRobinDistributionStrategy"
+                },
+                {
+                    "Name": "UnicastAddressTag"
+                },
+                {
+                    "Name": "UnicastRoute"
+                },
+                {
+                    "Name": "UnicastRoutingStrategy"
+                },
+                {
+                    "Name": "UnicastRoutingTable"
+                },
+                {
+                    "Name": "RoutingFeatureSettingsExtensions"
+                },
+                {
+                    "Name": "RoutingOptionExtensions"
+                },
+                {
+                    "Name": "RoutingSettings"
+                },
+                {
+                    "Name": "RoutingSettingsExtensions"
+                },
+                {
+                    "Name": "RoutingSettings\u00601"
+                },
+                {
+                    "Name": "SLAMonitoringConfig"
+                },
+                {
+                    "Name": "Saga"
+                },
+                {
+                    "Name": "SagaPropertyMapper\u00601"
+                },
+                {
+                    "Name": "Saga\u00601"
+                },
+                {
+                    "Name": "ActiveSagaInstance"
+                },
+                {
+                    "Name": "IFindSagas\u00601"
+                },
+                {
+                    "Name": "IFinder"
+                },
+                {
+                    "Name": "IHandleSagaNotFound"
+                },
+                {
+                    "Name": "ISagaIdGenerator"
+                },
+                {
+                    "Name": "ISagaPersister"
+                },
+                {
+                    "Name": "SagaCorrelationProperty"
+                },
+                {
+                    "Name": "SagaFinderDefinition"
+                },
+                {
+                    "Name": "SagaIdGeneratorContext"
+                },
+                {
+                    "Name": "SagaMessage"
+                },
+                {
+                    "Name": "SagaMetadata"
+                },
+                {
+                    "Name": "SagaMetadataCollection"
+                },
+                {
+                    "Name": "ScheduleExtensions"
+                },
+                {
+                    "Name": "ScheduledTask"
+                },
+                {
+                    "Name": "SendOptions"
+                },
+                {
+                    "Name": "IMessageSerializer"
+                },
+                {
+                    "Name": "SerializationDefinition"
+                },
+                {
+                    "Name": "SerializationExtensions\u00601"
+                },
+                {
+                    "Name": "SerializationConfigExtensions"
+                },
+                {
+                    "Name": "SerializationContextExtensions"
+                },
+                {
+                    "Name": "ReadOnlySettings"
+                },
+                {
+                    "Name": "SettingsHolder"
+                },
+                {
+                    "Name": "SettingsExtensions"
+                },
+                {
+                    "Name": "StartupDiagnosticEntries"
+                },
+                {
+                    "Name": "StaticHeadersConfigExtensions"
+                },
+                {
+                    "Name": "StorageType"
+                },
+                {
+                    "Name": "SubscribeOptions"
+                },
+                {
+                    "Name": "RuntimeEnvironment"
+                },
+                {
+                    "Name": "TimeToBeReceivedAttribute"
+                },
+                {
+                    "Name": "TimeToBeReceivedConventionExtensions"
+                },
+                {
+                    "Name": "IPersistTimeouts"
+                },
+                {
+                    "Name": "IQueryTimeouts"
+                },
+                {
+                    "Name": "TimeoutData"
+                },
+                {
+                    "Name": "TimeoutsChunk"
+                },
+                {
+                    "Name": "TimeoutManagerConfiguration"
+                },
+                {
+                    "Name": "TimeoutManagerConfigurationExtensions"
+                },
+                {
+                    "Name": "ToSagaExpression\u00602"
+                },
+                {
+                    "Name": "DispatchConsistency"
+                },
+                {
+                    "Name": "ErrorContext"
+                },
+                {
+                    "Name": "ErrorHandleResult"
+                },
+                {
+                    "Name": "ICancelDeferredMessages"
+                },
+                {
+                    "Name": "ICreateQueues"
+                },
+                {
+                    "Name": "IDispatchMessages"
+                },
+                {
+                    "Name": "IManageSubscriptions"
+                },
+                {
+                    "Name": "IOutgoingTransportOperation"
+                },
+                {
+                    "Name": "IPushMessages"
+                },
+                {
+                    "Name": "IncomingMessage"
+                },
+                {
+                    "Name": "IncomingMessageExtensions"
+                },
+                {
+                    "Name": "LogicalAddressExtensions"
+                },
+                {
+                    "Name": "MessageContext"
+                },
+                {
+                    "Name": "MulticastTransportOperation"
+                },
+                {
+                    "Name": "OutboundRoutingPolicy"
+                },
+                {
+                    "Name": "OutboundRoutingType"
+                },
+                {
+                    "Name": "OutgoingMessage"
+                },
+                {
+                    "Name": "PushRuntimeSettings"
+                },
+                {
+                    "Name": "PushSettings"
+                },
+                {
+                    "Name": "QueueBindings"
+                },
+                {
+                    "Name": "StartupCheckResult"
+                },
+                {
+                    "Name": "TransportDefinition"
+                },
+                {
+                    "Name": "TransportInfrastructure"
+                },
+                {
+                    "Name": "TransportOperation"
+                },
+                {
+                    "Name": "TransportOperations"
+                },
+                {
+                    "Name": "TransportReceiveInfrastructure"
+                },
+                {
+                    "Name": "TransportSendInfrastructure"
+                },
+                {
+                    "Name": "TransportSubscriptionInfrastructure"
+                },
+                {
+                    "Name": "TransportTransaction"
+                },
+                {
+                    "Name": "UnicastTransportOperation"
+                },
+                {
+                    "Name": "TransportExtensions"
+                },
+                {
+                    "Name": "TransportExtensions\u00601"
+                },
+                {
+                    "Name": "TransportTransactionMode"
+                },
+                {
+                    "Name": "BuilderExtensions"
+                },
+                {
+                    "Name": "MessageEventArgs"
+                },
+                {
+                    "Name": "MessageHandlerRegistry"
+                },
+                {
+                    "Name": "MessageMetadata"
+                },
+                {
+                    "Name": "MessageMetadataRegistry"
+                },
+                {
+                    "Name": "MessagesEventArgs"
+                },
+                {
+                    "Name": "QueueNotFoundException"
+                },
+                {
+                    "Name": "IInitializableSubscriptionStorage"
+                },
+                {
+                    "Name": "ISubscriptionStorage"
+                },
+                {
+                    "Name": "Subscriber"
+                },
+                {
+                    "Name": "MessageType"
+                },
+                {
+                    "Name": "ControlMessageFactory"
+                },
+                {
+                    "Name": "IManageUnitsOfWork"
+                },
+                {
+                    "Name": "UnitOfWorkSettings"
+                },
+                {
+                    "Name": "UnitOfWorkSettingsExtensions"
+                },
+                {
+                    "Name": "UnsubscribeOptions"
+                },
+                {
+                    "Name": "UseDataBusExtensions"
+                },
+                {
+                    "Name": "UseTransportExtensions"
+                },
+                {
+                    "Name": "WireEncryptedString"
+                },
+                {
+                    "Name": "XmlSerializationExtensions"
+                },
+                {
+                    "Name": "XmlSerializer"
+                }
+            ]
+        }
+    ]
+}

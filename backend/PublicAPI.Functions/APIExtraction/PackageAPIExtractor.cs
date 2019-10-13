@@ -1,10 +1,7 @@
 ﻿namespace PublicAPI.APIExtraction
 {
-    using Mono.Cecil;
-    using System;
     using System.IO;
     using System.IO.Compression;
-    using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
 
@@ -13,6 +10,7 @@
         public async Task<PackageDetails> ExtractFromStream(Stream stream)
         {
             var packageDetails = new PackageDetails();
+            var assemblyApiExtractor = new AssemblyAPIExtractor();
 
             using var archive = new ZipArchive(stream);
 
@@ -29,13 +27,7 @@
 
                     memStream.Position = 0;
 
-                    using var assembly = AssemblyDefinition.ReadAssembly(memStream);
-
-                    var publicTypes = assembly.Modules.SelectMany(m => m.GetTypes())
-                        .Where(t => !t.IsNested && ShouldIncludeType(t))
-                        .OrderBy(t => t.FullName, StringComparer.Ordinal)
-                        .Select(ti => ConvertTypeInfoToPublicTypeDTO(ti))
-                        .ToList();
+                    var publicTypes = await assemblyApiExtractor.ExtractFromStream(memStream);
 
                     packageDetails.TargetFrameworks.Add(new TargetFramework
                     {
@@ -46,24 +38,6 @@
             }
 
             return packageDetails;
-        }
-
-        PublicType ConvertTypeInfoToPublicTypeDTO(TypeDefinition typeDefinition)
-        {
-            return new PublicType
-            {
-                Name = typeDefinition.Name
-            };
-        }
-
-        static bool ShouldIncludeType(TypeDefinition t)
-        {
-            return (t.IsPublic || t.IsNestedPublic || t.IsNestedFamily) && !IsCompilerGenerated(t);
-        }
-
-        static bool IsCompilerGenerated(IMemberDefinition m)
-        {
-            return m.CustomAttributes.Any(a => a.AttributeType.FullName == "System.Runtime.CompilerServices.CompilerGeneratedAttribute");
         }
     }
 }
