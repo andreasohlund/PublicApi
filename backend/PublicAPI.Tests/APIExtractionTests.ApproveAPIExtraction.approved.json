@@ -19,13 +19,25 @@
                 "Parameters": []
             },
             {
+                "Name": "PublicMethodWithOptionalParam",
+                "ReturnType": "System.Void",
+                "Parameters": [
+                    {
+                        "Name": "optionalParam",
+                        "Type": "System.Int32",
+                        "IsOptional": true,
+                        "Modifier": "none"
+                    }
+                ]
+            },
+            {
                 "Name": "PublicMethodWithOutParam",
                 "ReturnType": "System.Void",
                 "Parameters": [
                     {
                         "Name": "outParam",
                         "Type": "System.Object\u0026",
-                        "HasDefault": false,
+                        "IsOptional": false,
                         "Modifier": "out"
                     }
                 ]
@@ -37,7 +49,7 @@
                     {
                         "Name": "param",
                         "Type": "System.Object",
-                        "HasDefault": false,
+                        "IsOptional": false,
                         "Modifier": "none"
                     }
                 ]
@@ -49,7 +61,7 @@
                     {
                         "Name": "refParam",
                         "Type": "System.Object\u0026",
-                        "HasDefault": false,
+                        "IsOptional": false,
                         "Modifier": "ref"
                     }
                 ]

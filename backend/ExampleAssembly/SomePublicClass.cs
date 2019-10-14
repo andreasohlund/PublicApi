@@ -14,6 +14,10 @@
         {
         }
 
+        public void PublicMethodWithOptionalParam(int optionalParam = 1)
+        {
+        }
+
         public void A_ShouldSortPublicMethodsByName() { }
 
         void PrivateMethodShouldNotBeIncluded(){ }

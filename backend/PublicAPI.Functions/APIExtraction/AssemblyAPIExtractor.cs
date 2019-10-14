@@ -60,7 +60,7 @@
             {
                 Name = parameterDefinition.Name,
                 Type = parameterDefinition.ParameterType.FullName,
-                HasDefault = parameterDefinition.HasDefault
+                IsOptional = parameterDefinition.IsOptional
             };
 
             if (parameterDefinition.IsOut)
