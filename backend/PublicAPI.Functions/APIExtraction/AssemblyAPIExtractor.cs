@@ -42,11 +42,45 @@
 
         Method ConvertMethodDefinitionToMethod(MethodDefinition methodDefinition)
         {
-            return new Method
+            var method =  new Method
             {
                 Name = methodDefinition.Name,
                 ReturnType = methodDefinition.ReturnType.FullName
             };
+
+            method.Parameters = methodDefinition.Parameters.Select(p => ConvertParameterDefinitionToParameter(p))
+                .ToList();
+
+            return method;
+        }
+
+        Parameter ConvertParameterDefinitionToParameter(ParameterDefinition parameterDefinition)
+        {
+            var parameter = new Parameter
+            {
+                Name = parameterDefinition.Name,
+                Type = parameterDefinition.ParameterType.FullName,
+                HasDefault = parameterDefinition.HasDefault
+            };
+
+            if (parameterDefinition.IsOut)
+            {
+                parameter.Modifier = "out";
+            }
+            else if (parameterDefinition.ParameterType.IsByReference)
+            {
+                parameter.Modifier = "ref";
+            }
+            else if (parameterDefinition.CustomAttributes.Any(attribute =>attribute.AttributeType.FullName == typeof(ParamArrayAttribute).FullName))
+            {
+                parameter.Modifier = "params";
+            }
+            else
+            {
+                parameter.Modifier = "none";
+            }
+
+            return parameter;
         }
 
         static bool ShouldIncludeType(TypeDefinition t)

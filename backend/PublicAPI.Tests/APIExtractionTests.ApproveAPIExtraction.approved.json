@@ -5,15 +5,54 @@
         "Methods": [
             {
                 "Name": ".ctor",
-                "ReturnType": "System.Void"
+                "ReturnType": "System.Void",
+                "Parameters": []
             },
             {
                 "Name": "A_ShouldSortPublicMethodsByName",
-                "ReturnType": "System.Void"
+                "ReturnType": "System.Void",
+                "Parameters": []
             },
             {
                 "Name": "PublicMethod",
-                "ReturnType": "System.Void"
+                "ReturnType": "System.Void",
+                "Parameters": []
+            },
+            {
+                "Name": "PublicMethodWithOutParam",
+                "ReturnType": "System.Void",
+                "Parameters": [
+                    {
+                        "Name": "outParam",
+                        "Type": "System.Object\u0026",
+                        "HasDefault": false,
+                        "Modifier": "out"
+                    }
+                ]
+            },
+            {
+                "Name": "PublicMethodWithParam",
+                "ReturnType": "System.Void",
+                "Parameters": [
+                    {
+                        "Name": "param",
+                        "Type": "System.Object",
+                        "HasDefault": false,
+                        "Modifier": "none"
+                    }
+                ]
+            },
+            {
+                "Name": "PublicMethodWithRefParam",
+                "ReturnType": "System.Void",
+                "Parameters": [
+                    {
+                        "Name": "refParam",
+                        "Type": "System.Object\u0026",
+                        "HasDefault": false,
+                        "Modifier": "ref"
+                    }
+                ]
             }
         ]
     }

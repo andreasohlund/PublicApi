@@ -1,0 +1,5 @@
+﻿namespace ExampleAssembly
+{
+    class PrivateClassShouldNotBeIncluded
+    { }
+}
