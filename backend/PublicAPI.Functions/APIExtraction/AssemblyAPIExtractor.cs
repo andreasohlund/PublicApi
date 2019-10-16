@@ -31,8 +31,20 @@
                 Namespace = typeDefinition.Namespace
             };
 
-            type.Methods = typeDefinition.Methods
+            var publicProperties = typeDefinition.Properties.Where(p => (p.GetMethod?.IsPublic ?? false) || (p.SetMethod?.IsPublic ?? false))
+                .ToList();
+
+            type.Properties = publicProperties.Select(p => ConvertPropertyDefinitionToProperty(p))
+                .ToList();
+
+            var gettersAndSetters = publicProperties.Where(p => p.GetMethod != null)
+                .Select(p => p.GetMethod)
+                .Concat(publicProperties.Where(p => p.SetMethod != null).Select(p => p.SetMethod))
                 .Where(m => m.IsPublic)
+                .ToList();
+
+            type.Methods = typeDefinition.Methods
+                .Where(m => m.IsPublic && !gettersAndSetters.Contains(m))
                 .OrderBy(m => m.Name, StringComparer.Ordinal)
                 .Select(m => ConvertMethodDefinitionToMethod(m))
                 .ToList();
@@ -40,9 +52,22 @@
             return type;
         }
 
+        Property ConvertPropertyDefinitionToProperty(PropertyDefinition propertyDefinition)
+        {
+            var property = new Property
+            {
+                Name = propertyDefinition.Name,
+                Type = propertyDefinition.PropertyType.FullName,
+                HasGetter = propertyDefinition.GetMethod?.IsPublic ?? false,
+                HasSetter = propertyDefinition.SetMethod?.IsPublic ?? false
+            };
+
+            return property;
+        }
+
         Method ConvertMethodDefinitionToMethod(MethodDefinition methodDefinition)
         {
-            var method =  new Method
+            var method = new Method
             {
                 Name = methodDefinition.Name,
                 ReturnType = methodDefinition.ReturnType.FullName
@@ -71,7 +96,7 @@
             {
                 parameter.Modifier = "ref";
             }
-            else if (parameterDefinition.CustomAttributes.Any(attribute =>attribute.AttributeType.FullName == typeof(ParamArrayAttribute).FullName))
+            else if (parameterDefinition.CustomAttributes.Any(attribute => attribute.AttributeType.FullName == typeof(ParamArrayAttribute).FullName))
             {
                 parameter.Modifier = "params";
             }

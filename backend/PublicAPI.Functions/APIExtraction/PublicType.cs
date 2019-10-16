@@ -7,5 +7,6 @@ namespace PublicAPI.APIExtraction
         public string Name { get; set; }
         public string Namespace { get; set; }
         public List<Method> Methods { get; set; }
+        public List<Property> Properties { get; set; }
     }
 }

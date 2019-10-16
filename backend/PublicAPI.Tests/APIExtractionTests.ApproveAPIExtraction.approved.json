@@ -66,6 +66,26 @@
                     }
                 ]
             }
+        ],
+        "Properties": [
+            {
+                "Name": "GetSetProperty",
+                "Type": "System.Int32",
+                "HasGetter": true,
+                "HasSetter": true
+            },
+            {
+                "Name": "GetOnlyProperty",
+                "Type": "System.Int32",
+                "HasGetter": true,
+                "HasSetter": false
+            },
+            {
+                "Name": "SetOnlyProperty",
+                "Type": "System.Int32",
+                "HasGetter": false,
+                "HasSetter": true
+            }
         ]
     }
 ]

@@ -1,4 +1,6 @@
-﻿namespace ExampleAssembly
+﻿using System;
+
+namespace ExampleAssembly
 {
     public class SomePublicClass
     {
@@ -6,7 +8,8 @@
 
         public void PublicMethodWithRefParam(ref object refParam) { }
 
-        public void PublicMethodWithOutParam(out object outParam) {
+        public void PublicMethodWithOutParam(out object outParam)
+        {
             outParam = null;
         }
 
@@ -20,6 +23,14 @@
 
         public void A_ShouldSortPublicMethodsByName() { }
 
-        void PrivateMethodShouldNotBeIncluded(){ }
+        public int GetSetProperty { get; set; }
+
+        public int GetOnlyProperty { get; }
+
+        public int SetOnlyProperty { set { throw new NotImplementedException(); } }
+
+        void NonPublicMethodShouldNotBeIncluded() { }
+
+        int NonPublicPropertyShouldNotBeIncluded { get; set; }
     }
 }
