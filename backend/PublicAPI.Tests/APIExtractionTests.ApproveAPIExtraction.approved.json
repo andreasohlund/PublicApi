@@ -7,7 +7,8 @@
         "Fields": [],
         "IsInterface": true,
         "Implements": [],
-        "BaseType": null
+        "BaseType": null,
+        "IsStatic": false
     },
     {
         "Name": "ISomeOtherInterface",
@@ -17,7 +18,8 @@
         "Fields": [],
         "IsInterface": true,
         "Implements": [],
-        "BaseType": null
+        "BaseType": null,
+        "IsStatic": false
     },
     {
         "Name": "SomeBaseClass",
@@ -26,14 +28,16 @@
             {
                 "Name": ".ctor",
                 "ReturnType": "System.Void",
-                "Parameters": []
+                "Parameters": [],
+                "IsStatic": false
             }
         ],
         "Properties": [],
         "Fields": [],
         "IsInterface": false,
         "Implements": [],
-        "BaseType": "System.Object"
+        "BaseType": "System.Object",
+        "IsStatic": false
     },
     {
         "Name": "SomePublicAttribute",
@@ -42,14 +46,16 @@
             {
                 "Name": ".ctor",
                 "ReturnType": "System.Void",
-                "Parameters": []
+                "Parameters": [],
+                "IsStatic": false
             }
         ],
         "Properties": [],
         "Fields": [],
         "IsInterface": false,
         "Implements": [],
-        "BaseType": "System.Attribute"
+        "BaseType": "System.Attribute",
+        "IsStatic": false
     },
     {
         "Name": "SomePublicClass",
@@ -58,17 +64,20 @@
             {
                 "Name": ".ctor",
                 "ReturnType": "System.Void",
-                "Parameters": []
+                "Parameters": [],
+                "IsStatic": false
             },
             {
                 "Name": "A_ShouldSortPublicMethodsByName",
                 "ReturnType": "System.Void",
-                "Parameters": []
+                "Parameters": [],
+                "IsStatic": false
             },
             {
                 "Name": "PublicMethod",
                 "ReturnType": "System.Void",
-                "Parameters": []
+                "Parameters": [],
+                "IsStatic": false
             },
             {
                 "Name": "PublicMethodWithOptionalParam",
@@ -80,7 +89,8 @@
                         "IsOptional": true,
                         "Modifier": "none"
                     }
-                ]
+                ],
+                "IsStatic": false
             },
             {
                 "Name": "PublicMethodWithOutParam",
@@ -92,7 +102,8 @@
                         "IsOptional": false,
                         "Modifier": "out"
                     }
-                ]
+                ],
+                "IsStatic": false
             },
             {
                 "Name": "PublicMethodWithParam",
@@ -104,7 +115,8 @@
                         "IsOptional": false,
                         "Modifier": "none"
                     }
-                ]
+                ],
+                "IsStatic": false
             },
             {
                 "Name": "PublicMethodWithRefParam",
@@ -116,7 +128,14 @@
                         "IsOptional": false,
                         "Modifier": "ref"
                     }
-                ]
+                ],
+                "IsStatic": false
+            },
+            {
+                "Name": "StaticPublicMethod",
+                "ReturnType": "System.Void",
+                "Parameters": [],
+                "IsStatic": true
             }
         ],
         "Properties": [
@@ -124,25 +143,41 @@
                 "Name": "GetSetProperty",
                 "Type": "System.Int32",
                 "HasGetter": true,
-                "HasSetter": true
+                "HasSetter": true,
+                "IsStatic": false
+            },
+            {
+                "Name": "StaticProperty",
+                "Type": "System.Int32",
+                "HasGetter": true,
+                "HasSetter": true,
+                "IsStatic": true
             },
             {
                 "Name": "GetOnlyProperty",
                 "Type": "System.Int32",
                 "HasGetter": true,
-                "HasSetter": false
+                "HasSetter": false,
+                "IsStatic": false
             },
             {
                 "Name": "SetOnlyProperty",
                 "Type": "System.Int32",
                 "HasGetter": false,
-                "HasSetter": true
+                "HasSetter": true,
+                "IsStatic": false
             }
         ],
         "Fields": [
             {
                 "Name": "PublicField",
-                "Type": "System.Int32"
+                "Type": "System.Int32",
+                "IsStatic": false
+            },
+            {
+                "Name": "StaticField",
+                "Type": "System.Int32",
+                "IsStatic": true
             }
         ],
         "IsInterface": false,
@@ -150,6 +185,18 @@
             "ExampleAssembly.ISomeInterface",
             "ExampleAssembly.ISomeOtherInterface"
         ],
-        "BaseType": "ExampleAssembly.SomeBaseClass"
+        "BaseType": "ExampleAssembly.SomeBaseClass",
+        "IsStatic": false
+    },
+    {
+        "Name": "SomeStaticClass",
+        "Namespace": "ExampleAssembly",
+        "Methods": [],
+        "Properties": [],
+        "Fields": [],
+        "IsInterface": false,
+        "Implements": [],
+        "BaseType": "System.Object",
+        "IsStatic": true
     }
 ]

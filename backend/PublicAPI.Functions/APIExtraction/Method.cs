@@ -9,5 +9,6 @@ namespace PublicAPI.APIExtraction
         public string ReturnType { get; set; }
 
         public List<Parameter> Parameters { get; set; }
+        public bool IsStatic { get; set; }
     }
 }

@@ -6,6 +6,8 @@ namespace ExampleAssembly
     {
         public void PublicMethod() { }
 
+        public static void StaticPublicMethod() { }
+
         public void PublicMethodWithRefParam(ref object refParam) { }
 
         public void PublicMethodWithOutParam(out object outParam)
@@ -25,11 +27,15 @@ namespace ExampleAssembly
 
         public int GetSetProperty { get; set; }
 
+        public static int StaticProperty { get; set; }
+
         public int GetOnlyProperty { get; }
 
         public int SetOnlyProperty { set { throw new NotImplementedException(); } }
 
         public int PublicField;
+
+        public static int StaticField;
 
         void NonPublicMethodShouldNotBeIncluded() { }
 
@@ -49,4 +55,9 @@ namespace ExampleAssembly
     public class SomeBaseClass
     {
     }
+
+    public static class SomeStaticClass
+    {
+    }
+
 }

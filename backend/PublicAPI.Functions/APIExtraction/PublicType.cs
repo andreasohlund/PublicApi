@@ -12,5 +12,6 @@ namespace PublicAPI.APIExtraction
         public bool IsInterface { get; set; }
         public List<string> Implements { get; set; }
         public string BaseType { get; internal set; }
+        public bool IsStatic { get; internal set; }
     }
 }

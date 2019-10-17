@@ -30,6 +30,7 @@
                 Name = typeDefinition.Name,
                 Namespace = typeDefinition.Namespace,
                 IsInterface = typeDefinition.IsInterface,
+                IsStatic = typeDefinition.IsClass && typeDefinition.IsSealed && typeDefinition.IsAbstract,
                 BaseType = typeDefinition.BaseType?.FullName,
                 Implements = typeDefinition.Interfaces.Select(i=>i.InterfaceType.FullName).ToList()
             };
@@ -66,7 +67,8 @@
             return new Field
             {
                 Name = fieldDefinition.Name,
-                Type = fieldDefinition.FieldType.FullName
+                Type = fieldDefinition.FieldType.FullName,
+                IsStatic = fieldDefinition.IsStatic
             };
         }
 
@@ -80,6 +82,16 @@
                 HasSetter = propertyDefinition.SetMethod?.IsPublic ?? false
             };
 
+            if (property.HasGetter)
+            {
+                property.IsStatic = propertyDefinition.GetMethod.IsStatic;
+            }
+
+            if (property.HasSetter)
+            {
+                property.IsStatic = propertyDefinition.SetMethod.IsStatic;
+            }
+
             return property;
         }
 
@@ -88,7 +100,8 @@
             var method = new Method
             {
                 Name = methodDefinition.Name,
-                ReturnType = methodDefinition.ReturnType.FullName
+                ReturnType = methodDefinition.ReturnType.FullName,
+                IsStatic = methodDefinition.IsStatic
             };
 
             method.Parameters = methodDefinition.Parameters.Select(p => ConvertParameterDefinitionToParameter(p))
