@@ -1,5 +1,57 @@
 ﻿[
     {
+        "Name": "ISomeInterface",
+        "Namespace": "ExampleAssembly",
+        "Methods": [],
+        "Properties": [],
+        "Fields": [],
+        "IsInterface": true,
+        "Implements": [],
+        "BaseType": null
+    },
+    {
+        "Name": "ISomeOtherInterface",
+        "Namespace": "ExampleAssembly",
+        "Methods": [],
+        "Properties": [],
+        "Fields": [],
+        "IsInterface": true,
+        "Implements": [],
+        "BaseType": null
+    },
+    {
+        "Name": "SomeBaseClass",
+        "Namespace": "ExampleAssembly",
+        "Methods": [
+            {
+                "Name": ".ctor",
+                "ReturnType": "System.Void",
+                "Parameters": []
+            }
+        ],
+        "Properties": [],
+        "Fields": [],
+        "IsInterface": false,
+        "Implements": [],
+        "BaseType": "System.Object"
+    },
+    {
+        "Name": "SomePublicAttribute",
+        "Namespace": "ExampleAssembly",
+        "Methods": [
+            {
+                "Name": ".ctor",
+                "ReturnType": "System.Void",
+                "Parameters": []
+            }
+        ],
+        "Properties": [],
+        "Fields": [],
+        "IsInterface": false,
+        "Implements": [],
+        "BaseType": "System.Attribute"
+    },
+    {
         "Name": "SomePublicClass",
         "Namespace": "ExampleAssembly",
         "Methods": [
@@ -86,6 +138,18 @@
                 "HasGetter": false,
                 "HasSetter": true
             }
-        ]
+        ],
+        "Fields": [
+            {
+                "Name": "PublicField",
+                "Type": "System.Int32"
+            }
+        ],
+        "IsInterface": false,
+        "Implements": [
+            "ExampleAssembly.ISomeInterface",
+            "ExampleAssembly.ISomeOtherInterface"
+        ],
+        "BaseType": "ExampleAssembly.SomeBaseClass"
     }
 ]

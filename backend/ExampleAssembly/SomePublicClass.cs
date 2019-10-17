@@ -2,7 +2,7 @@
 
 namespace ExampleAssembly
 {
-    public class SomePublicClass
+    public class SomePublicClass : SomeBaseClass, ISomeInterface, ISomeOtherInterface
     {
         public void PublicMethod() { }
 
@@ -36,5 +36,17 @@ namespace ExampleAssembly
         int NonPublicPropertyShouldNotBeIncluded { get; set; }
 
         int NonPublicFieldShouldNotBeIncluded;
+    }
+
+    public interface ISomeOtherInterface
+    {
+    }
+
+    public interface ISomeInterface
+    {
+    }
+
+    public class SomeBaseClass
+    {
     }
 }

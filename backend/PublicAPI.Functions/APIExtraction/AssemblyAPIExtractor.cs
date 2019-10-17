@@ -28,7 +28,10 @@
             var type = new PublicType
             {
                 Name = typeDefinition.Name,
-                Namespace = typeDefinition.Namespace
+                Namespace = typeDefinition.Namespace,
+                IsInterface = typeDefinition.IsInterface,
+                BaseType = typeDefinition.BaseType?.FullName,
+                Implements = typeDefinition.Interfaces.Select(i=>i.InterfaceType.FullName).ToList()
             };
 
             var publicProperties = typeDefinition.Properties.Where(p => (p.GetMethod?.IsPublic ?? false) || (p.SetMethod?.IsPublic ?? false))

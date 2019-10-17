@@ -9,5 +9,8 @@ namespace PublicAPI.APIExtraction
         public List<Method> Methods { get; set; }
         public List<Property> Properties { get; set; }
         public List<Field> Fields { get; set; }
+        public bool IsInterface { get; set; }
+        public List<string> Implements { get; set; }
+        public string BaseType { get; internal set; }
     }
 }
