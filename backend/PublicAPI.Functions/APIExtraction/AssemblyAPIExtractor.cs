@@ -49,7 +49,22 @@
                 .Select(m => ConvertMethodDefinitionToMethod(m))
                 .ToList();
 
+            type.Fields = typeDefinition.Fields
+                .Where(f => f.IsPublic)
+                .OrderBy(f => f.Name, StringComparer.Ordinal)
+                .Select(f => ConvertFieldDefinitionToField(f))
+                .ToList();
+
             return type;
+        }
+
+        Field ConvertFieldDefinitionToField(FieldDefinition fieldDefinition)
+        {
+            return new Field
+            {
+                Name = fieldDefinition.Name,
+                Type = fieldDefinition.FieldType.FullName
+            };
         }
 
         Property ConvertPropertyDefinitionToProperty(PropertyDefinition propertyDefinition)

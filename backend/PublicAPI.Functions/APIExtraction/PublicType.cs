@@ -8,5 +8,6 @@ namespace PublicAPI.APIExtraction
         public string Namespace { get; set; }
         public List<Method> Methods { get; set; }
         public List<Property> Properties { get; set; }
+        public List<Field> Fields { get; set; }
     }
 }

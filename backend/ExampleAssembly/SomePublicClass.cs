@@ -29,8 +29,12 @@ namespace ExampleAssembly
 
         public int SetOnlyProperty { set { throw new NotImplementedException(); } }
 
+        public int PublicField;
+
         void NonPublicMethodShouldNotBeIncluded() { }
 
         int NonPublicPropertyShouldNotBeIncluded { get; set; }
+
+        int NonPublicFieldShouldNotBeIncluded;
     }
 }
