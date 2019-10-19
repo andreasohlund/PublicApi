@@ -5,8 +5,10 @@ namespace PublicAPI.Functions
     using Microsoft.Extensions.Logging;
     using PublicAPI.APIExtraction;
     using PublicAPI.Messages;
+    using System;
     using System.Linq;
     using System.Net.Http;
+    using System.Text.Json;
     using System.Threading.Tasks;
 
     public class ExtractPackageAPIHandler
@@ -22,12 +24,15 @@ namespace PublicAPI.Functions
         {
             var packageId = message.PackageId;
             var version = message.PackageVersion;
+            var extractor = new PackageAPIExtractor();
+
 
             if (!message.HasDotNetAssemblies)
             {
                 log.LogInformation($"{packageId}({version}) has no assemblies");
 
-                //TODO: write to blob
+                await StorePackageApi(packageId, version, extractor.Version, new PackageDetails());
+
                 return;
             }
 
@@ -39,13 +44,26 @@ namespace PublicAPI.Functions
             var response = await httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
-            var extractor = new PackageAPIExtractor();
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
 
             var packageDetails = await extractor.ExtractFromStream(responseStream);
 
-            log.LogInformation(string.Join(";", packageDetails.TargetFrameworks.Select(fx => fx.Name)));
+            await StorePackageApi(packageId, version, extractor.Version, packageDetails);
+        }
+
+        Task StorePackageApi(string packageId, string version, string schemaVersion, PackageDetails packageDetails)
+        {
+            var container = blobClient.GetContainerReference("packages");
+
+            var packageBlob = container.GetBlockBlobReference($"{packageId.ToLower()}/{version.ToLower()}");
+
+            packageBlob.Properties.ContentType = "text/json";
+            packageBlob.Metadata["schemaversion"] = schemaVersion;
+
+            var content = JsonSerializer.Serialize(packageDetails);
+
+            return packageBlob.UploadTextAsync(content);
         }
 
         HttpClient httpClient;

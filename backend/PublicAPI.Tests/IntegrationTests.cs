@@ -32,7 +32,8 @@
             var message = new ExtractPackageAPI
             {
                 PackageId = package,
-                PackageVersion = version
+                PackageVersion = version,
+                HasDotNetAssemblies = true
             };
 
             await function.Run(message, new TestLogger());
