@@ -22,6 +22,7 @@ namespace PublicAPI.Functions
         }
 
         [FunctionName("IndexNuGetPackages")]
+        [Disable("DisableIndexNuGetPackages")]
         public async Task Run([TimerTrigger("0 */1 * * * *")]TimerInfo myTimer, ILogger log, [Queue("extract-package-api", Connection = "AzureWebJobsStorage")]IAsyncCollector<ExtractPackageAPI> collector)
         {
             var catalogCursor = await GetCatalogCursor();
