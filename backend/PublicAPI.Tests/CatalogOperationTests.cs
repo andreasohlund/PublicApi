@@ -39,7 +39,7 @@ namespace PublicAPI.Tests
             Assert.AreEqual(29774, packageMetadata.Size);
             Assert.AreEqual(3, packageMetadata.PackageEntries.Count);
             Assert.NotNull(packageMetadata.PackageEntries.Single(pe => pe.FullName == "lib/net35/TransmitSms.dll"));
-            Assert.True(packageMetadata.HasNetAssemblies);
+            Assert.True(packageMetadata.HasDotNetAssemblies);
         }
     }
 }

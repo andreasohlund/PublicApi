@@ -44,7 +44,7 @@ namespace PublicAPI.Functions
 
             var packageMetadata = await ReadPackageMetadata(catalogPage, catalogCursor.CommitTimeStamp);
 
-            var packagesWithNetFxAsms = packageMetadata.Where(p => p.HasNetAssemblies).ToList();
+            var packagesWithNetFxAsms = packageMetadata.Where(p => p.HasDotNetAssemblies).ToList();
 
 
             log.LogInformation($"Metadata read for page {nextPageToProcess.Id}: ");
@@ -53,9 +53,11 @@ namespace PublicAPI.Functions
 
             foreach (var package in packageMetadata)
             {
-                await collector.AddAsync(new ExtractPackageAPI {
+                await collector.AddAsync(new ExtractPackageAPI
+                {
                     PackageId = package.Id,
-                    PackageVersion = package.Version
+                    PackageVersion = package.Version,
+                    HasDotNetAssemblies = package.HasDotNetAssemblies
                 });
             }
 

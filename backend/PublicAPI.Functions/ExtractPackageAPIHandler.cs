@@ -23,6 +23,15 @@ namespace PublicAPI.Functions
             var packageId = message.PackageId;
             var version = message.PackageVersion;
 
+            if (!message.HasDotNetAssemblies)
+            {
+                log.LogInformation($"{packageId}({version}) has no assemblies");
+
+                //TODO: write to blob
+                return;
+            }
+
+
             log.LogInformation($"Extracting api from {packageId}({version})");
 
             var url = $"https://api.nuget.org/v3-flatcontainer/{packageId}/{version}/{packageId}.{version}.nupkg";

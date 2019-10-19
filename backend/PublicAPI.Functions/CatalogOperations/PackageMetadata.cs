@@ -22,7 +22,7 @@
         [JsonPropertyName("packageEntries")]
         public List<PackageEntry> PackageEntries { get; set; }
 
-        public bool HasNetAssemblies
+        public bool HasDotNetAssemblies
         {
             get
             {
