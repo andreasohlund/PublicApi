@@ -28,6 +28,24 @@ namespace PublicAPI.Functions
             var version = message.PackageVersion;
             var extractor = new PackageAPIExtractor();
 
+            var container = blobClient.GetContainerReference("packages");
+
+            var packageBlob = container.GetBlockBlobReference($"{packageId.ToLower()}/{version.ToLower()}");
+
+
+            if (await packageBlob.ExistsAsync())
+            {
+                await packageBlob.FetchAttributesAsync();
+
+                var schemaversion = packageBlob.Metadata["schemaversion"];
+
+                if (Version.Parse(extractor.Version) <= Version.Parse(schemaversion))
+                {
+                    log.LogInformation($"API for {packageId}({version}) already generated with schema version {extractor.Version}");
+
+                    return;
+                }
+            }
 
             if (!message.HasDotNetAssemblies)
             {

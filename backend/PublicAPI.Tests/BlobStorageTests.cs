@@ -42,6 +42,7 @@
             Assert.AreEqual("test", entityFromStorage.MyProperty);
         }
 
+
         class SomeEntity
         {
             public string MyProperty { get; set; }

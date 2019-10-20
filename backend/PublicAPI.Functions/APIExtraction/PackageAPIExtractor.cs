@@ -7,7 +7,7 @@
 
     public class PackageAPIExtractor
     {
-        public string Version { get; } = "0.1.0";
+        public string Version { get; } = "0.2.0";
 
         public async Task<PackageDetails> ExtractFromStream(Stream stream)
         {
