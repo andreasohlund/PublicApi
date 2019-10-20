@@ -6,6 +6,8 @@ namespace PublicAPI.Functions
     using PublicAPI.APIExtraction;
     using PublicAPI.Messages;
     using System;
+    using System.IO;
+    using System.IO.Compression;
     using System.Linq;
     using System.Net.Http;
     using System.Text.Json;
@@ -52,18 +54,25 @@ namespace PublicAPI.Functions
             await StorePackageApi(packageId, version, extractor.Version, packageDetails);
         }
 
-        Task StorePackageApi(string packageId, string version, string schemaVersion, PackageDetails packageDetails)
+        async Task StorePackageApi(string packageId, string version, string schemaVersion, PackageDetails packageDetails)
         {
             var container = blobClient.GetContainerReference("packages");
 
             var packageBlob = container.GetBlockBlobReference($"{packageId.ToLower()}/{version.ToLower()}");
 
+            packageBlob.Properties.ContentEncoding = "gzip";
             packageBlob.Properties.ContentType = "text/json";
             packageBlob.Metadata["schemaversion"] = schemaVersion;
 
-            var content = JsonSerializer.Serialize(packageDetails);
+            using var blobStream = new MemoryStream();
+            using var gZipStream = new GZipStream(blobStream, CompressionMode.Compress, true);
 
-            return packageBlob.UploadTextAsync(content);
+            await JsonSerializer.SerializeAsync(gZipStream,packageDetails);
+
+            gZipStream.Close();
+            blobStream.Position = 0;
+
+            await packageBlob.UploadFromStreamAsync(blobStream);
         }
 
         HttpClient httpClient;
