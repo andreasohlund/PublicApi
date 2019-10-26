@@ -51,7 +51,8 @@ namespace PublicAPI.Functions
             log.LogInformation($"Packages with dotnet assemblies: {packagesWithNetFxAsms.Count} ({packageMetadata.Count()})");
             log.LogInformation($"Total download size(MB): {packagesWithNetFxAsms.Sum(p => p.Size) / 1000000.0}");
 
-            foreach (var package in packageMetadata)
+            //todo: for now take 1
+            foreach (var package in packageMetadata.Take(1))
             {
                 await collector.AddAsync(new ExtractPackageAPI
                 {

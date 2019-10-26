@@ -8,6 +8,7 @@ namespace PublicAPI.Functions
     using System;
     using System.IO;
     using System.IO.Compression;
+    using System.Linq;
     using System.Net.Http;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace PublicAPI.Functions
         public async Task Run([QueueTrigger("extract-package-api", Connection = "AzureWebJobsStorage")]ExtractPackageAPI message, ILogger log)
         {
             var packageId = message.PackageId;
-            var version = message.PackageVersion;
+            var version = message.PackageVersion.Split("+").First();//remove the semver build info part of present
             var extractor = new PackageAPIExtractor();
 
             var container = blobClient.GetContainerReference("packages");
