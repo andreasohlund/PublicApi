@@ -1,1 +1,9 @@
-﻿ 
+﻿{
+    "TargetFrameworks": [
+        {
+            "Name": "native",
+            "PublicTypes": [],
+            "HasNativeLibs": true
+        }
+    ]
+}
