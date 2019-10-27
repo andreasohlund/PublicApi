@@ -1,7 +1,9 @@
 ﻿namespace PublicAPI.APIExtraction
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.IO.Compression;
+    using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
 
@@ -29,13 +31,31 @@
 
                     memStream.Position = 0;
 
-                    var publicTypes = await assemblyApiExtractor.ExtractFromStream(memStream);
+                    var tfm = path.Split("/")[1].ToLower();
 
-                    packageDetails.TargetFrameworks.Add(new TargetFramework
+                    var targetFramework = packageDetails.TargetFrameworks.SingleOrDefault(tf => tf.Name == tfm);
+
+                    if (targetFramework == null)
                     {
-                        Name = path.Split("/")[1],
-                        PublicTypes = publicTypes
-                    });
+                        targetFramework = new TargetFramework
+                        {
+                            Name = tfm,
+                            PublicTypes = new List<PublicType>()
+                        };
+
+                        packageDetails.TargetFrameworks.Add(targetFramework);
+                    }
+
+                    try
+                    {
+                        var publicTypes = await assemblyApiExtractor.ExtractFromStream(memStream);
+
+                        targetFramework.PublicTypes.AddRange(publicTypes);
+                    }
+                    catch (System.BadImageFormatException)
+                    {
+                        targetFramework.HasNativeLibs = true;
+                    }
                 }
             }
 

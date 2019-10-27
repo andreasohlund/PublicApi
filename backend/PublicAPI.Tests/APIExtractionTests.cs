@@ -50,5 +50,26 @@ namespace PublicAPI.Tests
 
             Approvals.VerifyJson(JsonSerializer.Serialize(packageDetails));
         }
+
+        [Test]
+        public async Task ApprovePackageWithNativeLibs()
+        {
+            var packageId = "boost_contract-vc110";
+            var version = "1.71.0";
+
+            var httpClient = new HttpClient();
+            var url = $"https://api.nuget.org/v3-flatcontainer/{packageId}/{version}/{packageId}.{version}.nupkg";
+
+            var response = await httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            var extractor = new PackageAPIExtractor();
+
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+
+            var packageDetails = await extractor.ExtractFromStream(responseStream);
+
+            Approvals.VerifyJson(JsonSerializer.Serialize(packageDetails));
+        }
     }
 }

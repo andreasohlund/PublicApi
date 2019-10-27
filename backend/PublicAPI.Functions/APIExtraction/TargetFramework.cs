@@ -6,5 +6,6 @@
     {
         public string Name { get; set; }
         public List<PublicType> PublicTypes { get; set; }
+        public bool HasNativeLibs { get; set; }
     }
 }
