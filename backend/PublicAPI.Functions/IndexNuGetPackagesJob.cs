@@ -22,7 +22,7 @@ namespace PublicAPI.Functions
         }
 
         [FunctionName("IndexNuGetPackages")]
-        [Disable("DisableIndexNuGetPackages")]
+        [Disable("DisableScheduleJobs")]
         public async Task Run([TimerTrigger("0 */15 * * * *")]TimerInfo myTimer, ILogger log, [Queue("extract-package-api", Connection = "AzureWebJobsStorage")]IAsyncCollector<ExtractPackageAPI> collector)
         {
             var catalogCursor = await GetCatalogCursor();
@@ -34,7 +34,14 @@ namespace PublicAPI.Functions
             var catalogIndexPages = catalogIndex.Items.Where(p => p.CommitTimeStamp > catalogCursor.CommitTimeStamp)
                 .ToList();
 
-            var nextPageToProcess = catalogIndexPages.OrderBy(p => p.CommitTimeStamp).First();
+            var nextPageToProcess = catalogIndexPages.OrderBy(p => p.CommitTimeStamp).FirstOrDefault();
+
+            if (nextPageToProcess == null)
+            {
+                log.LogInformation($"Index parsed, no new pages found");
+
+                return;
+            }
 
             log.LogInformation($"Index parsed, {catalogIndexPages.Count} found, processing page {nextPageToProcess.Id} ({nextPageToProcess.CommitTimeStamp})");
 

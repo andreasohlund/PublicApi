@@ -1,8 +1,8 @@
 ﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
+using Microsoft.Azure.Storage.Queue;
 using Microsoft.Extensions.DependencyInjection;
-//using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
 
@@ -21,8 +21,7 @@ namespace PublicAPI.Functions
 
             builder.Services.AddSingleton(s => storageAccount);
             builder.Services.AddSingleton(s => s.GetService<CloudStorageAccount>().CreateCloudBlobClient());
-
-            //builder.Services.AddSingleton<ILoggerProvider, Nu>();
+            builder.Services.AddSingleton(s => s.GetService<CloudStorageAccount>().CreateCloudQueueClient());
         }
     }
 }
