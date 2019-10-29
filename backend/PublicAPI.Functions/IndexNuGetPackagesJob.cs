@@ -51,15 +51,8 @@ namespace PublicAPI.Functions
 
             var packageMetadata = await ReadPackageMetadata(catalogPage, catalogCursor.CommitTimeStamp);
 
-            var packagesWithNetFxAsms = packageMetadata.Where(p => p.HasDotNetAssemblies).ToList();
-
-
-            log.LogInformation($"Metadata read for page {nextPageToProcess.Id}: ");
-            log.LogInformation($"Packages with dotnet assemblies: {packagesWithNetFxAsms.Count} ({packageMetadata.Count()})");
-            log.LogInformation($"Total download size(MB): {packagesWithNetFxAsms.Sum(p => p.Size) / 1000000.0}");
-
-            //todo: for now take 10
-            foreach (var package in packageMetadata.Take(10))
+            //todo: for now take 50
+            foreach (var package in packageMetadata.Take(50))
             {
                 await collector.AddAsync(new ExtractPackageAPI
                 {
@@ -101,9 +94,7 @@ namespace PublicAPI.Functions
             return await JsonSerializer.DeserializeAsync<CatalogCursor>(readStream);
         }
 
-        public async Task<IEnumerable<PackageMetadata>> ReadPackageMetadata(CatalogPage catalogPage,
-            //, [EnumeratorCancellation] CancellationToken cancellationToken = default
-            DateTime previousCommitTimeStamp)
+        public async Task<IEnumerable<PackageMetadata>> ReadPackageMetadata(CatalogPage catalogPage, DateTime previousCommitTimeStamp)
         {
             var tasks = new List<Task<PackageMetadata>>();
 
@@ -111,18 +102,8 @@ namespace PublicAPI.Functions
 
             foreach (var item in catalogPage.Items.Where(p => p.IsNewPackage && p.CommitTimeStamp > previousCommitTimeStamp))
             {
-                tasks.Add(GetMetadataForPackage(item.Url, throttler
-                    //, cancellationToken
-                    ));
+                tasks.Add(GetMetadataForPackage(item.Url, throttler));
             }
-
-            //while (tasks.Count > 0)
-            //{
-            //    var done = await Task.WhenAny(tasks);
-            //    tasks.Remove(done);
-
-            //    yield return await done;
-            //}
 
             return await Task.WhenAll(tasks);
         }
