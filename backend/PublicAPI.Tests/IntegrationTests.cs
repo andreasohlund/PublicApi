@@ -2,9 +2,11 @@
 {
     using Microsoft.Azure.Storage;
     using Microsoft.Azure.Storage.Blob;
+    using Microsoft.Azure.Storage.Queue;
     using Microsoft.Azure.WebJobs.Extensions.Timers;
     using NUnit.Framework;
     using PublicAPI.Functions;
+    using PublicAPI.Functions.Operations;
     using PublicAPI.Messages;
     using System;
     using System.Linq;
@@ -22,6 +24,14 @@
             await function.Run(new Microsoft.Azure.WebJobs.TimerInfo(new FakeTimerSchedule(), new ScheduleStatus()), new TestLogger(), collector);
 
             Assert.True(collector.Items.Any());
+        }
+
+        [Test]
+        public async Task RetryPoisonMessages()
+        {
+            var function = new RetryPoisonMessagesJob(cloudQueueClient);
+
+            await function.Run(new Microsoft.Azure.WebJobs.TimerInfo(new FakeTimerSchedule(), new ScheduleStatus()), new TestLogger());
         }
 
 
@@ -47,10 +57,12 @@
             storageAccount = CloudStorageAccount.Parse(Environment.GetEnvironmentVariable("PublicAPI_UnitTestStorage", EnvironmentVariableTarget.User));
 
             cloudBlobClient = storageAccount.CreateCloudBlobClient();
+            cloudQueueClient = storageAccount.CreateCloudQueueClient();
         }
 
         CloudStorageAccount storageAccount;
         CloudBlobClient cloudBlobClient;
+        CloudQueueClient cloudQueueClient;
         HttpClient httpClient;
     }
 }
