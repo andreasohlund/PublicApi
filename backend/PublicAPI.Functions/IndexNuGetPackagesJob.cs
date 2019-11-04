@@ -51,8 +51,7 @@ namespace PublicAPI.Functions
 
             var packageMetadata = await ReadPackageMetadata(catalogPage, catalogCursor.CommitTimeStamp);
 
-            //todo: for now take 50
-            foreach (var package in packageMetadata.Take(50))
+            foreach (var package in packageMetadata)
             {
                 await collector.AddAsync(new ExtractPackageAPI
                 {
