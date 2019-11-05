@@ -1,5 +1,6 @@
 ﻿namespace PublicAPI.APIExtraction
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Compression;
@@ -20,8 +21,10 @@
 
             foreach (var entry in archive.Entries)
             {
-                var path = WebUtility.UrlDecode(entry.FullName).ToLower();
-                if (path.StartsWith("lib/") && path.EndsWith(".dll"))
+                var path = WebUtility.UrlDecode(entry.FullName);
+                if (path.StartsWith("lib/", StringComparison.InvariantCultureIgnoreCase) &&
+                    (path.EndsWith(".dll", StringComparison.InvariantCultureIgnoreCase) ||
+                    path.EndsWith(".exe", StringComparison.InvariantCultureIgnoreCase)))
                 {
                     using var asmStream = entry.Open();
                     using var memStream = new MemoryStream();
@@ -31,8 +34,9 @@
 
                     memStream.Position = 0;
 
-                    var tfm = path.Split("/")[1].ToLower();
-
+                    var parts = path.Split("/");
+                    var tfm = parts[1].ToLower();
+                    var assemblyName = parts.Last();
                     var targetFramework = packageDetails.TargetFrameworks.SingleOrDefault(tf => tf.Name == tfm);
 
                     if (targetFramework == null)
@@ -40,7 +44,7 @@
                         targetFramework = new TargetFramework
                         {
                             Name = tfm,
-                            PublicTypes = new List<PublicType>()
+                            Assemblies = new List<Assembly>()
                         };
 
                         packageDetails.TargetFrameworks.Add(targetFramework);
@@ -50,11 +54,21 @@
                     {
                         var publicTypes = await assemblyApiExtractor.ExtractFromStream(memStream);
 
-                        targetFramework.PublicTypes.AddRange(publicTypes);
+
+                        targetFramework.Assemblies.Add(new Assembly
+                        {
+                            Name = assemblyName,
+                            PublicTypes = publicTypes
+                        });
                     }
                     catch (System.BadImageFormatException)
                     {
-                        targetFramework.HasNativeLibs = true;
+                        targetFramework.Assemblies.Add(new Assembly
+                        {
+                            Name = assemblyName,
+                            PublicTypes = new List<PublicType>(),
+                            IsNative = true
+                        });
                     }
                 }
             }

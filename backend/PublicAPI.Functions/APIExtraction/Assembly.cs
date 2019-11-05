@@ -2,9 +2,10 @@
 {
     using System.Collections.Generic;
 
-    public class TargetFramework
+    public class Assembly
     {
         public string Name { get; set; }
-        public List<Assembly> Assemblies { get; set; }
+        public List<PublicType> PublicTypes { get; set; }
+        public bool IsNative { get; set; }
     }
 }

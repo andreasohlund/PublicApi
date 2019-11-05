@@ -32,7 +32,6 @@ namespace PublicAPI.Functions
 
             var packageBlob = container.GetBlockBlobReference($"{packageId.ToLower()}/{version.ToLower()}");
 
-
             if (await packageBlob.ExistsAsync())
             {
                 await packageBlob.FetchAttributesAsync();
@@ -55,9 +54,6 @@ namespace PublicAPI.Functions
 
                 return;
             }
-
-
-            log.LogInformation($"Extracting api from {packageId}({version})");
 
             var url = $"https://api.nuget.org/v3-flatcontainer/{packageId}/{version}/{packageId}.{version}.nupkg";
 
