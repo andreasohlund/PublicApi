@@ -9,18 +9,36 @@
 
     public class AssemblyAPIExtractor
     {
-        public Task<List<PublicType>> ExtractFromStream(Stream stream)
+        public Task<Assembly> ExtractFromStream(Stream stream)
         {
+            try
+            {
+                using var assembly = AssemblyDefinition.ReadAssembly(stream);
 
-            using var assembly = AssemblyDefinition.ReadAssembly(stream);
+                var publicTypes = assembly.Modules.SelectMany(m => m.GetTypes())
+               .Where(t => !t.IsNested && ShouldIncludeType(t))
+               .OrderBy(t => t.FullName, StringComparer.Ordinal)
+               .Select(ti => ConvertTypeInfoToPublicType(ti))
+               .ToList();
 
-            var publicTypes = assembly.Modules.SelectMany(m => m.GetTypes())
-                .Where(t => !t.IsNested && ShouldIncludeType(t))
-                .OrderBy(t => t.FullName, StringComparer.Ordinal)
-                .Select(ti => ConvertTypeInfoToPublicType(ti))
-                .ToList();
+                return Task.FromResult(new Assembly
+                {
+                    Name = assembly.Name.Name,
+                    Version = assembly.Name.Version.ToString(),
+                    PublicKey = assembly.Name.PublicKey,
+                    PublicTypes = publicTypes
+                });
+            }
+            catch (BadImageFormatException)
+            {
+                return Task.FromResult(new Assembly
+                {
+                    PublicTypes = new List<PublicType>(),
+                    IsNative = true
+                });
+            }
 
-            return Task.FromResult(publicTypes);
+
         }
 
         PublicType ConvertTypeInfoToPublicType(TypeDefinition typeDefinition)

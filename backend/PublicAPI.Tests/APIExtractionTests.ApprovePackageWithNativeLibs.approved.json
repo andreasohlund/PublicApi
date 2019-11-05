@@ -6,22 +6,30 @@
                 {
                     "Name": "boost_contract-vc110-mt-gd-x32-1_71.dll",
                     "PublicTypes": [],
-                    "IsNative": true
+                    "IsNative": true,
+                    "Version": null,
+                    "PublicKey": null
                 },
                 {
                     "Name": "boost_contract-vc110-mt-x32-1_71.dll",
                     "PublicTypes": [],
-                    "IsNative": true
+                    "IsNative": true,
+                    "Version": null,
+                    "PublicKey": null
                 },
                 {
                     "Name": "boost_contract-vc110-mt-gd-x64-1_71.dll",
                     "PublicTypes": [],
-                    "IsNative": true
+                    "IsNative": true,
+                    "Version": null,
+                    "PublicKey": null
                 },
                 {
                     "Name": "boost_contract-vc110-mt-x64-1_71.dll",
                     "PublicTypes": [],
-                    "IsNative": true
+                    "IsNative": true,
+                    "Version": null,
+                    "PublicKey": null
                 }
             ]
         }

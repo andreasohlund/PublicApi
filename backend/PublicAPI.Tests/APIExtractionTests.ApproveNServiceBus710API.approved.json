@@ -4,7 +4,7 @@
             "Name": "net452",
             "Assemblies": [
                 {
-                    "Name": "NServiceBus.Core.dll",
+                    "Name": "NServiceBus.Core",
                     "PublicTypes": [
                         {
                             "Name": "AddressMode",
@@ -18477,7 +18477,9 @@
                             "IsStatic": false
                         }
                     ],
-                    "IsNative": false
+                    "IsNative": false,
+                    "Version": "7.0.0.0",
+                    "PublicKey": "ACQAAASAAACUAAAABgIAAAAkAABSU0ExAAQAAAEAAQDd6WXmFy4BmsgsJjn/5JTdLn3RY0fDR2KgVzK0kuEQ8uTi4bXvLYXISMz7Zx7iCkfI0TdidnCNwwqQ/xEhtke6O3JZprw4OyA0k47w4nW1i5IDdaxgUHYXgSNpPGxPEzFmGmLroowkk4aFVjd4Dj/18jpthUcA6qaAPvSJB1E7kg=="
                 }
             ]
         },
@@ -18485,7 +18487,7 @@
             "Name": "netstandard2.0",
             "Assemblies": [
                 {
-                    "Name": "NServiceBus.Core.dll",
+                    "Name": "NServiceBus.Core",
                     "PublicTypes": [
                         {
                             "Name": "AddressMode",
@@ -36958,7 +36960,9 @@
                             "IsStatic": false
                         }
                     ],
-                    "IsNative": false
+                    "IsNative": false,
+                    "Version": "7.0.0.0",
+                    "PublicKey": "ACQAAASAAACUAAAABgIAAAAkAABSU0ExAAQAAAEAAQDd6WXmFy4BmsgsJjn/5JTdLn3RY0fDR2KgVzK0kuEQ8uTi4bXvLYXISMz7Zx7iCkfI0TdidnCNwwqQ/xEhtke6O3JZprw4OyA0k47w4nW1i5IDdaxgUHYXgSNpPGxPEzFmGmLroowkk4aFVjd4Dj/18jpthUcA6qaAPvSJB1E7kg=="
                 }
             ]
         }

@@ -52,6 +52,27 @@ namespace PublicAPI.Tests
         }
 
         [Test]
+        public async Task ApproveAutoMapper900API()
+        {
+            var packageId = "AutoMapper";
+            var version = "9.0.0";
+
+            var httpClient = new HttpClient();
+            var url = $"https://api.nuget.org/v3-flatcontainer/{packageId}/{version}/{packageId}.{version}.nupkg";
+
+            var response = await httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            var extractor = new PackageAPIExtractor();
+
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+
+            var packageDetails = await extractor.ExtractFromStream(responseStream);
+
+            Approvals.VerifyJson(JsonSerializer.Serialize(packageDetails));
+        }
+
+        [Test]
         public async Task ApprovePackageWithNativeLibs()
         {
             var packageId = "boost_contract-vc110";

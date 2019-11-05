@@ -36,7 +36,6 @@
 
                     var parts = path.Split("/");
                     var tfm = parts[1].ToLower();
-                    var assemblyName = parts.Last();
                     var targetFramework = packageDetails.TargetFrameworks.SingleOrDefault(tf => tf.Name == tfm);
 
                     if (targetFramework == null)
@@ -50,26 +49,16 @@
                         packageDetails.TargetFrameworks.Add(targetFramework);
                     }
 
-                    try
-                    {
-                        var publicTypes = await assemblyApiExtractor.ExtractFromStream(memStream);
+                    var assembly = await assemblyApiExtractor.ExtractFromStream(memStream);
 
-
-                        targetFramework.Assemblies.Add(new Assembly
-                        {
-                            Name = assemblyName,
-                            PublicTypes = publicTypes
-                        });
-                    }
-                    catch (System.BadImageFormatException)
+                    if (assembly.Name == null)
                     {
-                        targetFramework.Assemblies.Add(new Assembly
-                        {
-                            Name = assemblyName,
-                            PublicTypes = new List<PublicType>(),
-                            IsNative = true
-                        });
+                        var assemblyName = parts.Last();
+
+                        assembly.Name = assemblyName;
                     }
+
+                    targetFramework.Assemblies.Add(assembly);
                 }
             }
 

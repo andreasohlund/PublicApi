@@ -1,202 +1,208 @@
-﻿[
-    {
-        "Name": "ISomeInterface",
-        "Namespace": "ExampleAssembly",
-        "Methods": [],
-        "Properties": [],
-        "Fields": [],
-        "IsInterface": true,
-        "Implements": [],
-        "BaseType": null,
-        "IsStatic": false
-    },
-    {
-        "Name": "ISomeOtherInterface",
-        "Namespace": "ExampleAssembly",
-        "Methods": [],
-        "Properties": [],
-        "Fields": [],
-        "IsInterface": true,
-        "Implements": [],
-        "BaseType": null,
-        "IsStatic": false
-    },
-    {
-        "Name": "SomeBaseClass",
-        "Namespace": "ExampleAssembly",
-        "Methods": [
-            {
-                "Name": ".ctor",
-                "ReturnType": "System.Void",
-                "Parameters": [],
-                "IsStatic": false
-            }
-        ],
-        "Properties": [],
-        "Fields": [],
-        "IsInterface": false,
-        "Implements": [],
-        "BaseType": "System.Object",
-        "IsStatic": false
-    },
-    {
-        "Name": "SomePublicAttribute",
-        "Namespace": "ExampleAssembly",
-        "Methods": [
-            {
-                "Name": ".ctor",
-                "ReturnType": "System.Void",
-                "Parameters": [],
-                "IsStatic": false
-            }
-        ],
-        "Properties": [],
-        "Fields": [],
-        "IsInterface": false,
-        "Implements": [],
-        "BaseType": "System.Attribute",
-        "IsStatic": false
-    },
-    {
-        "Name": "SomePublicClass",
-        "Namespace": "ExampleAssembly",
-        "Methods": [
-            {
-                "Name": ".ctor",
-                "ReturnType": "System.Void",
-                "Parameters": [],
-                "IsStatic": false
-            },
-            {
-                "Name": "A_ShouldSortPublicMethodsByName",
-                "ReturnType": "System.Void",
-                "Parameters": [],
-                "IsStatic": false
-            },
-            {
-                "Name": "PublicMethod",
-                "ReturnType": "System.Void",
-                "Parameters": [],
-                "IsStatic": false
-            },
-            {
-                "Name": "PublicMethodWithOptionalParam",
-                "ReturnType": "System.Void",
-                "Parameters": [
-                    {
-                        "Name": "optionalParam",
-                        "Type": "System.Int32",
-                        "IsOptional": true,
-                        "Modifier": "none"
-                    }
-                ],
-                "IsStatic": false
-            },
-            {
-                "Name": "PublicMethodWithOutParam",
-                "ReturnType": "System.Void",
-                "Parameters": [
-                    {
-                        "Name": "outParam",
-                        "Type": "System.Object\u0026",
-                        "IsOptional": false,
-                        "Modifier": "out"
-                    }
-                ],
-                "IsStatic": false
-            },
-            {
-                "Name": "PublicMethodWithParam",
-                "ReturnType": "System.Void",
-                "Parameters": [
-                    {
-                        "Name": "param",
-                        "Type": "System.Object",
-                        "IsOptional": false,
-                        "Modifier": "none"
-                    }
-                ],
-                "IsStatic": false
-            },
-            {
-                "Name": "PublicMethodWithRefParam",
-                "ReturnType": "System.Void",
-                "Parameters": [
-                    {
-                        "Name": "refParam",
-                        "Type": "System.Object\u0026",
-                        "IsOptional": false,
-                        "Modifier": "ref"
-                    }
-                ],
-                "IsStatic": false
-            },
-            {
-                "Name": "StaticPublicMethod",
-                "ReturnType": "System.Void",
-                "Parameters": [],
-                "IsStatic": true
-            }
-        ],
-        "Properties": [
-            {
-                "Name": "GetSetProperty",
-                "Type": "System.Int32",
-                "HasGetter": true,
-                "HasSetter": true,
-                "IsStatic": false
-            },
-            {
-                "Name": "StaticProperty",
-                "Type": "System.Int32",
-                "HasGetter": true,
-                "HasSetter": true,
-                "IsStatic": true
-            },
-            {
-                "Name": "GetOnlyProperty",
-                "Type": "System.Int32",
-                "HasGetter": true,
-                "HasSetter": false,
-                "IsStatic": false
-            },
-            {
-                "Name": "SetOnlyProperty",
-                "Type": "System.Int32",
-                "HasGetter": false,
-                "HasSetter": true,
-                "IsStatic": false
-            }
-        ],
-        "Fields": [
-            {
-                "Name": "PublicField",
-                "Type": "System.Int32",
-                "IsStatic": false
-            },
-            {
-                "Name": "StaticField",
-                "Type": "System.Int32",
-                "IsStatic": true
-            }
-        ],
-        "IsInterface": false,
-        "Implements": [
-            "ExampleAssembly.ISomeInterface",
-            "ExampleAssembly.ISomeOtherInterface"
-        ],
-        "BaseType": "ExampleAssembly.SomeBaseClass",
-        "IsStatic": false
-    },
-    {
-        "Name": "SomeStaticClass",
-        "Namespace": "ExampleAssembly",
-        "Methods": [],
-        "Properties": [],
-        "Fields": [],
-        "IsInterface": false,
-        "Implements": [],
-        "BaseType": "System.Object",
-        "IsStatic": true
-    }
-]
+﻿{
+    "Name": "ExampleAssembly",
+    "PublicTypes": [
+        {
+            "Name": "ISomeInterface",
+            "Namespace": "ExampleAssembly",
+            "Methods": [],
+            "Properties": [],
+            "Fields": [],
+            "IsInterface": true,
+            "Implements": [],
+            "BaseType": null,
+            "IsStatic": false
+        },
+        {
+            "Name": "ISomeOtherInterface",
+            "Namespace": "ExampleAssembly",
+            "Methods": [],
+            "Properties": [],
+            "Fields": [],
+            "IsInterface": true,
+            "Implements": [],
+            "BaseType": null,
+            "IsStatic": false
+        },
+        {
+            "Name": "SomeBaseClass",
+            "Namespace": "ExampleAssembly",
+            "Methods": [
+                {
+                    "Name": ".ctor",
+                    "ReturnType": "System.Void",
+                    "Parameters": [],
+                    "IsStatic": false
+                }
+            ],
+            "Properties": [],
+            "Fields": [],
+            "IsInterface": false,
+            "Implements": [],
+            "BaseType": "System.Object",
+            "IsStatic": false
+        },
+        {
+            "Name": "SomePublicAttribute",
+            "Namespace": "ExampleAssembly",
+            "Methods": [
+                {
+                    "Name": ".ctor",
+                    "ReturnType": "System.Void",
+                    "Parameters": [],
+                    "IsStatic": false
+                }
+            ],
+            "Properties": [],
+            "Fields": [],
+            "IsInterface": false,
+            "Implements": [],
+            "BaseType": "System.Attribute",
+            "IsStatic": false
+        },
+        {
+            "Name": "SomePublicClass",
+            "Namespace": "ExampleAssembly",
+            "Methods": [
+                {
+                    "Name": ".ctor",
+                    "ReturnType": "System.Void",
+                    "Parameters": [],
+                    "IsStatic": false
+                },
+                {
+                    "Name": "A_ShouldSortPublicMethodsByName",
+                    "ReturnType": "System.Void",
+                    "Parameters": [],
+                    "IsStatic": false
+                },
+                {
+                    "Name": "PublicMethod",
+                    "ReturnType": "System.Void",
+                    "Parameters": [],
+                    "IsStatic": false
+                },
+                {
+                    "Name": "PublicMethodWithOptionalParam",
+                    "ReturnType": "System.Void",
+                    "Parameters": [
+                        {
+                            "Name": "optionalParam",
+                            "Type": "System.Int32",
+                            "IsOptional": true,
+                            "Modifier": "none"
+                        }
+                    ],
+                    "IsStatic": false
+                },
+                {
+                    "Name": "PublicMethodWithOutParam",
+                    "ReturnType": "System.Void",
+                    "Parameters": [
+                        {
+                            "Name": "outParam",
+                            "Type": "System.Object\u0026",
+                            "IsOptional": false,
+                            "Modifier": "out"
+                        }
+                    ],
+                    "IsStatic": false
+                },
+                {
+                    "Name": "PublicMethodWithParam",
+                    "ReturnType": "System.Void",
+                    "Parameters": [
+                        {
+                            "Name": "param",
+                            "Type": "System.Object",
+                            "IsOptional": false,
+                            "Modifier": "none"
+                        }
+                    ],
+                    "IsStatic": false
+                },
+                {
+                    "Name": "PublicMethodWithRefParam",
+                    "ReturnType": "System.Void",
+                    "Parameters": [
+                        {
+                            "Name": "refParam",
+                            "Type": "System.Object\u0026",
+                            "IsOptional": false,
+                            "Modifier": "ref"
+                        }
+                    ],
+                    "IsStatic": false
+                },
+                {
+                    "Name": "StaticPublicMethod",
+                    "ReturnType": "System.Void",
+                    "Parameters": [],
+                    "IsStatic": true
+                }
+            ],
+            "Properties": [
+                {
+                    "Name": "GetSetProperty",
+                    "Type": "System.Int32",
+                    "HasGetter": true,
+                    "HasSetter": true,
+                    "IsStatic": false
+                },
+                {
+                    "Name": "StaticProperty",
+                    "Type": "System.Int32",
+                    "HasGetter": true,
+                    "HasSetter": true,
+                    "IsStatic": true
+                },
+                {
+                    "Name": "GetOnlyProperty",
+                    "Type": "System.Int32",
+                    "HasGetter": true,
+                    "HasSetter": false,
+                    "IsStatic": false
+                },
+                {
+                    "Name": "SetOnlyProperty",
+                    "Type": "System.Int32",
+                    "HasGetter": false,
+                    "HasSetter": true,
+                    "IsStatic": false
+                }
+            ],
+            "Fields": [
+                {
+                    "Name": "PublicField",
+                    "Type": "System.Int32",
+                    "IsStatic": false
+                },
+                {
+                    "Name": "StaticField",
+                    "Type": "System.Int32",
+                    "IsStatic": true
+                }
+            ],
+            "IsInterface": false,
+            "Implements": [
+                "ExampleAssembly.ISomeInterface",
+                "ExampleAssembly.ISomeOtherInterface"
+            ],
+            "BaseType": "ExampleAssembly.SomeBaseClass",
+            "IsStatic": false
+        },
+        {
+            "Name": "SomeStaticClass",
+            "Namespace": "ExampleAssembly",
+            "Methods": [],
+            "Properties": [],
+            "Fields": [],
+            "IsInterface": false,
+            "Implements": [],
+            "BaseType": "System.Object",
+            "IsStatic": true
+        }
+    ],
+    "IsNative": false,
+    "Version": "1.0.0.0",
+    "PublicKey": ""
+}
