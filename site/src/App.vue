@@ -1,13 +1,8 @@
 <template>
   <v-app id="inspire" dark>
-    <v-navigation-drawer
-      clipped
-      fixed
-      v-model="drawer"
-      app
-    >
+    <v-navigation-drawer clipped fixed v-model="drawer" app>
       <v-list dense>
-        <v-list-tile @click="">
+        <v-list-tile>
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
@@ -25,7 +20,7 @@
       <v-container fluid>
         <v-layout align-center justify-center row fill-height>
           <v-flex>
-             <router-view></router-view>
+            <router-view></router-view>
           </v-flex>
         </v-layout>
       </v-container>
@@ -40,7 +35,7 @@
 export default {
   name: "App",
   components: {
-//    PackageSelect
+    //    PackageSelect
   },
   data() {
     return {

@@ -22,9 +22,9 @@ export default {
   },
   props: ["id", "version"],
   mounted: function() {
-    let packageApiDetails = this.$packageApi
+    this.$packageApi
       .get(`${this.id}/${this.version}.json`)
-      .then(response => (packageDetails = response.data))
+      .then(response => (this.packageDetails = response.data))
       .catch(error => {
         if (error.response && error.response.status == 404) {
           this.needsindexing = true;
