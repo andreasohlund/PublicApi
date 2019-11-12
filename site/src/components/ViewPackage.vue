@@ -23,7 +23,7 @@ export default {
   props: ["id", "version"],
   mounted: function() {
     this.$packageApi
-      .get(`${this.id}/${this.version}.json`)
+      .get(`${this.id.toLowerCase()}/${this.version}`)
       .then(response => (this.packageDetails = response.data))
       .catch(error => {
         if (error.response && error.response.status == 404) {
