@@ -16,7 +16,7 @@
     </v-card-text>
     <v-divider></v-divider>
     <v-expand-transition>
-      <v-btn v-if="model" color="green darken-3" v-on:click="showPackage">Show</v-btn>
+      <v-btn v-if="model" color="green darken-3" v-on:click="showPackage">Select</v-btn>
     </v-expand-transition>
   </v-card>
 </template>

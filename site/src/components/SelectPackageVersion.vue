@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data: () => {
     return {
@@ -29,13 +31,18 @@ export default {
   },
   props: ["id"],
   mounted: function() {
-    this.$nugetPackageContent
-      .get(`${this.id.toLowerCase()}/index.json`)
-      .then(response => {
-        this.versions = response.data.versions
-          .filter(v => !v.includes("-"))
-          .reverse();
-      });
+    // this.$nugetPackageContent
+    //   .get(`${this.id.toLowerCase()}/index.json`)
+    //   .then(response => {
+    //     this.versions = response.data.versions
+    //       .filter(v => !v.includes("-"))
+    //       .reverse();
+    //   });
+    axios
+      .get(
+        `https://api-v2v3search-0.nuget.org/autocomplete?id=${this.id.toLowerCase()}&prerelease=true&semVerLevel=2.0.0`
+      )
+      .then(response => (this.versions = response.data.data.reverse()));
   },
   methods: {
     showPackage() {
