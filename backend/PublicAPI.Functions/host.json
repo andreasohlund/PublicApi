@@ -7,6 +7,9 @@
       "batchSize": 2,
       "maxDequeueCount": 5,
       "newBatchThreshold": 1
+    },
+    "http": {
+      "routePrefix": ""
     }
   }
 }
