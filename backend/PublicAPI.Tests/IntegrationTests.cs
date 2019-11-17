@@ -18,7 +18,7 @@
         [Test]
         public async Task IndexNuGetPackages()
         {
-            var collector = new TestCollector<ExtractPackageAPI>();
+            var collector = new TestCollector<Messages.ExtractPackageAPI>();
             var function = new IndexNuGetPackagesJob(httpClient, cloudBlobClient);
 
             await function.Run(new Microsoft.Azure.WebJobs.TimerInfo(new FakeTimerSchedule(), new ScheduleStatus()), new TestLogger(), collector);
@@ -39,7 +39,7 @@
         [TestCase("Xenko.Core.Design", "3.1.0.1-beta02-0752+ge8c8e4af")]
         public async Task ExtractPackageAPI(string package, string version)
         {
-            var function = new ExtractPackageAPIHandler(httpClient, cloudBlobClient);
+            var function = new ExtractPackageAPIFunctions(httpClient, cloudBlobClient);
             var message = new ExtractPackageAPI
             {
                 PackageId = package,

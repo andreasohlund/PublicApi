@@ -23,7 +23,7 @@ namespace PublicAPI.Functions
 
         [FunctionName("IndexNuGetPackages")]
         [Disable("DisableScheduleJobs")]
-        public async Task Run([TimerTrigger("0 */15 * * * *")]TimerInfo myTimer, ILogger log, [Queue("extract-package-api", Connection = "AzureWebJobsStorage")]IAsyncCollector<ExtractPackageAPI> collector)
+        public async Task Run([TimerTrigger("0 */15 * * * *")]TimerInfo myTimer, ILogger log, [Queue("extract-package-api", Connection = "AzureWebJobsStorage")]IAsyncCollector<Messages.ExtractPackageAPI> collector)
         {
             var catalogCursor = await GetCatalogCursor();
 
@@ -53,7 +53,7 @@ namespace PublicAPI.Functions
 
             foreach (var package in packageMetadata)
             {
-                await collector.AddAsync(new ExtractPackageAPI
+                await collector.AddAsync(new Messages.ExtractPackageAPI
                 {
                     PackageId = package.Id,
                     PackageVersion = package.Version,

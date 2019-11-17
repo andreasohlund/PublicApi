@@ -4,7 +4,8 @@ namespace PublicAPI.Functions
     using Microsoft.Azure.WebJobs;
     using Microsoft.Extensions.Logging;
     using PublicAPI.APIExtraction;
-    using PublicAPI.Messages;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Azure.WebJobs.Extensions.Http;
     using System;
     using System.IO;
     using System.IO.Compression;
@@ -12,20 +13,39 @@ namespace PublicAPI.Functions
     using System.Net.Http;
     using System.Text.Json;
     using System.Threading.Tasks;
+    using PublicAPI.Messages;
 
-    public class ExtractPackageAPIHandler
+    public class ExtractPackageAPIFunctions
     {
-        public ExtractPackageAPIHandler(HttpClient httpClient, CloudBlobClient blobClient)
+        public ExtractPackageAPIFunctions(HttpClient httpClient, CloudBlobClient blobClient)
         {
             this.httpClient = httpClient;
             this.blobClient = blobClient;
         }
 
-        [FunctionName("ExtractPackageAPI")]
-        public async Task Run([QueueTrigger("extract-package-api", Connection = "AzureWebJobsStorage")]ExtractPackageAPI message, ILogger log)
+        [FunctionName("GetPackageApi")]
+        public async Task<IActionResult> Get([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "packages/{package}/{version}")]HttpRequestMessage req,
+            string package,
+            string version,
+            ILogger log)
         {
-            var packageId = message.PackageId;
-            var version = message.PackageVersion.Split("+").First();//remove the semver build info part of present
+            var url = await ExtractPackage(package, version, false, log);
+
+            return new RedirectResult(url, true);
+        }
+
+        [FunctionName("ExtractPackageAPI")]
+        public async Task HandleMessage([QueueTrigger("extract-package-api", Connection = "AzureWebJobsStorage")]ExtractPackageAPI message, ILogger log)
+        {
+            var skipDownload = !message.HasDotNetAssemblies;
+
+            await ExtractPackage(message.PackageId, message.PackageVersion, skipDownload, log);
+        }
+
+        async Task<string> ExtractPackage(string packageId, string packageVersion, bool skipDownload, ILogger log)
+        {
+            var version = packageVersion.Split("+").First();//remove the semver build info part if present
+
             var extractor = new PackageAPIExtractor();
 
             var container = blobClient.GetContainerReference("packages");
@@ -42,17 +62,17 @@ namespace PublicAPI.Functions
                 {
                     log.LogInformation($"API for {packageId}({version}) already generated with schema version {extractor.Version}");
 
-                    return;
+                    return packageBlob.Uri.ToString();
                 }
             }
 
-            if (!message.HasDotNetAssemblies)
+            if (skipDownload)
             {
                 log.LogInformation($"{packageId}({version}) has no assemblies");
 
                 await StorePackageApi(packageId, version, extractor.Version, new PackageDetails());
 
-                return;
+                return packageBlob.Uri.ToString();
             }
 
             var url = $"https://api.nuget.org/v3-flatcontainer/{packageId}/{version}/{packageId}.{version}.nupkg";
@@ -60,12 +80,13 @@ namespace PublicAPI.Functions
             var response = await httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
-
             using var responseStream = await response.Content.ReadAsStreamAsync();
 
             var packageDetails = await extractor.ExtractFromStream(responseStream);
 
             await StorePackageApi(packageId, version, extractor.Version, packageDetails);
+
+            return packageBlob.Uri.ToString();
         }
 
         async Task StorePackageApi(string packageId, string version, string schemaVersion, PackageDetails packageDetails)
@@ -81,7 +102,7 @@ namespace PublicAPI.Functions
             using var blobStream = new MemoryStream();
             using var gZipStream = new GZipStream(blobStream, CompressionMode.Compress, true);
 
-            await JsonSerializer.SerializeAsync(gZipStream,packageDetails);
+            await JsonSerializer.SerializeAsync(gZipStream, packageDetails);
 
             gZipStream.Close();
             blobStream.Position = 0;
