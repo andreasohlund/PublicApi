@@ -47,7 +47,7 @@
                 HasDotNetAssemblies = true
             };
 
-            await function.Run(message, new TestLogger());
+            await function.HandleMessage(message, new TestLogger());
         }
 
         [OneTimeSetUp]
