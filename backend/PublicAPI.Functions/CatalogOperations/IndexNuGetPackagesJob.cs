@@ -53,7 +53,7 @@ namespace PublicAPI.Functions
 
             foreach (var package in packageMetadata)
             {
-                await collector.AddAsync(new Messages.ExtractPackageAPI
+                await collector.AddAsync(new ExtractPackageAPI
                 {
                     PackageId = package.Id,
                     PackageVersion = package.Version,
