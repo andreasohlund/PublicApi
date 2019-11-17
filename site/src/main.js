@@ -14,19 +14,27 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 
 Vue.use({
-    install (Vue) {
-    Vue.prototype.$packageApi = axios.create({
+  install(Vue) {
+    Vue.prototype.$storage = axios.create({
       baseURL: 'https://publicapi.blob.core.windows.net/packages'
     })
   }
 })
 
 Vue.use({
-  install (Vue) {
-  Vue.prototype.$nugetPackageContent = axios.create({
-    baseURL: 'https://api.nuget.org/v3-flatcontainer'
-  })
-}
+  install(Vue) {
+    Vue.prototype.$api = axios.create({
+      baseURL: 'https://api.publicapi.io'
+    })
+  }
+})
+
+Vue.use({
+  install(Vue) {
+    Vue.prototype.$nugetPackageContent = axios.create({
+      baseURL: 'https://api.nuget.org/v3-flatcontainer'
+    })
+  }
 })
 
 
@@ -34,7 +42,7 @@ const routes = [
   { path: '/', component: PackageSelect },
   { path: '/package/:id', component: SelectPackageVersion, name: 'selectversion', props: true },
   { path: '/package/:id/:version', component: ViewPackage, name: 'viewpackage', props: true },
-  
+
   //need to be last
   { path: '*', component: PageNotFound }
 ]
@@ -46,7 +54,7 @@ const router = new VueRouter({
 
 
 new Vue(
-{
-  router,
-  render: h => h(App)
-}).$mount('#app')
+  {
+    router,
+    render: h => h(App)
+  }).$mount('#app')
