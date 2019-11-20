@@ -1,28 +1,11 @@
 <template>
-  <v-app id="inspire" dark>
-    <v-navigation-drawer clipped fixed v-model="drawer" app>
-      <v-list dense>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Dashboard</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar app fixed clipped-left>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+  <v-app id="inspire">
+    <v-app-bar app>
       <v-toolbar-title>Public API</v-toolbar-title>
-    </v-toolbar>
+    </v-app-bar>
     <v-content>
       <v-container fluid>
-        <v-layout align-center justify-center row fill-height>
-          <v-flex>
-            <router-view></router-view>
-          </v-flex>
-        </v-layout>
+        <router-view></router-view>
       </v-container>
     </v-content>
     <v-footer app fixed>
@@ -34,9 +17,7 @@
 <script>
 export default {
   name: "App",
-  components: {
-    //    PackageSelect
-  },
+  components: {},
   data() {
     return {
       drawer: false

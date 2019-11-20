@@ -1,14 +1,26 @@
 <template>
-  <div>
-    <v-card>
-      <v-card-title class="headline lighten-3">{{ id }} - {{ version }}</v-card-title>
-      <v-card-text>This is the overview</v-card-text>
-    </v-card>
-    <v-card>
-      <v-card-title class="headline lighten-3">Target frameworks</v-card-title>
-      <view-api v-if="packageDetails" v-bind:packageDetails="packageDetails" />
-    </v-card>
-  </div>
+  <v-container fluid>
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-card-title class="headline lighten-3">{{ id }} - {{ version }}</v-card-title>
+          <v-card-text>This is the overview</v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-card-title class="headline lighten-3">Target frameworks</v-card-title>
+          <view-api v-if="packageDetails" v-bind:packageDetails="packageDetails" />
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+
+  <!-- <div>
+   
+  </div>-->
 </template>
 
 <script>

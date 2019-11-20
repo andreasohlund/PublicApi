@@ -10,6 +10,7 @@ import SelectPackageVersion from "./components/SelectPackageVersion"
 import ViewPackage from "./components/ViewPackage"
 import PageNotFound from "./components/PageNotFound"
 import PackageAPI from "./components/PackageAPI"
+import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -60,5 +61,6 @@ const router = new VueRouter({
 new Vue(
   {
     router,
+    vuetify,
     render: h => h(App)
   }).$mount('#app')
