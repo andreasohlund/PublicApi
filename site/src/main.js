@@ -9,14 +9,18 @@ import PackageSelect from "./components/PackageSelect"
 import SelectPackageVersion from "./components/SelectPackageVersion"
 import ViewPackage from "./components/ViewPackage"
 import PageNotFound from "./components/PageNotFound"
+import PackageAPI from "./components/PackageAPI"
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 
+// Register the constructor with id: my-component
+Vue.component('view-api', PackageAPI)
+
 Vue.use({
   install(Vue) {
     Vue.prototype.$storage = axios.create({
-      baseURL: 'https://publicapi.blob.core.windows.net/packages'
+      baseURL: 'https://storage.publicapi.io'
     })
   }
 })

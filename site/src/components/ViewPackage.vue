@@ -1,8 +1,12 @@
 <template>
   <div>
-    <v-card v-if="packageDetails">
+    <v-card>
       <v-card-title class="headline lighten-3">{{ id }} - {{ version }}</v-card-title>
-      <v-card-text>{{ packageDetails }}</v-card-text>
+      <v-card-text>This is the overview</v-card-text>
+    </v-card>
+    <v-card>
+      <v-card-title class="headline lighten-3">Target frameworks</v-card-title>
+      <view-api v-if="packageDetails" v-bind:packageDetails="packageDetails" />
     </v-card>
   </div>
 </template>
@@ -16,13 +20,15 @@ export default {
   },
   props: ["id", "version"],
   mounted: function() {
+    let url = `/packages/${this.id.toLowerCase()}/${this.version}`;
+
     this.$storage
-      .get(`${this.id.toLowerCase()}/${this.version}`)
+      .get(url)
       .then(response => (this.packageDetails = response.data))
       .catch(error => {
         if (error.response && error.response.status == 404) {
           this.$api
-            .get(`packages/${this.id.toLowerCase()}/${this.version}`)
+            .get(url)
             .then(response => (this.packageDetails = response.data));
 
           return;
