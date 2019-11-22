@@ -36,7 +36,10 @@ export default {
 
     this.$storage
       .get(url)
-      .then(response => (this.packageDetails = response.data))
+      .then(response => {
+        //TODO: x-ms-meta-schemaversion
+        this.packageDetails = response.data;
+      })
       .catch(error => {
         if (error.response && error.response.status == 404) {
           this.$api
