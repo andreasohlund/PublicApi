@@ -15,12 +15,12 @@
 
 <script>
 import PackageOverview from "./PackageOverview";
-import PackageAPI from "./PackageAPI";
+import PackageApi from "./PackageApi";
 
 export default {
   components: {
-    "package-overview": PackageOverview,
-    "package-api": PackageAPI
+    PackageOverview,
+    PackageApi
   },
   data: () => {
     return {
