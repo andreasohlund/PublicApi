@@ -22,14 +22,14 @@ export default {
     PackageOverview,
     PackageApi
   },
+  props: {
+    id: String,
+    version: String
+  },
   data: () => {
     return {
       packageDetails: null
     };
-  },
-  props: {
-    id: String,
-    version: String
   },
   mounted: function() {
     let url = `/packages/${this.id.toLowerCase()}/${this.version}`;
