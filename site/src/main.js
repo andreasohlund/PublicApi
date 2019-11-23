@@ -38,6 +38,13 @@ Vue.use({
   }
 })
 
+Vue.use({
+  install(Vue) {
+    Vue.prototype.$nugetPackageMetadata = axios.create({
+      baseURL: 'https://api.nuget.org/v3/registration3'
+    })
+  }
+})
 
 const routes = [
   { path: '/', component: PackageSelect },
