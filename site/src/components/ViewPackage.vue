@@ -1,26 +1,16 @@
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row dense>
       <v-col>
-        <v-card>
-          <v-card-title class="headline lighten-3">{{ id }} - {{ version }}</v-card-title>
-          <v-card-text>This is the overview</v-card-text>
-        </v-card>
+        <package-overview v-bind:id="id" v-bind:version="version" />
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <v-card>
-          <v-card-title class="headline lighten-3">Target frameworks</v-card-title>
-          <view-api v-if="packageDetails" v-bind:packageDetails="packageDetails" />
-        </v-card>
+        <view-api v-if="packageDetails" v-bind:packageDetails="packageDetails" />
       </v-col>
     </v-row>
   </v-container>
-
-  <!-- <div>
-   
-  </div>-->
 </template>
 
 <script>
@@ -30,10 +20,12 @@ export default {
       packageDetails: null
     };
   },
-  props: ["id", "version"],
+  props: {
+    id: String,
+    version: String
+  },
   mounted: function() {
     let url = `/packages/${this.id.toLowerCase()}/${this.version}`;
-
     this.$storage
       .get(url)
       .then(response => {
