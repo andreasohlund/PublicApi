@@ -7,14 +7,21 @@
     </v-row>
     <v-row>
       <v-col>
-        <view-api v-if="packageDetails" v-bind:packageDetails="packageDetails" />
+        <package-api v-if="packageDetails" v-bind:packageDetails="packageDetails" />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import PackageOverview from "./PackageOverview";
+import PackageAPI from "./PackageAPI";
+
 export default {
+  components: {
+    "package-overview": PackageOverview,
+    "package-api": PackageAPI
+  },
   data: () => {
     return {
       packageDetails: null

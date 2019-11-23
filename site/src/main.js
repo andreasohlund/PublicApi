@@ -9,15 +9,10 @@ import PackageSelect from "./components/PackageSelect"
 import SelectPackageVersion from "./components/SelectPackageVersion"
 import ViewPackage from "./components/ViewPackage"
 import PageNotFound from "./components/PageNotFound"
-import PackageAPI from "./components/PackageAPI"
-import PackageOverview from "./components/PackageOverview"
 import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
-
-Vue.component('view-api', PackageAPI)
-Vue.component('package-overview', PackageOverview)
 
 Vue.use({
   install(Vue) {
