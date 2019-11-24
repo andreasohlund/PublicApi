@@ -1,6 +1,5 @@
 <template>
   <v-card>
-    <v-card-title class="headline lighten-3">Explore the public API of your NuGet dependency</v-card-title>
     <v-card-text>
       <v-autocomplete
         v-model="model"
@@ -65,7 +64,8 @@ export default {
     },
     showPackage() {
       let id = this.model;
-      this.$router.push({ name: "selectversion", params: { id } });
+
+      this.$router.push({ name: "view-package", params: { id } });
     }
   }
 };

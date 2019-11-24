@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import axios from "axios";
 import App from './App.vue'
 import PackageSelect from "./components/PackageSelect"
-import SelectPackageVersion from "./components/SelectPackageVersion"
 import ViewPackage from "./components/ViewPackage"
 import PageNotFound from "./components/PageNotFound"
 import vuetify from './plugins/vuetify';
@@ -42,8 +41,8 @@ Vue.use({
 
 const routes = [
   { path: '/', component: PackageSelect },
-  { path: '/packages/:id', component: SelectPackageVersion, name: 'selectversion', props: true },
-  { path: '/packages/:id/:version', component: ViewPackage, name: 'viewpackage', props: true },
+  { path: '/packages/:id', component: ViewPackage, name: 'view-package', props: true },
+  { path: '/packages/:id/:version', component: ViewPackage, name: 'view-package-version', props: true },
 
   //need to be last
   { path: '*', component: PageNotFound }
