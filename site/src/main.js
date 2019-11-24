@@ -40,7 +40,7 @@ Vue.use({
 })
 
 const routes = [
-  { path: '/', component: PackageSelect },
+  { path: '/', component: PackageSelect, name: 'home' },
   { path: '/packages/:id', component: ViewPackage, name: 'view-package', props: true },
   { path: '/packages/:id/:version', component: ViewPackage, name: 'view-package-version', props: true },
 
