@@ -1,18 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import axios from "axios";
-import './plugins/vuetify'
 import App from './App.vue'
-
-
 import PackageSelect from "./components/PackageSelect"
 import SelectPackageVersion from "./components/SelectPackageVersion"
 import ViewPackage from "./components/ViewPackage"
 import PageNotFound from "./components/PageNotFound"
 import vuetify from './plugins/vuetify';
-
-Vue.config.productionTip = false
-Vue.use(VueRouter)
 
 Vue.use({
   install(Vue) {
@@ -60,7 +54,8 @@ const router = new VueRouter({
   routes
 })
 
-
+Vue.config.productionTip = false
+Vue.use(VueRouter)
 new Vue(
   {
     router,
