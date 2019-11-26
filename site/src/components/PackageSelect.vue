@@ -13,10 +13,6 @@
         :search-input.sync="search"
       ></v-autocomplete>
     </v-card-text>
-    <v-divider></v-divider>
-    <v-expand-transition>
-      <v-btn v-if="model" color="green darken-3" v-on:click="showPackage">Select</v-btn>
-    </v-expand-transition>
   </v-card>
 </template>
 
@@ -39,6 +35,9 @@ export default {
       if (query && (!this.select || this.select.text !== query)) {
         this.querySearch(query);
       }
+    },
+    model(packageId) {
+      this.$router.push({ name: "view-package", params: { id: packageId } });
     }
   },
   methods: {
@@ -61,11 +60,6 @@ export default {
         `https://api-v2v3search-0.nuget.org/autocomplete?q=${query}&prerelease=true&semVerLevel=2.0.0`,
         { cancelToken: this.apiSource.token }
       );
-    },
-    showPackage() {
-      let id = this.model;
-
-      this.$router.push({ name: "view-package", params: { id } });
     }
   }
 };
