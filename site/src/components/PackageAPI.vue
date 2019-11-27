@@ -9,9 +9,14 @@
       <v-expansion-panels multiple>
         <v-expansion-panel v-for="type in this.allTypes" v-bind:key="type.Id">
           <v-expansion-panel-header>
-            <div>
-              <span class="font-weight-bold">{{type.Name}}</span>
-            </div>
+            <span>
+              <v-badge v-model="type.HasWarnings" color="warning lighten-2">
+                <template v-slot:badge>
+                  <span>!</span>
+                </template>
+                <span class="font-weight-bold">{{type.Name}}</span>
+              </v-badge>
+            </span>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <!-- <span class="font-italic font-weight-light">{{type.Namespace}}.</span> -->
@@ -29,7 +34,8 @@ export default {
     return {
       namespaces: null,
       allTypes: null,
-      targetFrameworks: null
+      targetFrameworks: null,
+      show: false
     };
   },
   mounted: function() {
@@ -53,6 +59,7 @@ export default {
             type["Id"] = id;
             type["AvailableIn"] = new Set();
             types[id] = type;
+            type["HasWarnings"] = false;
 
             existingType = types[id];
           }
