@@ -10,11 +10,12 @@
         <v-expansion-panel v-for="type in this.allTypes" v-bind:key="type.Id">
           <v-expansion-panel-header>
             <div>
-              <span class="font-italic font-weight-light">{{type.Namespace}}.</span>
               <span class="font-weight-bold">{{type.Name}}</span>
             </div>
           </v-expansion-panel-header>
-          <v-expansion-panel-content>TODO</v-expansion-panel-content>
+          <v-expansion-panel-content>
+            <!-- <span class="font-italic font-weight-light">{{type.Namespace}}.</span> -->
+          </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
     </v-card-text>
@@ -65,9 +66,18 @@ export default {
       });
     });
 
-    // window.console.log(tfms);
-    // window.console.log(types);
-    this.allTypes = types;
+    this.allTypes = Object.values(types).sort(function(a, b) {
+      var nameA = a.Name;
+      var nameB = b.Name;
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      return 0;
+    });
     this.targetFrameworks = tfms;
     this.namespaces = namespaces;
   }
