@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title class="headline lighten-3">
-      Public types
+      Types
       <v-spacer></v-spacer>
       <v-chip outlined color="primary" v-for="tfm in this.targetFrameworks" v-bind:key="tfm">{{tfm}}</v-chip>
     </v-card-title>
