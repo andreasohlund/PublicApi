@@ -1,4 +1,7 @@
-﻿namespace PublicAPI.Functions.Operations
+﻿using System.Collections.Generic;
+using Microsoft.ApplicationInsights;
+
+namespace PublicAPI.Functions.Operations
 {
     using System;
     using System.Threading;
@@ -13,10 +16,11 @@
     public class StoreFailuresInBlobStorageProcessor : QueueProcessor
     {
         public StoreFailuresInBlobStorageProcessor(QueueProcessorFactoryContext context,
-            CloudBlobContainer failedMessageStorage) : base(context)
+            CloudBlobContainer failedMessageStorage, TelemetryClient telemetryClient) : base(context)
         {
             this.context = context;
             this.failedMessageStorage = failedMessageStorage;
+            this.telemetryClient = telemetryClient;
         }
 
         public async override Task CompleteProcessingMessageAsync(CloudQueueMessage message,
@@ -47,21 +51,27 @@
             await DeleteMessageAsync(message, cancellationToken);
         }
 
-        Task StoreFailedMessageDetails(CloudQueueMessage message, Exception exception)
+        async Task StoreFailedMessageDetails(CloudQueueMessage message, Exception exception)
         {
             var failedMessage = failedMessageStorage.GetBlockBlobReference(message.Id);
 
 
             failedMessage.Metadata.Add("queue", HttpUtility.UrlEncode(context.Queue.Name));
             failedMessage.Metadata.Add("message", HttpUtility.UrlEncode(exception.Message));
-            failedMessage.Metadata.Add("stacktrace", HttpUtility.UrlEncode(exception.StackTrace));
-            
+            failedMessage.Metadata.Add("stacktrace", HttpUtility.UrlEncode(exception.ToString()));
+
             failedMessage.Properties.ContentType = "text/json";
-           
-            return failedMessage.UploadTextAsync(message.AsString);
+
+            await failedMessage.UploadTextAsync(message.AsString);
+
+            telemetryClient.TrackEvent("MessageProcessingFailed", new Dictionary<string, string>
+            {
+                {"queue", context.Queue.Name}
+            });
         }
 
         readonly QueueProcessorFactoryContext context;
         readonly CloudBlobContainer failedMessageStorage;
+        readonly TelemetryClient telemetryClient;
     }
 }

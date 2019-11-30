@@ -14,6 +14,8 @@
                 <template v-slot:badge>
                   <span>!</span>
                 </template>
+                <v-icon v-if="type.IsInterface">mdi-alpha-i-box-outline</v-icon>
+                <v-icon v-if="!type.IsInterface">mdi-alpha-c-box-outline</v-icon>
                 <span class="font-weight-bold">{{type.Name}}</span>
               </v-badge>
             </span>

@@ -5,6 +5,7 @@ using Microsoft.Azure.Storage.Queue;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
+using Microsoft.ApplicationInsights;
 using Microsoft.Azure.WebJobs.Host.Queues;
 using PublicAPI.Functions.Operations;
 
@@ -12,14 +13,13 @@ using PublicAPI.Functions.Operations;
 
 namespace PublicAPI.Functions
 {
-
     public class Startup : FunctionsStartup
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
             var storageAccount = CloudStorageAccount.Parse(Environment.GetEnvironmentVariable("AzureWebJobsStorage", EnvironmentVariableTarget.Process));
 
-            builder.Services.AddSingleton<IQueueProcessorFactory>(sp => new QueueProcessorFactory(sp.GetService<CloudBlobClient>()));
+            builder.Services.AddSingleton<IQueueProcessorFactory>(sp => new QueueProcessorFactory(sp.GetService<CloudBlobClient>(), sp.GetService<TelemetryClient>()));
             builder.Services.AddSingleton(s => new HttpClient());
 
             builder.Services.AddSingleton(s => storageAccount);

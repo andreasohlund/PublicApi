@@ -26,15 +26,6 @@
             Assert.True(collector.Items.Any());
         }
 
-        [Test]
-        public async Task RetryPoisonMessages()
-        {
-            var function = new RetryPoisonMessagesJob(cloudQueueClient);
-
-            await function.Run(new Microsoft.Azure.WebJobs.TimerInfo(new FakeTimerSchedule(), new ScheduleStatus()), new TestLogger());
-        }
-
-
         [TestCase("NServiceBus", "7.1.0")]
         [TestCase("Xenko.Core.Design", "3.1.0.1-beta02-0752+ge8c8e4af")]
         public async Task ExtractPackageAPI(string package, string version)
