@@ -21,7 +21,7 @@
             </span>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <!-- <span class="font-italic font-weight-light">{{type.Namespace}}.</span> -->
+            <span class="font-italic font-weight-light">{{type.Namespace}}</span>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>

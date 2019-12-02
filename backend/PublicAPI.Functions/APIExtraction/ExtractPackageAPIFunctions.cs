@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace PublicAPI.Functions
 {
     using Microsoft.Azure.Storage.Blob;
@@ -14,37 +16,48 @@ namespace PublicAPI.Functions
     using System.Text.Json;
     using System.Threading.Tasks;
     using PublicAPI.Messages;
+    using Microsoft.ApplicationInsights;
 
     public class ExtractPackageAPIFunctions
     {
-        public ExtractPackageAPIFunctions(HttpClient httpClient, CloudBlobClient blobClient)
+        public ExtractPackageAPIFunctions(HttpClient httpClient, CloudBlobClient blobClient, TelemetryClient telemetryClient)
         {
             this.httpClient = httpClient;
             this.blobClient = blobClient;
+            this.telemetryClient = telemetryClient;
         }
 
         [FunctionName("GetPackageApi")]
         public async Task<IActionResult> Get([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "packages/{package}/{version}")]HttpRequestMessage req,
             string package,
-            string version,
-            ILogger log)
+            string version)
         {
-            var url = await ExtractPackage(package, version, false, log);
+            var telemetryProperties = new Dictionary<string, string> { { "source", "http" } };
+
+            var url = await ExtractPackage(package, version, false, telemetryProperties);
+
+            telemetryClient.TrackEvent("PackageExtraction", telemetryProperties);
 
             return new RedirectResult(url, true);
         }
 
         [FunctionName("ExtractPackageAPI")]
-        public async Task HandleMessage([QueueTrigger("extract-package-api", Connection = "AzureWebJobsStorage")]ExtractPackageAPI message, ILogger log)
+        public async Task HandleMessage([QueueTrigger("extract-package-api", Connection = "AzureWebJobsStorage")]ExtractPackageAPI message)
         {
             var skipDownload = !message.HasDotNetAssemblies;
+            var telemetryProperties = new Dictionary<string, string> { { "source", "queue" } };
 
-            await ExtractPackage(message.PackageId, message.PackageVersion, skipDownload, log);
+            await ExtractPackage(message.PackageId, message.PackageVersion, skipDownload, telemetryProperties);
+
+            telemetryClient.TrackEvent("PackageExtraction", telemetryProperties);
         }
 
-        async Task<string> ExtractPackage(string packageId, string packageVersion, bool skipDownload, ILogger log)
+        async Task<string> ExtractPackage(string packageId, string packageVersion, bool skipDownload, Dictionary<string, string> telemetryProperties)
         {
             var version = packageVersion.Split("+").First();//remove the semver build info part if present
+
+            telemetryProperties["package-id"] = packageId;
+            telemetryProperties["package-version"] = version;
 
             var extractor = new PackageAPIExtractor();
 
@@ -60,15 +73,17 @@ namespace PublicAPI.Functions
 
                 if (Version.Parse(extractor.Version) <= Version.Parse(schemaversion))
                 {
-                    log.LogInformation($"API for {packageId}({version}) already generated with schema version {extractor.Version}");
+                    telemetryProperties["cache-hit"] = "true";
 
                     return packageBlob.Uri.ToString();
                 }
+
+                telemetryProperties["schema-update-from"] = schemaversion;
             }
 
             if (skipDownload)
             {
-                log.LogInformation($"{packageId}({version}) has no assemblies");
+                telemetryProperties["no-api"] = "true";
 
                 await StorePackageApi(packageId, version, extractor.Version, new PackageDetails());
 
@@ -83,6 +98,8 @@ namespace PublicAPI.Functions
             using var responseStream = await response.Content.ReadAsStreamAsync();
 
             var packageDetails = await extractor.ExtractFromStream(responseStream);
+
+            telemetryProperties["package-downloaded"] = "true";
 
             await StorePackageApi(packageId, version, extractor.Version, packageDetails);
 
@@ -112,5 +129,6 @@ namespace PublicAPI.Functions
 
         HttpClient httpClient;
         CloudBlobClient blobClient;
+        private readonly TelemetryClient telemetryClient;
     }
 }

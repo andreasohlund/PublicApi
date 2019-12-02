@@ -1,12 +1,13 @@
-﻿namespace PublicAPI.Tests
+﻿using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
+
+namespace PublicAPI.Tests
 {
     using Microsoft.Azure.Storage;
     using Microsoft.Azure.Storage.Blob;
-    using Microsoft.Azure.Storage.Queue;
     using Microsoft.Azure.WebJobs.Extensions.Timers;
     using NUnit.Framework;
     using PublicAPI.Functions;
-    using PublicAPI.Functions.Operations;
     using PublicAPI.Messages;
     using System;
     using System.Linq;
@@ -18,7 +19,7 @@
         [Test]
         public async Task IndexNuGetPackages()
         {
-            var collector = new TestCollector<Messages.ExtractPackageAPI>();
+            var collector = new TestCollector<ExtractPackageAPI>();
             var function = new IndexNuGetPackagesJob(httpClient, cloudBlobClient);
 
             await function.Run(new Microsoft.Azure.WebJobs.TimerInfo(new FakeTimerSchedule(), new ScheduleStatus()), new TestLogger(), collector);
@@ -30,7 +31,7 @@
         [TestCase("Xenko.Core.Design", "3.1.0.1-beta02-0752+ge8c8e4af")]
         public async Task ExtractPackageAPI(string package, string version)
         {
-            var function = new ExtractPackageAPIFunctions(httpClient, cloudBlobClient);
+            var function = new ExtractPackageAPIFunctions(httpClient, cloudBlobClient, telemetryClient);
             var message = new ExtractPackageAPI
             {
                 PackageId = package,
@@ -38,7 +39,7 @@
                 HasDotNetAssemblies = true
             };
 
-            await function.HandleMessage(message, new TestLogger());
+            await function.HandleMessage(message);
         }
 
         [OneTimeSetUp]
@@ -48,12 +49,12 @@
             storageAccount = CloudStorageAccount.Parse(Environment.GetEnvironmentVariable("PublicAPI_UnitTestStorage", EnvironmentVariableTarget.User));
 
             cloudBlobClient = storageAccount.CreateCloudBlobClient();
-            cloudQueueClient = storageAccount.CreateCloudQueueClient();
+            telemetryClient = new TelemetryClient(TelemetryConfiguration.CreateDefault());
         }
 
         CloudStorageAccount storageAccount;
         CloudBlobClient cloudBlobClient;
-        CloudQueueClient cloudQueueClient;
         HttpClient httpClient;
+        TelemetryClient telemetryClient;
     }
 }

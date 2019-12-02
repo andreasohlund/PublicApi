@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicAPI.Functions", "Publ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicAPI.Tests", "PublicAPI.Tests\PublicAPI.Tests.csproj", "{8F2E81AC-282C-4F93-BD93-E5B7A259F8C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleAssembly", "ExampleAssembly\ExampleAssembly.csproj", "{F0237701-91D1-459D-B82F-CB5995FA2386}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleAssembly", "ExampleAssembly\ExampleAssembly.csproj", "{F0237701-91D1-459D-B82F-CB5995FA2386}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5DCC66F2-4C0F-4CC8-B73C-EF70C1FF2829}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

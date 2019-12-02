@@ -1,5 +1,4 @@
-﻿
-namespace PublicAPI.Functions.Operations
+﻿namespace PublicAPI.Functions.Operations
 {
     using Microsoft.Azure.Storage.Blob;
     using Microsoft.Azure.WebJobs.Host.Queues;
@@ -7,8 +6,6 @@ namespace PublicAPI.Functions.Operations
 
     public class QueueProcessorFactory : IQueueProcessorFactory
     {
-        private readonly TelemetryClient telemetryClient;
-
         public QueueProcessorFactory(CloudBlobClient cloudBlobClient, TelemetryClient telemetryClient)
         {
             this.telemetryClient = telemetryClient;
@@ -20,5 +17,6 @@ namespace PublicAPI.Functions.Operations
         }
 
         CloudBlobContainer cloudBlobContainer;
+        TelemetryClient telemetryClient;
     }
 }
