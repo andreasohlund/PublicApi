@@ -73,7 +73,7 @@ namespace PublicAPI.Functions
 
                 if (Version.Parse(extractor.Version) <= Version.Parse(schemaversion))
                 {
-                    telemetryProperties["cache-hit"] = "true";
+                    telemetryProperties["outcome"] = "cache-hit";
 
                     return packageBlob.Uri.ToString();
                 }
@@ -83,7 +83,7 @@ namespace PublicAPI.Functions
 
             if (skipDownload)
             {
-                telemetryProperties["no-api"] = "true";
+                telemetryProperties["outcome"] = "no-download-needed";
 
                 await StorePackageApi(packageId, version, extractor.Version, new PackageDetails());
 
@@ -99,7 +99,7 @@ namespace PublicAPI.Functions
 
             var packageDetails = await extractor.ExtractFromStream(responseStream);
 
-            telemetryProperties["package-downloaded"] = "true";
+            telemetryProperties["outcome"] = "package-downloaded";
 
             await StorePackageApi(packageId, version, extractor.Version, packageDetails);
 

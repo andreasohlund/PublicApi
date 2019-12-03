@@ -21,7 +21,7 @@
             </span>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <span class="font-italic font-weight-light">{{type.Namespace}}</span>
+            <view-type v-bind:type="type"></view-type>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -30,7 +30,12 @@
 </template>
 
 <script>
+import ViewType from "./ViewType.vue";
+
 export default {
+  components: {
+    ViewType
+  },
   props: ["packageDetails"],
   data: () => {
     return {
