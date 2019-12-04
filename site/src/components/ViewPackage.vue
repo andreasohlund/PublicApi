@@ -7,7 +7,11 @@
     </v-row>
     <v-row>
       <v-col>
-        <package-api v-if="packageDetails" v-bind:packageDetails="packageDetails" />
+        <package-api
+          v-if="packageDetails"
+          v-bind:packageDetails="packageDetails"
+          v-bind:schemaVersion="schemaVersion"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -28,7 +32,8 @@ export default {
   },
   data: () => {
     return {
-      packageDetails: null
+      packageDetails: null,
+      schemaVersion: null
     };
   },
   mounted: function() {
@@ -55,14 +60,15 @@ export default {
       this.$storage
         .get(url)
         .then(response => {
-          //TODO: x-ms-meta-schemaversion
+          this.schemaVersion = response.headers["x-ms-meta-schemaversion"];
           this.packageDetails = response.data;
         })
         .catch(error => {
           if (error.response && error.response.status == 404) {
-            this.$api
-              .get(url)
-              .then(response => (this.packageDetails = response.data));
+            this.$api.get(url).then(response => {
+              this.schemaVersion = response.headers["x-ms-meta-schemaversion"];
+              this.packageDetails = response.data;
+            });
 
             return;
           }

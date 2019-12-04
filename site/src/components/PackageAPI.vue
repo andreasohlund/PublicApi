@@ -15,13 +15,15 @@
                   <span>!</span>
                 </template>
                 <v-icon v-if="type.IsInterface">mdi-alpha-i-box-outline</v-icon>
-                <v-icon v-if="!type.IsInterface">mdi-alpha-c-box-outline</v-icon>
+                <v-icon v-if="type.IsClass">mdi-alpha-c-box-outline</v-icon>
+                <v-icon v-if="type.IsEnum">mdi-alpha-e-box-outline</v-icon>
                 <span class="font-weight-bold">{{type.Name}}</span>
               </v-badge>
             </span>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <view-type v-bind:type="type"></view-type>
+            <show-class v-if="type.IsClass" v-bind:type="type"></show-class>
+            <show-enum v-if="type.IsEnum" v-bind:type="type"></show-enum>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -30,13 +32,15 @@
 </template>
 
 <script>
-import ViewType from "./ViewType.vue";
+import ShowClass from "./ShowClass.vue";
+import ShowEnum from "./ShowEnum.vue";
 
 export default {
   components: {
-    ViewType
+    ShowClass,
+    ShowEnum
   },
-  props: ["packageDetails"],
+  props: ["packageDetails", "schemaVersion"],
   data: () => {
     return {
       namespaces: null,
@@ -80,6 +84,14 @@ export default {
       });
     });
 
+    for (var key in types) {
+      let type = types[key];
+
+      if (this.schemaVersion < "0.3.0") {
+        this.applyEnumAndClassFlag(type);
+      }
+    }
+
     this.allTypes = Object.values(types).sort(function(a, b) {
       var nameA = a.Name;
       var nameB = b.Name;
@@ -94,6 +106,17 @@ export default {
     });
     this.targetFrameworks = tfms;
     this.namespaces = namespaces;
+  },
+  methods: {
+    applyEnumAndClassFlag(type) {
+      let isClass = !type.IsInterface;
+
+      if (type.Fields.some(field => field.Name == "value__")) {
+        type["IsEnum"] = true;
+        isClass = false;
+      }
+      type["IsClass"] = isClass;
+    }
   }
 };
 </script>

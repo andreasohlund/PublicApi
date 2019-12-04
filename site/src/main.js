@@ -10,7 +10,8 @@ import vuetify from './plugins/vuetify';
 Vue.use({
   install(Vue) {
     Vue.prototype.$storage = axios.create({
-      baseURL: 'https://storage.publicapi.io'
+      //TODO: baseURL: 'https://storage.publicapi.io'
+      baseURL: 'https://publicapi.blob.core.windows.net'
     })
   }
 })

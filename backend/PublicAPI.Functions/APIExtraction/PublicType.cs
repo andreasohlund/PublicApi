@@ -13,6 +13,6 @@ namespace PublicAPI.APIExtraction
         public List<string> Implements { get; set; }
         public string BaseType { get; internal set; }
         public bool IsStatic { get; internal set; }
-        //TODO: abstract and enum
+        //TODO: abstract and enum, struct is class
     }
 }
