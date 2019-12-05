@@ -6,6 +6,7 @@ import PackageSelect from "./components/PackageSelect"
 import ViewPackage from "./components/ViewPackage"
 import PageNotFound from "./components/PageNotFound"
 import vuetify from './plugins/vuetify';
+import { ApplicationInsights } from '@microsoft/applicationinsights-web'
 
 Vue.use({
   install(Vue) {
@@ -38,6 +39,21 @@ Vue.use({
     })
   }
 })
+
+Vue.use({
+  install(Vue) {
+    let appInsights = new ApplicationInsights({
+      config: {
+        instrumentationKey: process.env.VUE_APP_INSTRUMENTATION_KEY
+      }
+    });
+    appInsights.loadAppInsights();
+    appInsights.trackPageView();
+    Vue.prototype.$appInsights = appInsights;
+  }
+})
+
+
 
 const routes = [
   { path: '/', component: PackageSelect, name: 'home' },
