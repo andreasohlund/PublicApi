@@ -10,8 +10,7 @@ import vuetify from './plugins/vuetify';
 Vue.use({
   install(Vue) {
     Vue.prototype.$storage = axios.create({
-      //TODO: change to 'https://storage.publicapi.io' once   access-control-expose-headers works for the custom domain
-      baseURL: 'https://publicapi-storage.azureedge.net'
+      baseURL: process.env.VUE_APP_STORAGE_URL
     })
   }
 })
@@ -19,7 +18,7 @@ Vue.use({
 Vue.use({
   install(Vue) {
     Vue.prototype.$api = axios.create({
-      baseURL: 'https://api.publicapi.io'
+      baseURL: process.env.VUE_APP_API_URL
     })
   }
 })
