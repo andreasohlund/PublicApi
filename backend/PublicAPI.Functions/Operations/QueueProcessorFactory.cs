@@ -3,12 +3,13 @@
     using Microsoft.Azure.Storage.Blob;
     using Microsoft.Azure.WebJobs.Host.Queues;
     using Microsoft.ApplicationInsights;
+    using Microsoft.ApplicationInsights.Extensibility;
 
     public class QueueProcessorFactory : IQueueProcessorFactory
     {
-        public QueueProcessorFactory(CloudBlobClient cloudBlobClient, TelemetryClient telemetryClient)
+        public QueueProcessorFactory(CloudBlobClient cloudBlobClient, TelemetryConfiguration telemetryConfiguration)
         {
-            this.telemetryClient = telemetryClient;
+            telemetryClient = new TelemetryClient(telemetryConfiguration);
             cloudBlobContainer = cloudBlobClient.GetContainerReference("failedmessages");
         }
         public QueueProcessor Create(QueueProcessorFactoryContext context)
