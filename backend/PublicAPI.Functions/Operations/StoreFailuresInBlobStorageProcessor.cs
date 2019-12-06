@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.ApplicationInsights;
-
-namespace PublicAPI.Functions.Operations
+﻿namespace PublicAPI.Functions.Operations
 {
     using System;
     using System.Threading;
@@ -12,11 +9,15 @@ namespace PublicAPI.Functions.Operations
     using Microsoft.Azure.WebJobs.Host.Queues;
     using Microsoft.Extensions.Logging;
     using Microsoft.WindowsAzure.Storage.Queue;
+    using System.Collections.Generic;
+    using Microsoft.ApplicationInsights;
 
     public class StoreFailuresInBlobStorageProcessor : QueueProcessor
     {
-        public StoreFailuresInBlobStorageProcessor(QueueProcessorFactoryContext context,
-            CloudBlobContainer failedMessageStorage, TelemetryClient telemetryClient) : base(context)
+        public StoreFailuresInBlobStorageProcessor(
+            QueueProcessorFactoryContext context,
+            CloudBlobContainer failedMessageStorage,
+            TelemetryClient telemetryClient) : base(context)
         {
             this.context = context;
             this.failedMessageStorage = failedMessageStorage;
@@ -55,18 +56,21 @@ namespace PublicAPI.Functions.Operations
         {
             var failedMessage = failedMessageStorage.GetBlockBlobReference(message.Id);
 
-
             failedMessage.Metadata.Add("queue", HttpUtility.UrlEncode(context.Queue.Name));
             failedMessage.Metadata.Add("message", HttpUtility.UrlEncode(exception.Message));
             failedMessage.Metadata.Add("stacktrace", HttpUtility.UrlEncode(exception.ToString()));
 
             failedMessage.Properties.ContentType = "text/json";
 
-            await failedMessage.UploadTextAsync(message.AsString);
+            var body = message.AsString;
+
+            await failedMessage.UploadTextAsync(body);
 
             telemetryClient.TrackEvent("MessageProcessingFailed", new Dictionary<string, string>
             {
-                {"queue", context.Queue.Name}
+                { "queue", context.Queue.Name},
+                { "messagebody", body},
+                  { "exceptiontype", exception.GetType().FullName}
             });
         }
 

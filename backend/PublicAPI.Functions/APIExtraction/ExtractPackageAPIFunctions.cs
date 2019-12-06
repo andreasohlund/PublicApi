@@ -4,7 +4,6 @@ namespace PublicAPI.Functions
 {
     using Microsoft.Azure.Storage.Blob;
     using Microsoft.Azure.WebJobs;
-    using Microsoft.Extensions.Logging;
     using PublicAPI.APIExtraction;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Azure.WebJobs.Extensions.Http;
