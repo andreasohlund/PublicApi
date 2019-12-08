@@ -22,8 +22,8 @@
             </span>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <show-class v-if="type.IsClass" v-bind:type="type"></show-class>
             <show-enum v-if="type.IsEnum" v-bind:type="type"></show-enum>
+            <show-class v-if="type.IsClass && !type.IsEnum" v-bind:type="type"></show-class>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>

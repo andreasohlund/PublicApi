@@ -11,8 +11,12 @@ namespace PublicAPI.APIExtraction
         public List<Field> Fields { get; set; }
         public bool IsInterface { get; set; }
         public List<string> Implements { get; set; }
-        public string BaseType { get; internal set; }
-        public bool IsStatic { get; internal set; }
-        //TODO: abstract and enum, struct is class
+        public string BaseType { get; set; }
+        public bool IsStatic { get; set; }
+        public bool IsEnum { get; set; }
+        public bool IsClass { get; set; }
+        public bool IsAbstract { get; set; }
+        public bool IsSealed { get; set; }
+        public bool IsValueType { get; set; }
     }
 }

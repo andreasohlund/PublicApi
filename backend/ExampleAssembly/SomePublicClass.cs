@@ -56,6 +56,10 @@ namespace ExampleAssembly
     {
     }
 
+    public abstract class SomeAbstractClass
+    {
+    }
+
     public static class SomeStaticClass
     {
     }

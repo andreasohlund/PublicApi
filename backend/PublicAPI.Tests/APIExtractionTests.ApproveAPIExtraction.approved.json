@@ -10,7 +10,12 @@
             "IsInterface": true,
             "Implements": [],
             "BaseType": null,
-            "IsStatic": false
+            "IsStatic": false,
+            "IsEnum": false,
+            "IsClass": false,
+            "IsAbstract": true,
+            "IsSealed": false,
+            "IsValueType": false
         },
         {
             "Name": "ISomeOtherInterface",
@@ -21,7 +26,108 @@
             "IsInterface": true,
             "Implements": [],
             "BaseType": null,
-            "IsStatic": false
+            "IsStatic": false,
+            "IsEnum": false,
+            "IsClass": false,
+            "IsAbstract": true,
+            "IsSealed": false,
+            "IsValueType": false
+        },
+        {
+            "Name": "PublicEnum",
+            "Namespace": "ExampleAssembly",
+            "Methods": [],
+            "Properties": [],
+            "Fields": [
+                {
+                    "Name": "Value1",
+                    "Type": "ExampleAssembly.PublicEnum",
+                    "IsStatic": true
+                },
+                {
+                    "Name": "Value2",
+                    "Type": "ExampleAssembly.PublicEnum",
+                    "IsStatic": true
+                },
+                {
+                    "Name": "value__",
+                    "Type": "System.Int32",
+                    "IsStatic": false
+                }
+            ],
+            "IsInterface": false,
+            "Implements": [],
+            "BaseType": "System.Enum",
+            "IsStatic": false,
+            "IsEnum": true,
+            "IsClass": true,
+            "IsAbstract": false,
+            "IsSealed": true,
+            "IsValueType": true
+        },
+        {
+            "Name": "PublicEnumWithExplicitValues",
+            "Namespace": "ExampleAssembly",
+            "Methods": [],
+            "Properties": [],
+            "Fields": [
+                {
+                    "Name": "Value1",
+                    "Type": "ExampleAssembly.PublicEnumWithExplicitValues",
+                    "IsStatic": true
+                },
+                {
+                    "Name": "Value2",
+                    "Type": "ExampleAssembly.PublicEnumWithExplicitValues",
+                    "IsStatic": true
+                },
+                {
+                    "Name": "value__",
+                    "Type": "System.Int32",
+                    "IsStatic": false
+                }
+            ],
+            "IsInterface": false,
+            "Implements": [],
+            "BaseType": "System.Enum",
+            "IsStatic": false,
+            "IsEnum": true,
+            "IsClass": true,
+            "IsAbstract": false,
+            "IsSealed": true,
+            "IsValueType": true
+        },
+        {
+            "Name": "PublicStruct",
+            "Namespace": "ExampleAssembly",
+            "Methods": [],
+            "Properties": [],
+            "Fields": [],
+            "IsInterface": false,
+            "Implements": [],
+            "BaseType": "System.ValueType",
+            "IsStatic": false,
+            "IsEnum": false,
+            "IsClass": true,
+            "IsAbstract": false,
+            "IsSealed": true,
+            "IsValueType": true
+        },
+        {
+            "Name": "SomeAbstractClass",
+            "Namespace": "ExampleAssembly",
+            "Methods": [],
+            "Properties": [],
+            "Fields": [],
+            "IsInterface": false,
+            "Implements": [],
+            "BaseType": "System.Object",
+            "IsStatic": false,
+            "IsEnum": false,
+            "IsClass": true,
+            "IsAbstract": true,
+            "IsSealed": false,
+            "IsValueType": false
         },
         {
             "Name": "SomeBaseClass",
@@ -39,7 +145,12 @@
             "IsInterface": false,
             "Implements": [],
             "BaseType": "System.Object",
-            "IsStatic": false
+            "IsStatic": false,
+            "IsEnum": false,
+            "IsClass": true,
+            "IsAbstract": false,
+            "IsSealed": false,
+            "IsValueType": false
         },
         {
             "Name": "SomePublicAttribute",
@@ -57,7 +168,12 @@
             "IsInterface": false,
             "Implements": [],
             "BaseType": "System.Attribute",
-            "IsStatic": false
+            "IsStatic": false,
+            "IsEnum": false,
+            "IsClass": true,
+            "IsAbstract": false,
+            "IsSealed": false,
+            "IsValueType": false
         },
         {
             "Name": "SomePublicClass",
@@ -188,7 +304,12 @@
                 "ExampleAssembly.ISomeOtherInterface"
             ],
             "BaseType": "ExampleAssembly.SomeBaseClass",
-            "IsStatic": false
+            "IsStatic": false,
+            "IsEnum": false,
+            "IsClass": true,
+            "IsAbstract": false,
+            "IsSealed": false,
+            "IsValueType": false
         },
         {
             "Name": "SomeStaticClass",
@@ -199,7 +320,12 @@
             "IsInterface": false,
             "Implements": [],
             "BaseType": "System.Object",
-            "IsStatic": true
+            "IsStatic": true,
+            "IsEnum": false,
+            "IsClass": true,
+            "IsAbstract": true,
+            "IsSealed": true,
+            "IsValueType": false
         }
     ],
     "IsNative": false,

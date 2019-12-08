@@ -59,6 +59,7 @@
             failedMessage.Metadata.Add("queue", HttpUtility.UrlEncode(context.Queue.Name));
             failedMessage.Metadata.Add("message", HttpUtility.UrlEncode(exception.Message));
             failedMessage.Metadata.Add("stacktrace", HttpUtility.UrlEncode(exception.ToString()));
+            failedMessage.Metadata.Add("exceptiontype", HttpUtility.UrlEncode(exception.GetType().FullName));
 
             failedMessage.Properties.ContentType = "text/json";
 
@@ -70,7 +71,7 @@
             {
                 { "queue", context.Queue.Name},
                 { "messagebody", body},
-                  { "exceptiontype", exception.GetType().FullName}
+                { "exceptiontype", exception.GetType().FullName}
             });
         }
 

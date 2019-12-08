@@ -47,14 +47,19 @@
             {
                 Name = typeDefinition.Name,
                 Namespace = typeDefinition.Namespace,
-                IsInterface = typeDefinition.IsInterface,
                 IsStatic = typeDefinition.IsClass && typeDefinition.IsSealed && typeDefinition.IsAbstract,
+                IsSealed = typeDefinition.IsSealed,
                 BaseType = typeDefinition.BaseType?.FullName,
-                Implements = typeDefinition.Interfaces.Select(i=>i.InterfaceType.FullName).ToList()
+                Implements = typeDefinition.Interfaces.Select(i => i.InterfaceType.FullName).ToList(),
+                IsAbstract = typeDefinition.IsAbstract,
+                IsEnum = typeDefinition.IsEnum,
+                IsInterface = typeDefinition.IsInterface,
+                IsClass = typeDefinition.IsClass,
+                IsValueType = typeDefinition.IsValueType
             };
 
             var publicProperties = typeDefinition.Properties.Where(p => (p.GetMethod?.IsPublic ?? false) || (p.SetMethod?.IsPublic ?? false))
-                .ToList();
+                    .ToList();
 
             type.Properties = publicProperties.Select(p => ConvertPropertyDefinitionToProperty(p))
                 .ToList();
