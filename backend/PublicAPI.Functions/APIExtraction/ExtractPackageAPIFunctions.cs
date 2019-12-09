@@ -16,14 +16,15 @@ namespace PublicAPI.Functions
     using System.Threading.Tasks;
     using PublicAPI.Messages;
     using Microsoft.ApplicationInsights;
+    using Microsoft.ApplicationInsights.Extensibility;
 
     public class ExtractPackageAPIFunctions
     {
-        public ExtractPackageAPIFunctions(HttpClient httpClient, CloudBlobClient blobClient, TelemetryClient telemetryClient)
+        public ExtractPackageAPIFunctions(HttpClient httpClient, CloudBlobClient blobClient, TelemetryConfiguration telemetryConfiguration)
         {
             this.httpClient = httpClient;
             this.blobClient = blobClient;
-            this.telemetryClient = telemetryClient;
+            telemetryClient = new TelemetryClient(telemetryConfiguration);
         }
 
         [FunctionName("GetPackageApi")]
