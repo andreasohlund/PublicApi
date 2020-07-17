@@ -11,7 +11,7 @@
     "@microsoft/applicationinsights-web": "^2.3.1",
     "axios": "^0.18.1",
     "core-js": "^3.3.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "vue": "^2.6.10",
     "vue-router": "^3.0.7",
     "vuetify": "^2.1.0"
